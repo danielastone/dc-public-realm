@@ -1,0 +1,19 @@
+target_id,source_system,source_object_type,source_object_id,source_name,representation_status,geometry_status,access_status,checked_on,evidence_url,notes
+bridge-boulder,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-boulder,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-boulder,google_maps,,,,preferred_exact,not_applicable,not_checked,2026-09-18,,Exact bridge entity observed during pilot audit
+bridge-rapids,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-rapids,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-rapids,google_maps,,,,preferred_exact,not_applicable,not_checked,2026-09-18,,Exact bridge entity observed during pilot audit
+bridge-bluff,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-bluff,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-bluff,google_maps,,,,preferred_exact,not_applicable,not_checked,2026-09-18,,Exact bridge entity observed during pilot audit
+bridge-taft,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-taft,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-taft,google_maps,,,,preferred_exact,not_applicable,not_checked,2026-09-18,,Exact bridge entity observed during pilot audit
+bridge-ellington,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-ellington,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-ellington,google_maps,,,,preferred_exact,not_applicable,not_checked,2026-09-18,,Exact bridge entity observed during pilot audit
+bridge-dumbarton,authoritative_agency,,,,not_checked,not_checked,not_checked,,,,
+bridge-dumbarton,openstreetmap,,,,not_checked,not_checked,not_checked,,,,
+bridge-dumbarton,google_maps,,,,competing_duplicate,not_applicable,not_checked,2026-09-18,,Dumbarton Bridge versus Buffalo Bridge alias requires resolution
