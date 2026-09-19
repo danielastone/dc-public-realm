@@ -1,0 +1,7 @@
+target_id,name,category,area,pilot,entity_status,review_count_observed,review_count_as_of,field_status,notes
+bridge-boulder,Boulder Bridge,bridge,Rock Creek Park,rock-creek-bridges,preferred_exact,139,2026-09-18,planned,Leaf-off structural photography may add information beyond foliage-heavy coverage
+bridge-rapids,Rapids Bridge,bridge,Rock Creek Park,rock-creek-bridges,preferred_exact,20,2026-09-18,planned,Confirm exact entity immediately before upload
+bridge-bluff,Bluff Bridge,bridge,Rock Creek Park,rock-creek-bridges,preferred_exact,16,2026-09-18,planned,Confirm exact entity immediately before upload
+bridge-taft,William Howard Taft Bridge,bridge,Rock Creek corridor,rock-creek-bridges,preferred_exact,44,2026-09-18,planned,Prioritize trail-level and structural views
+bridge-ellington,Duke Ellington Memorial Bridge,bridge,Rock Creek corridor,rock-creek-bridges,preferred_exact,32,2026-09-18,planned,Prioritize views not duplicated by roadway-level coverage
+bridge-dumbarton,Dumbarton Bridge,bridge,Rock Creek corridor,rock-creek-bridges,competing_duplicate,0,2026-09-18,planned,Investigate Dumbarton Bridge versus Buffalo Bridge alias before upload
