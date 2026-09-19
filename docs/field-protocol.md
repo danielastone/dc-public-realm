@@ -54,6 +54,22 @@ Maintain a fuller documentary caption for the project archive. It should record,
 
 The archive caption should preserve information needed for later reuse in Wikimedia Commons, project pages, longitudinal comparisons, or research. It should not simply duplicate the Maps caption.
 
+### Google review evidence
+Review Google Maps comments before fieldwork and during archive review. Treat them as user-reported discovery evidence, not as authoritative facts.
+
+Use reviews to identify recurring practical questions or conditions that photographs could document, such as:
+
+- difficulty finding an entrance, elevator, restroom, trailhead, parking entrance, or boarding point;
+- useful or confusing approaches and viewpoints;
+- accessibility barriers or wayfinding problems;
+- features visitors repeatedly notice but existing photographs do not clearly show;
+- alternate names, aliases, or entity confusion;
+- seasonal or temporary conditions worth checking in the field.
+
+For the archive, summarize recurring themes rather than copying review text. Record the Google place/entity reviewed, review-scan date, approximate evidence strength (for example isolated comment versus recurring theme), and the resulting photographic question. Verify factual claims against field observation or an authoritative source before presenting them as facts.
+
+Do not treat popularity, star ratings, reviewer speculation, or a single anecdote as evidence that a physical condition is true. Do not reproduce reviewers' names or other unnecessary personal information in the archive.
+
 ### Caption quality gate
 If the reviewer cannot explain in one or two sentences what new information the photograph contributes, reconsider whether the photograph is worth publishing.
 
