@@ -1,82 +1,74 @@
-# Field Protocol
+# Diplomatic Gifts Field and Publication Protocol
 
 ## Purpose
-Collect photographs and observations that add useful information about DC public-realm assets rather than simply increasing image volume.
 
-## Before leaving
-For each target, identify the physical asset and authoritative name, find the relevant map listing, record entity status, review existing photographs for obvious gaps, and note access constraints and likely public viewpoints.
+Close publication-evidence gaps for the three alpha objects. Fieldwork is evidence collection for the website, not a general photography exercise and not a mechanism for discovering more objects.
 
-Review counts and gallery conditions are observations at a point in time. Date them rather than treating them as permanent attributes.
+## Alpha objects
 
-## At the site
-When safe and publicly accessible, attempt four distinct image functions.
+- OBJ-0001 — José Gervasio Artigas Memorial
+- OBJ-0002 — José de San Martín Memorial
+- OBJ-0003 — Cuban American Friendship Urn
 
-### Whole structure
-Show enough of the asset for a viewer to understand its overall form.
+## Before the visit
 
-### Approach and context
-Show how the asset relates to trails, roads, waterways, stations, landscape, or adjacent structures.
+For each object, review the canonical record and list only unresolved field-verifiable items: exact current location, public visibility/access, inscriptions, present condition, and missing publication photographs. Historical provenance should be researched from documentary sources, not inferred in the field.
 
-### Engineering or architectural detail
-Record something structurally or historically informative such as a support system, arch, pier, railing, joint, material, ornament, plaque, sign, or drainage element.
+## Required field capture
 
-### Identification or navigation
-Capture a view useful to someone trying to recognize the place in the field.
+When safely accessible from public space, collect:
 
-## Composition check
-Before leaving a viewpoint, ask whether the subject is obvious, whether there is unnecessary dead space, whether verticals or horizons are unintentionally tilted, whether foreground objects obscure the important structure, whether moving several feet improves the composition, and whether the photograph adds information not already captured.
+1. **Identification view** — whole object and enough setting to identify it.
+2. **Context view** — relationship to its present site.
+3. **Inscription views** — every inscription/plaque photographed square-on and at sufficient resolution for direct transcription.
+4. **Attribution/detail views** — signatures, foundry marks, dates, plaques, reliefs, or other details relevant to canonical assertions.
+5. **Condition evidence** — photographs sufficient to support a restrained current-condition note.
 
-Do not solve a weak composition by taking many near-duplicates.
+Avoid redundant aesthetic views unless they supply additional documentary information.
 
-## Seasonal coverage
-Season is information. Leaf-off conditions can reveal structural geometry obscured during the growing season, while foliage can explain landscape context. Seasonal reshoots are useful when they reveal materially different information.
+## On-site observations
 
-## Entity check
-Before publishing, confirm the physical asset shown and recheck the target entity. Determine whether a parent, entrance, alias, or duplicate listing is involved. A photograph should be associated only with an entity it actually depicts.
+Record:
 
-## Caption and archive review
-Every photograph considered for publication should receive two separate text reviews.
+- object present: yes/no;
+- publicly viewable: yes/no;
+- coordinate check;
+- inscription coverage: complete/incomplete;
+- material current-condition observations;
+- barriers or access constraints affecting public viewing;
+- observation date.
 
-### Maps caption
-Write a short visitor-oriented caption that identifies the subject and explains what is useful about the view. Add one durable fact only when it materially improves understanding. Avoid promotional language and volatile facts unless they are clearly dated.
+Do not infer donor, artist, date, ownership, or historical events merely from an inscription. Treat inscriptions as primary physical evidence that must still be reconciled with documentary sources.
 
-### Archive caption
-Maintain a fuller documentary caption for the project archive. It should record, where known and relevant:
+## Inscription workflow
 
-- authoritative subject name;
-- viewpoint or direction of view;
-- image function (for example recognition, wayfinding, arrival, engineering documentation, or cultural identification);
-- date or season when that matters;
-- the specific feature shown;
-- durable engineering, historical, artistic, or ownership facts supported by an authoritative source;
-- source references for factual claims that are not visually self-evident;
-- any material change from earlier imagery or prior field observations.
+1. Photograph the complete inscription.
+2. Transcribe the visible text exactly, preserving original language and meaningful line structure.
+3. Mark illegible portions explicitly rather than guessing.
+4. Record translation separately from transcription.
+5. Reconcile names/dates against canonical sources.
+6. Attach the field observation and image reference to the relevant assertion(s).
 
-The archive caption should preserve information needed for later reuse in Wikimedia Commons, project pages, longitudinal comparisons, or research. It should not simply duplicate the Maps caption.
+## Image publication QA
 
-### Google review evidence
-Review Google Maps comments before fieldwork and during archive review. Treat them as user-reported discovery evidence, not as authoritative facts.
+Before repository/site publication:
 
-Use reviews to identify recurring practical questions or conditions that photographs could document, such as:
+- remove unnecessary embedded location/history metadata;
+- check for incidental personal information;
+- record photographer/rights/license;
+- write descriptive alt text based on visible content;
+- preserve a documentary caption distinct from alt text;
+- use an informative crop without removing evidentiary details;
+- retain the original file outside generated derivatives.
 
-- difficulty finding an entrance, elevator, restroom, trailhead, parking entrance, or boarding point;
-- useful or confusing approaches and viewpoints;
-- accessibility barriers or wayfinding problems;
-- features visitors repeatedly notice but existing photographs do not clearly show;
-- alternate names, aliases, or entity confusion;
-- seasonal or temporary conditions worth checking in the field.
+## Condition language
 
-For the archive, summarize recurring themes rather than copying review text. Record the Google place/entity reviewed, review-scan date, approximate evidence strength (for example isolated comment versus recurring theme), and the resulting photographic question. Verify factual claims against field observation or an authoritative source before presenting them as facts.
+Describe visible conditions, not diagnoses. Examples: surface staining, visible cracking, biological growth, missing element, graffiti, or apparently intact plaque. Do not claim structural instability, conservation need, or cause without qualified evidence.
 
-Do not treat popularity, star ratings, reviewer speculation, or a single anecdote as evidence that a physical condition is true. Do not reproduce reviewers' names or other unnecessary personal information in the archive.
+## Publication gate
 
-### Caption quality gate
-If the reviewer cannot explain in one or two sentences what new information the photograph contributes, reconsider whether the photograph is worth publishing.
+An object can enter alpha when its material historical claims are source-traceable and remaining field gaps are either closed or explicitly labelled. A missing nonessential field observation should not trigger unrelated research or expansion to another object.
 
-## Privacy
-Before committing photographs or detailed notes to this public repository, review image metadata and content for unnecessary personal information. The public dataset should describe public assets rather than private location history.
+## Stop rule
 
-## Measurement
-Where a platform exposes engagement information, record dated observations. Useful fields include target, platform, entity used, upload date, image function, cumulative views if available, and observation date.
-
-Raw view counts do not by themselves establish causation. Entity prominence, search demand, image age, platform ranking, season, and other factors can affect exposure.
+Do not add newly encountered monuments or diplomatic gifts to the alpha corpus. Record candidates outside the active project only after alpha measurement is operational.
