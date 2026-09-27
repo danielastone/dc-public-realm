@@ -1,6 +1,28 @@
 # Diplomatic Gifts in Washington
 
-A source-traceable website documenting foreign gift sculpture and commemorative objects in Washington, DC.
+A provenance-linked semantic publication about foreign gift sculpture and commemorative objects in Washington, DC.
+
+## Core proposition
+
+The project's value is not simply identifying diplomatic-gift objects. Existing government, museum, archival, and donor-country sources already describe many of them.
+
+The value is to make **semantic relationships explicit and attach provenance to each relationship**.
+
+A public object can therefore be traversed as a set of evidenced claims:
+
+`physical object → diplomatic gift from → country / people / government`
+
+`physical object → depicts → historical person`
+
+`physical object → designed / completed / cast by → specific agents in specific roles`
+
+`physical object → accepted / sited / relocated / restored through → documented events`
+
+`physical object → derived from → predecessor object or design`
+
+Each relationship should answer: **What is being asserted? Who or what supports it? In which source and language? What is the evidentiary status?**
+
+Object pages, country pages, creator pages, timelines, JSON, and structured metadata are different projections of that provenance-bearing semantic layer.
 
 ## Alpha scope
 
@@ -12,47 +34,47 @@ The alpha is deliberately limited to three publicly viewable objects:
 
 No fourth object will be added until the website is public and the discovery/analytics experiment is running.
 
-## What the project adds
+## Why this matters
 
-Government, museum, archival, donor-country, and field evidence is often fragmented across institutions and languages. This project connects those records at the level of individual factual assertions.
+Evidence for one object may be fragmented across Congress, the State Department, NPS, NCPC, CFA, Smithsonian collections, donor-country institutions, original-language sources, inscriptions, and field observations. Conventional catalogs often publish a flattened record. This project preserves the distinctions among those sources and exposes the relationships they support.
 
-Each published object record is intended to expose:
+The alpha therefore tests whether a small semantic evidence layer can improve:
 
-- gift and diplomatic provenance;
-- creator and production roles without flattening disputed or multi-stage attribution;
-- legal acceptance, siting, relocation, restoration, and dedication events;
-- original-language evidence alongside English-language sources;
-- current location and field observations;
-- explicit unresolved research questions;
-- citations attached to claims rather than a generic bibliography; and
-- machine-readable data generated from the same canonical record as the human page.
+- provenance: where a claim came from and how strongly it is supported;
+- semantics: what entities are related and the precise nature of the relationship;
+- multilingual reconciliation: linking donor-country evidence to U.S. records without discarding the original language;
+- ambiguity: preserving conflicting, incomplete, or role-specific attribution rather than forcing one clean value;
+- machine use: allowing search engines and language models to retrieve relationships together with their evidence;
+- human research: allowing a reader to move from a concise claim to the underlying source.
 
-## Alpha publication pipeline
+## Publication pipeline
 
-`authoritative sources → canonical assertions → structured object data → public pages → machine-readable output → search/crawler/AI measurement`
+`sources → provenance-bearing assertions → semantic relationships → human and machine representations → discovery measurement`
 
-The project is currently preparing the alpha publication. See [`docs/diplomatic-gifts-alpha-launch.md`](docs/diplomatic-gifts-alpha-launch.md) for launch gates and stop rules.
+The physical object is an important entity in the graph, but it is **not the intellectual product by itself**. The reusable product is the sourced relationship layer around it.
 
-## Repository scope
-
-The default branch now contains only work required for the diplomatic-gifts website launch. Earlier public-realm, bridge, Metro, photography-utility, and generalized infrastructure experiments are preserved on the `archive/pre-diplomatic-gifts-alpha` branch and are not part of the active project.
+See [`docs/diplomatic-gifts-alpha-launch.md`](docs/diplomatic-gifts-alpha-launch.md) for launch gates and stop rules and [`docs/data-model.md`](docs/data-model.md) for the canonical evidence model.
 
 ## Active repository structure
 
-- `data/` — canonical diplomatic-gift records and publication data
-- `docs/` — launch specification, evidence/data model, and field/publication protocol
-- website source — added during the alpha build
+- `data/` — canonical entities, sources, assertions, semantic relationships, events, and field observations
+- `docs/` — evidence model, publication/field protocol, and alpha launch specification
+- website source — generated from the canonical semantic layer during the alpha build
+
+Earlier public-realm experiments are preserved on the `archive/pre-diplomatic-gifts-alpha` branch and are outside the active project.
 
 ## Evidence rules
 
-1. One physical viewable object receives one stable object ID.
-2. Gift, shipment, legal acceptance, siting, installation, relocation, restoration, and dedication are separate events when the evidence distinguishes them.
-3. Creative attribution is role-specific.
-4. Sources attach to assertions.
-5. Original-language sources are retained and language-labelled.
-6. Unknown or disputed facts remain explicit; the website does not silently normalize them.
-7. Field observations establish current physical conditions, not historical provenance.
+1. Assertions are atomic and source-traceable.
+2. Semantic relationships are published only with their provenance and evidentiary status.
+3. One physical viewable object receives one stable object ID.
+4. Gift, shipment, legal acceptance, siting, installation, relocation, restoration, and dedication remain distinct when the evidence distinguishes them.
+5. Creative attribution is role-specific.
+6. Original-language evidence is retained and language-labelled; translation does not replace the source text.
+7. Conflicts and unknowns remain explicit rather than being silently normalized.
+8. Field observations establish current physical conditions, not historical provenance.
+9. Human-readable and machine-readable representations derive from the same canonical assertions.
 
 ## Alpha definition of done
 
-Alpha is launched when all three records are publicly reachable at stable URLs, material factual claims are source-traceable, structured representations come from the same canonical data, analytics/search instrumentation is live, and a frozen discovery-query panel has a recorded baseline.
+Alpha is launched when the three objects and their material semantic relationships are publicly reachable at stable URLs, each published relationship is traceable to evidence, machine-readable representations preserve provenance/status, analytics/search instrumentation is live, and a frozen discovery-query panel has a recorded baseline.
