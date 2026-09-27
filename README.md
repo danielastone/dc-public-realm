@@ -1,100 +1,58 @@
-# DC Public Realm
+# Diplomatic Gifts in Washington
 
-A field-based project documenting Washington, DC's public realm through photography, structured place data, and infrastructure research.
+A source-traceable website documenting foreign gift sculpture and commemorative objects in Washington, DC.
 
-The project begins with bridges and other transportation infrastructure, then extends to Metro entrances, public art, historic sites, and other public-space assets.
+## Alpha scope
 
-## Why this project exists
+The alpha is deliberately limited to three publicly viewable objects:
 
-Useful photographs of infrastructure are often hard to find even when a place receives substantial public attention. Mapping platforms can also represent one physical place through parent listings, entrances, aliases, or duplicate entities. This project treats photography and place identification as related problems.
+1. **OBJ-0001 — José Gervasio Artigas Memorial** — Uruguay
+2. **OBJ-0002 — José de San Martín Memorial** — Argentina
+3. **OBJ-0003 — Cuban American Friendship Urn** — Cuba
 
-The initial work asks:
+No fourth object will be added until the website is public and the discovery/analytics experiment is running.
 
-- Which public-realm locations have meaningful public interest but weak or outdated photographic coverage?
-- Which views provide information that existing galleries do not?
-- How should photographs be associated with the correct map entity?
-- Can a repeatable field protocol improve both photographic quality and informational value?
-- Can the resulting inventory connect public-facing documentation with engineering, asset management, and capital-planning information?
+## What the project adds
 
-## Initial scope
+Government, museum, archival, donor-country, and field evidence is often fragmented across institutions and languages. This project connects those records at the level of individual factual assertions.
 
-### Infrastructure
-- Bridges
-- Metro stations and entrances
-- Trails and pedestrian infrastructure
-- Transit stops
-- Other visible public works
+Each published object record is intended to expose:
 
-### Civic and cultural landscape
-- Public art
-- Memorials and monuments
-- Historic structures and sites
-- Parks and public spaces
+- gift and diplomatic provenance;
+- creator and production roles without flattening disputed or multi-stage attribution;
+- legal acceptance, siting, relocation, restoration, and dedication events;
+- original-language evidence alongside English-language sources;
+- current location and field observations;
+- explicit unresolved research questions;
+- citations attached to claims rather than a generic bibliography; and
+- machine-readable data generated from the same canonical record as the human page.
 
-## Rock Creek bridge pilot
+## Alpha publication pipeline
 
-The first controlled field series focuses on bridges in and around Rock Creek Park:
+`authoritative sources → canonical assertions → structured object data → public pages → machine-readable output → search/crawler/AI measurement`
 
-1. Boulder Bridge
-2. Rapids Bridge
-3. Bluff Bridge
-4. William Howard Taft Bridge
-5. Duke Ellington Memorial Bridge
-6. Dumbarton Bridge
+The project is currently preparing the alpha publication. See [`docs/diplomatic-gifts-alpha-launch.md`](docs/diplomatic-gifts-alpha-launch.md) for launch gates and stop rules.
 
-This is a pilot, not a claim that these are the most important bridges in Washington. The point is to test a consistent workflow on a coherent group of structures before expanding the inventory.
+## Repository scope
 
-## Core workflow
+The default branch now contains only work required for the diplomatic-gifts website launch. Earlier public-realm, bridge, Metro, photography-utility, and generalized infrastructure experiments are preserved on the `archive/pre-diplomatic-gifts-alpha` branch and are not part of the active project.
 
-1. **Identify** a candidate public-realm asset.
-2. **Resolve the map entity** before uploading photographs.
-3. **Audit existing coverage** for missing viewpoints, seasons, details, and context.
-4. **Photograph systematically** using the field protocol.
-5. **Record metadata** separately from the image itself.
-6. **Publish selectively** to the appropriate platforms.
-7. **Measure results** where platforms expose useful engagement information.
-8. **Connect the asset** to authoritative engineering, historical, ownership, or planning sources when available.
+## Active repository structure
 
-## Entity-resolution rule
+- `data/` — canonical diplomatic-gift records and publication data
+- `docs/` — launch specification, evidence/data model, and field/publication protocol
+- website source — added during the alpha build
 
-Do not treat a map search result as automatically equivalent to the physical asset.
+## Evidence rules
 
-Each target should be classified as one of:
+1. One physical viewable object receives one stable object ID.
+2. Gift, shipment, legal acceptance, siting, installation, relocation, restoration, and dedication are separate events when the evidence distinguishes them.
+3. Creative attribution is role-specific.
+4. Sources attach to assertions.
+5. Original-language sources are retained and language-labelled.
+6. Unknown or disputed facts remain explicit; the website does not silently normalize them.
+7. Field observations establish current physical conditions, not historical provenance.
 
-- `preferred_exact` — clear listing for the physical asset
-- `competing_duplicate` — multiple listings appear to represent the same asset
-- `entrance_specific` — listing represents a particular entrance/access point
-- `parent_only` — only a broader parent entity is available
-- `absent` — no suitable entity found
+## Alpha definition of done
 
-An unresolved entity is a reason to investigate before upload, not a reason to guess.
-
-## Photography protocol
-
-For each infrastructure target, aim for four useful image types when access and safety permit:
-
-1. **Whole structure** — clearest accessible view of the asset.
-2. **Approach/context** — relationship to streets, trails, water, landscape, or adjacent infrastructure.
-3. **Engineering/architectural detail** — structure, materials, supports, ornament, signage, or another informative detail.
-4. **Identification/navigation view** — helps a visitor recognize or locate the asset.
-
-More photographs are not automatically better. The goal is incremental information, not gallery volume.
-
-## Privacy
-
-The public repository should contain public-place observations, not a record of the photographer's private movements.
-
-Do not publish home or residential location information, routine travel patterns, unnecessary precise timestamps, private-property access details, or metadata that unintentionally exposes sensitive location history. Photographs should be reviewed for embedded metadata and incidental personal information before publication here.
-
-## Repository structure
-
-- `data/` — structured target and observation data
-- `docs/` — methods, field protocols, source notes, and project design
-- `field-notes/` — non-sensitive observations from field work
-- `photos/` — only photographs deliberately selected for repository publication
-
-## Current status
-
-**Pilot stage.** The immediate objective is to collect comparable observations and photographs for the Rock Creek bridge series before scaling the project.
-
-The project should remain lightweight until the pilot demonstrates which data and publication workflows are actually useful.
+Alpha is launched when all three records are publicly reachable at stable URLs, material factual claims are source-traceable, structured representations come from the same canonical data, analytics/search instrumentation is live, and a frozen discovery-query panel has a recorded baseline.
