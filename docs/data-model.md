@@ -1,108 +1,71 @@
-# Data Model
+# Diplomatic Gifts Canonical Data Model — v0.2
 
-The pilot deliberately uses simple CSV files. A database or application is premature until field work shows that the structure is inadequate.
+The website is generated from structured records for three physical diplomatic-gift objects. The model is intentionally relational in concept but may be stored as JSON/CSV during alpha.
 
-## `data/targets.csv`
+## Core tables / collections
 
-One row per physical target.
+### Objects
+One row/document per physical viewable object.
 
-Key fields:
+Core fields: `object_id`, `canonical_title`, `object_type`, `country`, `gift_status`, `current_custodian`, `location`, `latitude`, `longitude`, `publication_status`, `slug`.
 
-- `target_id`: stable project identifier, independent of any platform listing.
-- `name`: preferred human-readable asset name.
-- `category`: bridge, Metro entrance, public art, etc.
-- `area`: broad public geographic context.
-- `pilot`: field series or experiment to which the target belongs.
-- `entity_status`: current Google map-entity resolution classification retained for the pilot.
-- `review_count_observed`: observed review count used during target assessment.
-- `review_count_as_of`: date of that observation.
-- `field_status`: planned, photographed, uploaded, reshoot, complete, etc.
-- `notes`: concise non-sensitive observations.
+Alpha IDs are `OBJ-0001`, `OBJ-0002`, and `OBJ-0003`.
 
-The physical target is the primary object. Platform entities are relationships, not the project's master identifier.
+### Agents
+People, governments, institutions, organizations, and named national/public donor groups participating in assertions or events.
 
-## `data/representations.csv`
+Core fields: `agent_id`, `agent_type`, `canonical_name`, `native_name`, `country`, `notes`.
 
-Long-form crosswalk between a project target and external representations. Do not add Google, OSM, agency, or Wikidata IDs as competing master keys in `targets.csv`.
+Do not collapse materially different roles such as donor, presenter, recipient, creator, caster, custodian, or reviewing agency.
 
-Each row records one representation of one physical target. Initial `source_system` values are:
+### Events
+Chronological actions affecting an object.
 
-- `authoritative_agency`
-- `openstreetmap`
-- `google_maps`
+Core fields: `event_id`, `object_id`, `event_type`, `event_date`, `place`, `description`, `participating_agent_ids`, `evidence_source_ids`, `status`.
 
-Additional systems such as Wikidata or DC GIS may be added when they provide useful independent identity or attributes.
+Gift, shipment, legal acceptance, siting, installation, dedication, relocation, storage, restoration, and designation remain separate events when the evidence distinguishes them.
 
-Important fields:
+### Assertions
+Atomic factual claims and their evidentiary status.
 
-- `source_object_type`: for OSM this is normally `node`, `way`, or `relation`; for an agency source it may be an asset class or dataset type.
-- `source_object_id`: the external identifier, such as an OSM element ID, Google Place ID, or agency asset ID.
-- `source_name`: name exposed by that source.
-- `representation_status`: how well the external representation corresponds to the physical target.
-- `geometry_status`: whether mapped geometry agrees with the authoritative source/field observation where geometry is relevant.
-- `access_status`: whether entrance/access representation agrees where access is relevant.
-- `checked_on`: date the representation was checked.
-- `evidence_url`: source page or API endpoint used for the check when appropriate.
+Core fields: `assertion_id`, `subject_id`, `predicate`, `object_or_value`, `status`, `evidence_source_ids`.
 
-### Representation status vocabulary
+Publication rule: a material factual statement on an object page must be traceable to an assertion and identified evidence. `UNRESOLVED` claims must not be transformed into definitive web copy or structured metadata.
 
-- `preferred_exact`
-- `competing_duplicate`
-- `entrance_specific`
-- `parent_only`
-- `absent`
-- `ambiguous`
-- `not_checked`
+### Sources
+Source register covering U.S. and donor-country evidence.
 
-### Geometry status vocabulary
+Core fields: `source_id`, `title`, `publisher`, `language`, `source_type`, `url`, `primary_use`.
 
-- `consistent`
-- `material_difference`
-- `insufficient_evidence`
-- `not_applicable`
-- `not_checked`
+Source authority is claim-specific. Congress may control legal acceptance evidence; planning bodies may control siting; NPS may support custody/current interpretation; donor-country institutions may be stronger for original-language production history.
 
-### Access status vocabulary
+### Object relationships
+Relationships between physical/cultural objects rather than events.
 
-- `consistent`
-- `material_difference`
-- `insufficient_evidence`
-- `not_applicable`
-- `not_checked`
+Core fields: `relationship_id`, `subject_object_id`, `relationship_type`, `related_object`, `status`, `notes`, `evidence_source_ids`.
 
-## `data/observations.csv`
+Alpha relationship vocabulary includes `DERIVED_FROM_MATERIAL` and `DERIVED_FROM_DESIGN`. These remain separate because physical material provenance and design/iconographic provenance are different claims.
 
-Long-form dated measurements of platform conditions and engagement. This prevents changing platform metrics from overwriting historical observations.
+### Field observations
+Current physical observations made in the field.
 
-## Authority hierarchy
+Core fields: `observation_id`, `object_id`, `observation_date`, `method`, `object_present`, `publicly_viewable`, `inscription_status`, `coordinate_status`, `condition_status`, `media_status`.
 
-For project execution, use this order conceptually:
+Field observations establish current physical state. They do not establish historical gift provenance.
 
-1. authoritative agency/source data for official identity and asset facts;
-2. the project's stable `target_id` as the cross-platform identity;
-3. OpenStreetMap for open geographic representation and field/GIS workflow;
-4. Google Maps for public discovery, entity behavior, review themes, photographic coverage, and engagement observations.
+## Evidence principles
 
-This hierarchy does not mean authoritative data are automatically current. Field observations can expose stale official data; discrepancies should be recorded rather than silently resolved.
+1. Stable project IDs identify the physical objects.
+2. Sources attach to assertions/events, not only to a generic bibliography.
+3. Creative attribution is role-specific.
+4. Original-language evidence is retained with explicit language metadata.
+5. Conflicting evidence is preserved rather than silently normalized.
+6. Unknowns are data.
+7. Human-readable and machine-readable pages must be generated from the same canonical records.
+8. No fourth object is added during alpha.
 
-## Representation disagreement
+## Publication model
 
-The project should preserve disagreements among sources. Useful classes include:
+The website should compile canonical records into both human pages and machine-readable representations. The build layer may denormalize data for performance, but generated output must retain stable IDs, source URLs, assertion status, and language metadata.
 
-- all representations materially agree;
-- Google missing or parent-only;
-- OSM missing or overly coarse;
-- duplicate/alias conflict;
-- mapped geometry differs materially;
-- entrance/access representation differs;
-- authoritative source appears stale relative to field observation.
-
-A discrepancy is an observation to investigate, not permission to assume one source is correct.
-
-## OSM editing rule
-
-Do not edit OpenStreetMap merely to make it agree with this project or with Google. Any OSM contribution must be independently supportable under OSM's own sourcing and verifiability rules. Project field observations may support an edit when they are suitable evidence, but Google-derived information must not be copied into OSM.
-
-## Design principle
-
-Separate relatively stable facts about the physical asset from volatile observations about third-party platforms. A bridge does not become a different bridge because a map provider renames, merges, or splits a listing.
+The alpha does not require a database server, graph database, CMS, or user accounts. Add infrastructure only when the three-object publication workflow demonstrates a concrete need.
