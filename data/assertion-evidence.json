@@ -1,40 +1,353 @@
 {
-  "schema_version": "0.3",
+  "schema_version": "0.4",
   "assertion_evidence": [
-    {"assertion_evidence_id":"AE-0001","assertion_id":"A-0001","source_id":"SRC-US-001","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"report text"},
-    {"assertion_evidence_id":"AE-0002","assertion_id":"A-0001","source_id":"SRC-US-003","evidence_role":"CORROBORATION","source_language":"en","locator":"memorial record"},
-    {"assertion_evidence_id":"AE-0003","assertion_id":"A-0001","source_id":"SRC-US-004","evidence_role":"CORROBORATION","source_language":"en","locator":"inventory record"},
-    {"assertion_evidence_id":"AE-0004","assertion_id":"A-0002","source_id":"SRC-US-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"ownership/custody fields"},
-    {"assertion_evidence_id":"AE-0005","assertion_id":"A-0002","source_id":"SRC-US-004","evidence_role":"CORROBORATION","source_language":"en","locator":"inventory record"},
-    {"assertion_evidence_id":"AE-0006","assertion_id":"A-0003","source_id":"SRC-US-004","evidence_role":"QUALIFIES","source_language":"en","locator":"founder field","evidence_note":"Smithsonian lists the founder as Unknown (Montevideo, Uruguay)."},
-    {"assertion_evidence_id":"AE-0009","assertion_id":"A-0004","source_id":"SRC-US-004","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"date and remarks","evidence_note":"Smithsonian identifies an original 1898 cast and an early-1940s Washington recast."},
-    {"assertion_evidence_id":"AE-0010","assertion_id":"A-0004","source_id":"SRC-UY-003","evidence_role":"CORROBORATION","source_language":"es","locator":"Resultando VII","evidence_note":"Uruguay's heritage resolution names Washington, DC among foreign bronzes copying the San José monument."},
-    {"assertion_evidence_id":"AE-0011","assertion_id":"A-0005","source_id":"SRC-US-004","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"founder/date fields and remarks"},
-    {"assertion_evidence_id":"AE-0007A","assertion_id":"A-0007A","source_id":"SRC-UY-003","evidence_role":"PRIMARY_SUPPORT","source_language":"es","locator":"Resultando IV"},
-    {"assertion_evidence_id":"AE-0007B","assertion_id":"A-0007B","source_id":"SRC-UY-003","evidence_role":"PRIMARY_SUPPORT","source_language":"es","locator":"Resultando IV"},
-    {"assertion_evidence_id":"AE-0007C","assertion_id":"A-0007C","source_id":"SRC-UY-003","evidence_role":"PRIMARY_SUPPORT","source_language":"es","locator":"Resultando IV-V"},
-    {"assertion_evidence_id":"AE-0008","assertion_id":"A-0007A","source_id":"SRC-UY-002","evidence_role":"CORROBORATION","source_language":"es","locator":"artist record"},
-    {"assertion_evidence_id":"AE-0101","assertion_id":"A-0101","source_id":"SRC-AR-001","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Department of State letter and joint-resolution text","evidence_note":"Congressional report states that the people of Argentina presented the equestrian statue to the United States."},
-    {"assertion_evidence_id":"AE-0102","assertion_id":"A-0102","source_id":"SRC-AR-001","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"joint-resolution text","evidence_note":"Authorization expressly describes the Washington monument as a copy of the San Martín statue."},
-    {"assertion_evidence_id":"AE-0103","assertion_id":"A-0102","source_id":"SRC-AR-003","evidence_role":"CORROBORATION","source_language":"en","locator":"Section 7, page 2","evidence_note":"National Register documentation calls the Washington bronze a copy of a late-nineteenth-century work in Buenos Aires."},
-    {"assertion_evidence_id":"AE-0104","assertion_id":"A-0103","source_id":"SRC-AR-002","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"owner field"},
-    {"assertion_evidence_id":"AE-0105","assertion_id":"A-0104","source_id":"SRC-AR-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 7, page 2","evidence_note":"Records disassembly in 1970 for Metro construction and relocation to Virginia Avenue in 1976."},
-    {"assertion_evidence_id":"AE-0106","assertion_id":"A-0105","source_id":"SRC-AR-004","evidence_role":"PRIMARY_SUPPORT","source_language":"es","locator":"opening description","evidence_note":"Buenos Aires city government identifies Louis-Joseph Daumas as creator of the 1862 equestrian work."},
-    {"assertion_evidence_id":"AE-0107","assertion_id":"A-0105","source_id":"SRC-AR-005","evidence_role":"CORROBORATION","source_language":"es","locator":"commission history","evidence_note":"Instituto Nacional Sanmartiniano records the commission to Louis-Joseph Daumas."},
-    {"assertion_evidence_id":"AE-0108","assertion_id":"A-0106","source_id":"SRC-AR-006","evidence_role":"PRIMARY_SUPPORT","source_language":"es","locator":"list of international copies","evidence_note":"Argentine national institute identifies Washington (1925) among copies of Daumas's equestrian San Martín."},
-    {"assertion_evidence_id":"AE-0109","assertion_id":"A-0106","source_id":"SRC-AR-003","evidence_role":"CONTRADICTS","source_language":"en","locator":"Section 7, page 2","evidence_note":"U.S. National Register documentation instead attributes the original to Augustin-Alexandre Dumont."},
-    {"assertion_evidence_id":"AE-0201","assertion_id":"A-0201","source_id":"SRC-CU-002","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Sponsor field","evidence_note":"NCPC labels the sponsor as a gift from the Government of Cuba."},
-    {"assertion_evidence_id":"AE-0202","assertion_id":"A-0201","source_id":"SRC-CU-003","evidence_role":"CONTRADICTS","source_language":"en","locator":"Section 8, page 2","evidence_note":"National Register nomination instead says the urn was a gift from citizens of Cuba to the people of the United States."},
-    {"assertion_evidence_id":"AE-0202B","assertion_id":"A-0201B","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 8, page 2","evidence_note":"National Register donor wording: citizens of Cuba."},
-    {"assertion_evidence_id":"AE-0202C","assertion_id":"A-0201B","source_id":"SRC-CU-002","evidence_role":"CONTRADICTS","source_language":"en","locator":"Sponsor field","evidence_note":"NCPC instead attributes the gift to the Government of Cuba."},
-    {"assertion_evidence_id":"AE-0203","assertion_id":"A-0202","source_id":"SRC-CU-001","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"NPS object record"},
-    {"assertion_evidence_id":"AE-0204","assertion_id":"A-0202","source_id":"SRC-CU-002","evidence_role":"CORROBORATION","source_language":"en","locator":"Owner field"},
-    {"assertion_evidence_id":"AE-0205","assertion_id":"A-0203","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 8, pages 2-3","evidence_note":"Records Machado directing use of fallen monument material and presenting the urn to Coolidge in Havana in January 1928."},
-    {"assertion_evidence_id":"AE-0206","assertion_id":"A-0204","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 8, pages 2-3","evidence_note":"Records presentation to President Calvin Coolidge."},
-    {"assertion_evidence_id":"AE-0207","assertion_id":"A-0205","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 7, page 2 and Section 8, page 3","evidence_note":"States the urn was carved from a fragment/piece of the fallen marble Maine Monument."},
-    {"assertion_evidence_id":"AE-0207B","assertion_id":"A-0205B","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 7, page 2 and Section 8, page 2","evidence_note":"States that the relief and compositional elements derive from Cabarrocas' Maine Monument."},
-    {"assertion_evidence_id":"AE-0207C","assertion_id":"A-0205C","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"Section 8, page 2","evidence_note":"Identifies Felix Cabarrocas as engineer who won the design competition for the Havana Maine Monument."},
-    {"assertion_evidence_id":"AE-0207D","assertion_id":"A-0205D","source_id":"SRC-CU-003","evidence_role":"QUALIFIES","source_language":"en","locator":"Section 8, page 2; Architect/Builder field","evidence_note":"Explicitly states the urn's sculptor is unknown and lists architect/builder as unknown."},
-    {"assertion_evidence_id":"AE-0208","assertion_id":"A-0206","source_id":"SRC-CU-003","evidence_role":"PRIMARY_SUPPORT","source_language":"en","locator":"National Register record","evidence_note":"Reference number 07001053; entered October 11, 2007."}
+    {
+      "assertion_evidence_id": "AE-0001",
+      "assertion_id": "A-0001",
+      "source_id": "SRC-US-001",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "report text",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0002",
+      "assertion_id": "A-0001",
+      "source_id": "SRC-US-003",
+      "evidence_role": "CORROBORATION",
+      "source_language": "en",
+      "locator": "memorial record",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0003",
+      "assertion_id": "A-0001",
+      "source_id": "SRC-US-004",
+      "evidence_role": "CORROBORATION",
+      "source_language": "en",
+      "locator": "inventory record",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0004",
+      "assertion_id": "A-0002",
+      "source_id": "SRC-US-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "ownership/custody fields",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0005",
+      "assertion_id": "A-0002",
+      "source_id": "SRC-US-004",
+      "evidence_role": "CORROBORATION",
+      "source_language": "en",
+      "locator": "inventory record",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0006",
+      "assertion_id": "A-0003",
+      "source_id": "SRC-US-004",
+      "evidence_role": "QUALIFIES",
+      "source_language": "en",
+      "locator": "founder field",
+      "evidence_note": "Smithsonian lists the founder as Unknown (Montevideo, Uruguay).",
+      "authority_fit": "LIMITED"
+    },
+    {
+      "assertion_evidence_id": "AE-0009",
+      "assertion_id": "A-0004",
+      "source_id": "SRC-US-004",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "date and remarks",
+      "evidence_note": "Smithsonian identifies an original 1898 cast and an early-1940s Washington recast.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0010",
+      "assertion_id": "A-0004",
+      "source_id": "SRC-UY-003",
+      "evidence_role": "CORROBORATION",
+      "source_language": "es",
+      "locator": "Resultando VII",
+      "evidence_note": "Uruguay's heritage resolution names Washington, DC among foreign bronzes copying the San José monument.",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0011",
+      "assertion_id": "A-0005",
+      "source_id": "SRC-US-004",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "founder field",
+      "authority_fit": "DIRECT",
+      "evidence_note": "Smithsonian identifies the founder location as Montevideo, Uruguay."
+    },
+    {
+      "assertion_evidence_id": "AE-0012",
+      "assertion_id": "A-0005B",
+      "source_id": "SRC-US-004",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "authority_fit": "DIRECT",
+      "source_language": "en",
+      "locator": "date and remarks",
+      "evidence_note": "Smithsonian dates the Washington recast to approximately the early 1940s."
+    },
+    {
+      "assertion_evidence_id": "AE-0007A",
+      "assertion_id": "A-0007A",
+      "source_id": "SRC-UY-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "es",
+      "locator": "Resultando IV",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0007B",
+      "assertion_id": "A-0007B",
+      "source_id": "SRC-UY-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "es",
+      "locator": "Resultando IV",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0007C",
+      "assertion_id": "A-0007C",
+      "source_id": "SRC-UY-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "es",
+      "locator": "Resultando IV-V",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0008",
+      "assertion_id": "A-0007A",
+      "source_id": "SRC-UY-002",
+      "evidence_role": "CORROBORATION",
+      "source_language": "es",
+      "locator": "artist record",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0101",
+      "assertion_id": "A-0101",
+      "source_id": "SRC-AR-001",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Department of State letter and joint-resolution text",
+      "evidence_note": "Congressional report states that the people of Argentina presented the equestrian statue to the United States.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0102",
+      "assertion_id": "A-0102",
+      "source_id": "SRC-AR-001",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "joint-resolution text",
+      "evidence_note": "Authorization expressly describes the Washington monument as a copy of the San Martín statue.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0103",
+      "assertion_id": "A-0102",
+      "source_id": "SRC-AR-003",
+      "evidence_role": "CORROBORATION",
+      "source_language": "en",
+      "locator": "Section 7, page 2",
+      "evidence_note": "National Register documentation calls the Washington bronze a copy of a late-nineteenth-century work in Buenos Aires.",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0104",
+      "assertion_id": "A-0103",
+      "source_id": "SRC-AR-002",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "owner field",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0105",
+      "assertion_id": "A-0104",
+      "source_id": "SRC-AR-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 7, page 2",
+      "evidence_note": "Records disassembly in 1970 for Metro construction and relocation to Virginia Avenue in 1976.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0106",
+      "assertion_id": "A-0105",
+      "source_id": "SRC-AR-004",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "es",
+      "locator": "opening description",
+      "evidence_note": "Buenos Aires city government identifies Louis-Joseph Daumas as creator of the 1862 equestrian work.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0107",
+      "assertion_id": "A-0105",
+      "source_id": "SRC-AR-005",
+      "evidence_role": "CORROBORATION",
+      "source_language": "es",
+      "locator": "commission history",
+      "evidence_note": "Instituto Nacional Sanmartiniano records the commission to Louis-Joseph Daumas.",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0108",
+      "assertion_id": "A-0106",
+      "source_id": "SRC-AR-006",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "es",
+      "locator": "list of international copies",
+      "evidence_note": "Argentine national institute identifies Washington (1925) among copies of Daumas's equestrian San Martín.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0109",
+      "assertion_id": "A-0106",
+      "source_id": "SRC-AR-003",
+      "evidence_role": "CONTRADICTS",
+      "source_language": "en",
+      "locator": "Section 7, page 2",
+      "evidence_note": "U.S. National Register documentation instead attributes the original to Augustin-Alexandre Dumont.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0201",
+      "assertion_id": "A-0201",
+      "source_id": "SRC-CU-002",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Sponsor field",
+      "evidence_note": "NCPC labels the sponsor as a gift from the Government of Cuba.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0202",
+      "assertion_id": "A-0201",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "CONTRADICTS",
+      "source_language": "en",
+      "locator": "Section 8, page 2",
+      "evidence_note": "National Register nomination instead says the urn was a gift from citizens of Cuba to the people of the United States.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0202B",
+      "assertion_id": "A-0201B",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 8, page 2",
+      "evidence_note": "National Register donor wording: citizens of Cuba.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0202C",
+      "assertion_id": "A-0201B",
+      "source_id": "SRC-CU-002",
+      "evidence_role": "CONTRADICTS",
+      "source_language": "en",
+      "locator": "Sponsor field",
+      "evidence_note": "NCPC instead attributes the gift to the Government of Cuba.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0203",
+      "assertion_id": "A-0202",
+      "source_id": "SRC-CU-001",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "NPS object record",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0204",
+      "assertion_id": "A-0202",
+      "source_id": "SRC-CU-002",
+      "evidence_role": "CORROBORATION",
+      "source_language": "en",
+      "locator": "Owner field",
+      "authority_fit": "SUPPORTING"
+    },
+    {
+      "assertion_evidence_id": "AE-0205",
+      "assertion_id": "A-0203",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 8, pages 2-3",
+      "evidence_note": "Records Machado directing use of fallen monument material and presenting the urn to Coolidge in Havana in January 1928.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0206",
+      "assertion_id": "A-0204",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 8, pages 2-3",
+      "evidence_note": "Records presentation to President Calvin Coolidge.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0207",
+      "assertion_id": "A-0205",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 7, page 2 and Section 8, page 3",
+      "evidence_note": "States the urn was carved from a fragment/piece of the fallen marble Maine Monument.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0207B",
+      "assertion_id": "A-0205B",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 7, page 2 and Section 8, page 2",
+      "evidence_note": "States that the relief and compositional elements derive from Cabarrocas' Maine Monument.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0207C",
+      "assertion_id": "A-0205C",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "Section 8, page 2",
+      "evidence_note": "Identifies Felix Cabarrocas as engineer who won the design competition for the Havana Maine Monument.",
+      "authority_fit": "DIRECT"
+    },
+    {
+      "assertion_evidence_id": "AE-0207D",
+      "assertion_id": "A-0205D",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "QUALIFIES",
+      "source_language": "en",
+      "locator": "Section 8, page 2; Architect/Builder field",
+      "evidence_note": "Explicitly states the urn's sculptor is unknown and lists architect/builder as unknown.",
+      "authority_fit": "LIMITED"
+    },
+    {
+      "assertion_evidence_id": "AE-0208",
+      "assertion_id": "A-0206",
+      "source_id": "SRC-CU-003",
+      "evidence_role": "PRIMARY_SUPPORT",
+      "source_language": "en",
+      "locator": "National Register record",
+      "evidence_note": "Reference number 07001053; entered October 11, 2007.",
+      "authority_fit": "DIRECT"
+    }
   ]
 }
