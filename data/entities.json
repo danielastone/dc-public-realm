@@ -5,6 +5,7 @@
     {"entity_id":"OBJ-0002","entity_type":"PhysicalObject","canonical_name":"José de San Martín Memorial","country":"Argentina"},
     {"entity_id":"OBJ-0003","entity_type":"PhysicalObject","canonical_name":"Cuban American Friendship Urn","country":"Cuba"},
     {"entity_id":"OBJ-PRE-0001","entity_type":"PhysicalObject","canonical_name":"Monument to the Victims of the USS Maine","native_name":"Monumento a las víctimas del Maine","language":"es","country":"Cuba","notes":"Havana predecessor monument/material source referenced by the Cuban American Friendship Urn provenance record."},
+    {"entity_id":"OBJ-PRE-0002","entity_type":"PhysicalObject","canonical_name":"Monument to General José Gervasio Artigas, San José de Mayo","native_name":"Monumento al General José Gervasio Artigas","language":"es","country":"Uruguay","notes":"Monument inaugurated in Plaza Independencia, San José de Mayo, in 1898. Uruguay's 2004 heritage resolution identifies Washington, DC among foreign bronzes copying the San José monument."},
     {"entity_id":"AG-0001","entity_type":"Person","canonical_name":"José Gervasio Artigas","native_name":"José Gervasio Artigas","country":"Uruguay"},
     {"entity_id":"AG-0002","entity_type":"Person","canonical_name":"Juan Luis Blanes","native_name":"Juan Luis Blanes","country":"Uruguay"},
     {"entity_id":"AG-0003","entity_type":"Person","canonical_name":"Juan Manuel Blanes","native_name":"Juan Manuel Blanes","country":"Uruguay"},
