@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.4",
+  "schema_version": "0.5",
   "sources": [
     {
       "source_id": "SRC-US-001",
@@ -13,7 +13,9 @@
       "archived_url": null,
       "source_family_id": "US_CONGRESS_GOVINFO",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_LEGAL_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-US-003",
@@ -27,7 +29,9 @@
       "archived_url": null,
       "source_family_id": "NCPC_MEMORIAL_RECORDS",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-US-004",
@@ -41,7 +45,9 @@
       "archived_url": null,
       "source_family_id": "SMITHSONIAN_ART_INVENTORIES",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_INVENTORY",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-UY-001",
@@ -55,7 +61,9 @@
       "archived_url": null,
       "source_family_id": "UY_MEC_EDITORIAL",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-UY-002",
@@ -69,7 +77,9 @@
       "archived_url": null,
       "source_family_id": "UY_MNAV_COLLECTION",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_MUSEUM_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-UY-003",
@@ -83,7 +93,9 @@
       "archived_url": null,
       "source_family_id": "UY_IMPO_LEGAL",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_LEGAL_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-001",
@@ -97,7 +109,9 @@
       "archived_url": null,
       "source_family_id": "US_CONGRESS_GOVINFO",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_LEGAL_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-002",
@@ -111,7 +125,9 @@
       "archived_url": null,
       "source_family_id": "NCPC_MEMORIAL_RECORDS",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-003",
@@ -125,7 +141,9 @@
       "archived_url": null,
       "source_family_id": "US_NPS_NRHP",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_HERITAGE_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-004",
@@ -139,7 +157,9 @@
       "archived_url": null,
       "source_family_id": "BUENOS_AIRES_CITY",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-005",
@@ -153,7 +173,9 @@
       "archived_url": null,
       "source_family_id": "ARG_SANMARTINIANO",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_RESEARCH_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-AR-006",
@@ -167,7 +189,9 @@
       "archived_url": null,
       "source_family_id": "ARG_SANMARTINIANO",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_RESEARCH_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-CU-001",
@@ -181,7 +205,9 @@
       "archived_url": null,
       "source_family_id": "US_NPS_PLACES",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-CU-002",
@@ -195,7 +221,9 @@
       "archived_url": null,
       "source_family_id": "NCPC_MEMORIAL_RECORDS",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     },
     {
       "source_id": "SRC-CU-003",
@@ -209,7 +237,9 @@
       "archived_url": null,
       "source_family_id": "US_NPS_NRHP",
       "derived_from_source_ids": [],
-      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research."
+      "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+      "source_role": "OFFICIAL_HERITAGE_RECORD",
+      "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
     }
   ]
 }
