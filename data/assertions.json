@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.3",
+  "reviewed_date": "2026-09-27",
+  "assertions": [
+    {"assertion_id":"A-0001","subject_id":"OBJ-0001","predicate":"DIPLOMATIC_GIFT_FROM","object_entity_id":"AG-0006","status":"VERIFIED","interpretation_note":"Preserves U.S. acceptance-record wording distinguishing the people of Uruguay from government actors."},
+    {"assertion_id":"A-0002","subject_id":"OBJ-0001","predicate":"CURRENT_CUSTODIAN","object_entity_id":"AG-0007","status":"VERIFIED"},
+    {"assertion_id":"A-0003","subject_id":"OBJ-0001","predicate":"CAST_BY","status":"UNRESOLVED","interpretation_note":"Washington-specific founder/caster remains unresolved; no agent is inferred."},
+    {"assertion_id":"A-0007A","subject_id":"OBJ-0001","predicate":"ORIGINAL_DESIGN_BY","object_entity_id":"AG-0002","status":"VERIFIED","interpretation_note":"Attribution concerns the originating Artigas monument tradition."},
+    {"assertion_id":"A-0007B","subject_id":"OBJ-0001","predicate":"COMPLETED_BY","object_entity_id":"AG-0003","status":"VERIFIED","interpretation_note":"Role-specific originating-work attribution; not a claim that Juan Manuel Blanes physically produced the Washington casting."},
+    {"assertion_id":"A-0007C","subject_id":"OBJ-0001","predicate":"MODELED_BY","object_entity_id":"AG-0004","status":"VERIFIED","interpretation_note":"Role-specific originating-work execution attribution."},
+    {"assertion_id":"A-0101","subject_id":"OBJ-0002","predicate":"DIPLOMATIC_GIFT_FROM","object_entity_id":"AG-0103","status":"VERIFIED"},
+    {"assertion_id":"A-0103","subject_id":"OBJ-0002","predicate":"CURRENT_CUSTODIAN","object_entity_id":"AG-0007","status":"VERIFIED"},
+    {"assertion_id":"A-0104","subject_id":"OBJ-0002","predicate":"RELOCATED_IN","literal_value":"1976","status":"VERIFIED","interpretation_note":"Event normalization remains a later refinement; the dated claim is retained as a literal for alpha."},
+    {"assertion_id":"A-0201","subject_id":"OBJ-0003","predicate":"DIPLOMATIC_GIFT_FROM","object_entity_id":"AG-0201","status":"VERIFIED"},
+    {"assertion_id":"A-0202","subject_id":"OBJ-0003","predicate":"CURRENT_CUSTODIAN","object_entity_id":"AG-0007","status":"VERIFIED"},
+    {"assertion_id":"A-0203","subject_id":"OBJ-0003","predicate":"PRESENTED_BY","object_entity_id":"AG-0202","status":"VERIFIED"},
+    {"assertion_id":"A-0204","subject_id":"OBJ-0003","predicate":"RECEIVED_BY","object_entity_id":"AG-0203","status":"VERIFIED"},
+    {"assertion_id":"A-0205","subject_id":"OBJ-0003","predicate":"DERIVED_FROM_MATERIAL","object_entity_id":"OBJ-PRE-0001","status":"VERIFIED","interpretation_note":"Material lineage is kept distinct from design or iconographic lineage."},
+    {"assertion_id":"A-0206","subject_id":"OBJ-0003","predicate":"NRHP_LISTED_IN","literal_value":"2007","status":"VERIFIED"}
+  ]
+}
