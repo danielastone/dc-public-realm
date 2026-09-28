@@ -1,0 +1,93 @@
+{
+  "schema_version": "0.5",
+  "status_rule_version": "alpha-0.2",
+  "principles": [
+    "No universal numeric source-credibility score.",
+    "A source may be highly authoritative for one predicate and weak for another.",
+    "Unknown dependency never counts as independent corroboration.",
+    "Constitutive and contemporaneous authoritative records may establish some predicates without a second source.",
+    "Material contradiction yields CONTESTED even when supporting evidence is otherwise strong."
+  ],
+  "predicate_rules": {
+    "DIPLOMATIC_GIFT_FROM": {
+      "standard": "CONTEMPORANEOUS_OR_CONSTITUTIVE",
+      "single_source_can_verify": true
+    },
+    "CURRENT_CUSTODIAN": {
+      "standard": "CURRENT_ADMINISTRATIVE",
+      "single_source_can_verify": true
+    },
+    "NRHP_LISTED_IN": {
+      "standard": "CONSTITUTIVE_REGISTRY",
+      "single_source_can_verify": true
+    },
+    "CAST_BY": {
+      "standard": "EXPLICIT_IDENTIFICATION",
+      "single_source_can_verify": false
+    },
+    "SCULPTED_BY": {
+      "standard": "ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "AUTHOR_ATTRIBUTION": {
+      "standard": "ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "COMMISSIONED_TO": {
+      "standard": "HISTORICAL_ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "DEVELOPED_BOCETO_BY": {
+      "standard": "HISTORICAL_ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "MODELED_AND_CAST_BY": {
+      "standard": "HISTORICAL_ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "DESIGNED_BY": {
+      "standard": "HISTORICAL_ATTRIBUTION",
+      "single_source_can_verify": false
+    },
+    "RECAST_OF": {
+      "standard": "OBJECT_LINEAGE",
+      "single_source_can_verify": false
+    },
+    "COPY_OF": {
+      "standard": "OBJECT_LINEAGE",
+      "single_source_can_verify": true
+    },
+    "CAST_IN": {
+      "standard": "OBJECT_METADATA",
+      "single_source_can_verify": false
+    },
+    "RECAST_DATE_APPROX": {
+      "standard": "OBJECT_METADATA",
+      "single_source_can_verify": false
+    },
+    "RELOCATED_IN": {
+      "standard": "HISTORICAL_EVENT",
+      "single_source_can_verify": false
+    },
+    "PRESENTED_BY": {
+      "standard": "HISTORICAL_EVENT",
+      "single_source_can_verify": false
+    },
+    "RECEIVED_BY": {
+      "standard": "HISTORICAL_EVENT",
+      "single_source_can_verify": false
+    },
+    "DERIVED_FROM_MATERIAL": {
+      "standard": "MATERIAL_PROVENANCE",
+      "single_source_can_verify": false
+    },
+    "RELIEF_DERIVED_FROM": {
+      "standard": "DESIGN_LINEAGE",
+      "single_source_can_verify": false
+    },
+    "DONOR_ATTRIBUTION": {
+      "standard": "ATTRIBUTION",
+      "single_source_can_verify": false
+    }
+  }
+}
