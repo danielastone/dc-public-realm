@@ -4,7 +4,7 @@
     {"entity_id":"OBJ-0001","entity_type":"PhysicalObject","canonical_name":"José Gervasio Artigas Memorial","country":"Uruguay"},
     {"entity_id":"OBJ-0002","entity_type":"PhysicalObject","canonical_name":"José de San Martín Memorial","country":"Argentina"},
     {"entity_id":"OBJ-0003","entity_type":"PhysicalObject","canonical_name":"Cuban American Friendship Urn","country":"Cuba"},
-    {"entity_id":"OBJ-PRE-0001","entity_type":"PhysicalObject","canonical_name":"Monument to the Victims of the USS Maine","native_name":"Monumento a las víctimas del Maine","language":"es","country":"Cuba","notes":"Havana predecessor monument/material source referenced by the Cuban American Friendship Urn provenance record."},
+    {"entity_id":"OBJ-PRE-0001","entity_type":"PhysicalObject","canonical_name":"Monument to the Victims of the USS Maine","native_name":"Monumento a las víctimas del Maine","language":"es","country":"Cuba","notes":"Havana Maine Monument designed by Felix Cabarrocas, erected 1924-25, damaged by the 1926 hurricane and rebuilt in 1927. The Cuban Friendship Urn uses physical material from the damaged monument and derives relief/design elements from it."},
     {"entity_id":"OBJ-PRE-0002","entity_type":"PhysicalObject","canonical_name":"Monument to General José Gervasio Artigas, San José de Mayo","native_name":"Monumento al General José Gervasio Artigas","language":"es","country":"Uruguay","notes":"Monument inaugurated in Plaza Independencia, San José de Mayo, in 1898. Uruguay's 2004 heritage resolution identifies Washington, DC among foreign bronzes copying the San José monument."},
     {"entity_id":"OBJ-PRE-0101","entity_type":"PhysicalObject","canonical_name":"Equestrian Monument to General José de San Martín, Buenos Aires","native_name":"Monumento al General San Martín","language":"es","country":"Argentina","notes":"Buenos Aires equestrian statue inaugurated in 1862. Argentine government sources identify Louis-Joseph Daumas as sculptor; the Washington monument is documented as a copy."},
     {"entity_id":"AG-0001","entity_type":"Person","canonical_name":"José Gervasio Artigas","native_name":"José Gervasio Artigas","country":"Uruguay"},
@@ -18,6 +18,8 @@
     {"entity_id":"AG-0103","entity_type":"PeopleNation","canonical_name":"People of Argentina","native_name":"Pueblo argentino","language":"es","country":"Argentina"},
     {"entity_id":"AG-0201","entity_type":"Government","canonical_name":"Government of Cuba","native_name":"Gobierno de Cuba","language":"es","country":"Cuba"},
     {"entity_id":"AG-0202","entity_type":"Person","canonical_name":"Gerardo Machado","country":"Cuba"},
-    {"entity_id":"AG-0203","entity_type":"Person","canonical_name":"Calvin Coolidge","country":"United States"}
+    {"entity_id":"AG-0203","entity_type":"Person","canonical_name":"Calvin Coolidge","country":"United States"},
+    {"entity_id":"AG-0204","entity_type":"Person","canonical_name":"Felix Cabarrocas","native_name":"Félix Cabarrocas","country":"Cuba","notes":"Engineer credited by the National Register documentation with the design of Havana's Maine Monument; this does not establish him as sculptor of the Cuban Friendship Urn."},
+    {"entity_id":"AG-0205","entity_type":"PeopleNation","canonical_name":"Citizens of Cuba","native_name":"Ciudadanos de Cuba","language":"es","country":"Cuba","notes":"National Register donor wording; retained separately from Government of Cuba because federal sources differ on donor attribution."}
   ]
 }
