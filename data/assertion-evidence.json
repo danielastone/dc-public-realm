@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.4",
+  "schema_version": "0.5",
   "assertion_evidence": [
     {
       "assertion_evidence_id": "AE-0001",
@@ -8,7 +8,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "en",
       "locator": "report text",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CONTEMPORANEOUS_PRIMARY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0002",
@@ -17,7 +19,9 @@
       "evidence_role": "CORROBORATION",
       "source_language": "en",
       "locator": "memorial record",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_OFFICIAL_SUMMARY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0003",
@@ -26,7 +30,9 @@
       "evidence_role": "CORROBORATION",
       "source_language": "en",
       "locator": "inventory record",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0004",
@@ -35,7 +41,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "en",
       "locator": "ownership/custody fields",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0005",
@@ -44,7 +52,9 @@
       "evidence_role": "CORROBORATION",
       "source_language": "en",
       "locator": "inventory record",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0006",
@@ -54,7 +64,9 @@
       "source_language": "en",
       "locator": "founder field",
       "evidence_note": "Smithsonian lists the founder as Unknown (Montevideo, Uruguay).",
-      "authority_fit": "LIMITED"
+      "authority_fit": "LIMITED",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0009",
@@ -64,7 +76,9 @@
       "source_language": "en",
       "locator": "date and remarks",
       "evidence_note": "Smithsonian identifies an original 1898 cast and an early-1940s Washington recast.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0010",
@@ -74,7 +88,9 @@
       "source_language": "es",
       "locator": "Resultando VII",
       "evidence_note": "Uruguay's heritage resolution names Washington, DC among foreign bronzes copying the San José monument.",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0011",
@@ -84,7 +100,9 @@
       "source_language": "en",
       "locator": "founder field",
       "authority_fit": "DIRECT",
-      "evidence_note": "Smithsonian identifies the founder location as Montevideo, Uruguay."
+      "evidence_note": "Smithsonian identifies the founder location as Montevideo, Uruguay.",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0012",
@@ -94,7 +112,9 @@
       "authority_fit": "DIRECT",
       "source_language": "en",
       "locator": "date and remarks",
-      "evidence_note": "Smithsonian dates the Washington recast to approximately the early 1940s."
+      "evidence_note": "Smithsonian dates the Washington recast to approximately the early 1940s.",
+      "proximity": "LATER_INVENTORY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0007A",
@@ -103,7 +123,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "es",
       "locator": "Resultando IV",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0007B",
@@ -112,7 +134,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "es",
       "locator": "Resultando IV",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0007C",
@@ -121,7 +145,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "es",
       "locator": "Resultando IV-V",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0008",
@@ -130,7 +156,9 @@
       "evidence_role": "CORROBORATION",
       "source_language": "es",
       "locator": "artist record",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_MUSEUM_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0101",
@@ -140,7 +168,9 @@
       "source_language": "en",
       "locator": "Department of State letter and joint-resolution text",
       "evidence_note": "Congressional report states that the people of Argentina presented the equestrian statue to the United States.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CONTEMPORANEOUS_PRIMARY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0102",
@@ -150,7 +180,9 @@
       "source_language": "en",
       "locator": "joint-resolution text",
       "evidence_note": "Authorization expressly describes the Washington monument as a copy of the San Martín statue.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CONTEMPORANEOUS_PRIMARY",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0103",
@@ -160,7 +192,9 @@
       "source_language": "en",
       "locator": "Section 7, page 2",
       "evidence_note": "National Register documentation calls the Washington bronze a copy of a late-nineteenth-century work in Buenos Aires.",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0104",
@@ -169,7 +203,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "en",
       "locator": "owner field",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0105",
@@ -179,7 +215,9 @@
       "source_language": "en",
       "locator": "Section 7, page 2",
       "evidence_note": "Records disassembly in 1970 for Metro construction and relocation to Virginia Avenue in 1976.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0106",
@@ -189,7 +227,9 @@
       "source_language": "es",
       "locator": "opening description",
       "evidence_note": "Buenos Aires city government identifies Louis-Joseph Daumas as creator of the 1862 equestrian work.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0107",
@@ -199,7 +239,9 @@
       "source_language": "es",
       "locator": "commission history",
       "evidence_note": "Instituto Nacional Sanmartiniano records the commission to Louis-Joseph Daumas.",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "LATER_OFFICIAL_RESEARCH",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0108",
@@ -209,7 +251,9 @@
       "source_language": "es",
       "locator": "list of international copies",
       "evidence_note": "Argentine national institute identifies Washington (1925) among copies of Daumas's equestrian San Martín.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_RESEARCH",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0109",
@@ -219,7 +263,9 @@
       "source_language": "en",
       "locator": "Section 7, page 2",
       "evidence_note": "U.S. National Register documentation instead attributes the original to Augustin-Alexandre Dumont.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0201",
@@ -229,7 +275,9 @@
       "source_language": "en",
       "locator": "Sponsor field",
       "evidence_note": "NCPC labels the sponsor as a gift from the Government of Cuba.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0202",
@@ -239,7 +287,9 @@
       "source_language": "en",
       "locator": "Section 8, page 2",
       "evidence_note": "National Register nomination instead says the urn was a gift from citizens of Cuba to the people of the United States.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0202B",
@@ -249,7 +299,9 @@
       "source_language": "en",
       "locator": "Section 8, page 2",
       "evidence_note": "National Register donor wording: citizens of Cuba.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0202C",
@@ -259,7 +311,9 @@
       "source_language": "en",
       "locator": "Sponsor field",
       "evidence_note": "NCPC instead attributes the gift to the Government of Cuba.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0203",
@@ -268,7 +322,9 @@
       "evidence_role": "PRIMARY_SUPPORT",
       "source_language": "en",
       "locator": "NPS object record",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0204",
@@ -277,7 +333,9 @@
       "evidence_role": "CORROBORATION",
       "source_language": "en",
       "locator": "Owner field",
-      "authority_fit": "SUPPORTING"
+      "authority_fit": "SUPPORTING",
+      "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0205",
@@ -287,7 +345,9 @@
       "source_language": "en",
       "locator": "Section 8, pages 2-3",
       "evidence_note": "Records Machado directing use of fallen monument material and presenting the urn to Coolidge in Havana in January 1928.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0206",
@@ -297,7 +357,9 @@
       "source_language": "en",
       "locator": "Section 8, pages 2-3",
       "evidence_note": "Records presentation to President Calvin Coolidge.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0207",
@@ -307,7 +369,9 @@
       "source_language": "en",
       "locator": "Section 7, page 2 and Section 8, page 3",
       "evidence_note": "States the urn was carved from a fragment/piece of the fallen marble Maine Monument.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0207B",
@@ -317,7 +381,9 @@
       "source_language": "en",
       "locator": "Section 7, page 2 and Section 8, page 2",
       "evidence_note": "States that the relief and compositional elements derive from Cabarrocas' Maine Monument.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0207C",
@@ -327,7 +393,9 @@
       "source_language": "en",
       "locator": "Section 8, page 2",
       "evidence_note": "Identifies Felix Cabarrocas as engineer who won the design competition for the Havana Maine Monument.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0207D",
@@ -337,7 +405,9 @@
       "source_language": "en",
       "locator": "Section 8, page 2; Architect/Builder field",
       "evidence_note": "Explicitly states the urn's sculptor is unknown and lists architect/builder as unknown.",
-      "authority_fit": "LIMITED"
+      "authority_fit": "LIMITED",
+      "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+      "dependency_status": "UNKNOWN"
     },
     {
       "assertion_evidence_id": "AE-0208",
@@ -347,7 +417,9 @@
       "source_language": "en",
       "locator": "National Register record",
       "evidence_note": "Reference number 07001053; entered October 11, 2007.",
-      "authority_fit": "DIRECT"
+      "authority_fit": "DIRECT",
+      "proximity": "CONSTITUTIVE_REGISTRY_RECORD",
+      "dependency_status": "UNKNOWN"
     }
   ]
 }
