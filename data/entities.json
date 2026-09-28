@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.3",
+  "entities": [
+    {"entity_id":"OBJ-0001","entity_type":"PhysicalObject","canonical_name":"José Gervasio Artigas Memorial","country":"Uruguay"},
+    {"entity_id":"OBJ-0002","entity_type":"PhysicalObject","canonical_name":"José de San Martín Memorial","country":"Argentina"},
+    {"entity_id":"OBJ-0003","entity_type":"PhysicalObject","canonical_name":"Cuban American Friendship Urn","country":"Cuba"},
+    {"entity_id":"OBJ-PRE-0001","entity_type":"PhysicalObject","canonical_name":"Monument to the Victims of the USS Maine","native_name":"Monumento a las víctimas del Maine","language":"es","country":"Cuba","notes":"Havana predecessor monument/material source referenced by the Cuban American Friendship Urn provenance record."},
+    {"entity_id":"AG-0001","entity_type":"Person","canonical_name":"José Gervasio Artigas","native_name":"José Gervasio Artigas","country":"Uruguay"},
+    {"entity_id":"AG-0002","entity_type":"Person","canonical_name":"Juan Luis Blanes","native_name":"Juan Luis Blanes","country":"Uruguay"},
+    {"entity_id":"AG-0003","entity_type":"Person","canonical_name":"Juan Manuel Blanes","native_name":"Juan Manuel Blanes","country":"Uruguay"},
+    {"entity_id":"AG-0004","entity_type":"Person","canonical_name":"Dante Costa","native_name":"Dante Costa","country":"Italy"},
+    {"entity_id":"AG-0006","entity_type":"PeopleNation","canonical_name":"People of Uruguay","native_name":"Pueblo uruguayo","language":"es","country":"Uruguay"},
+    {"entity_id":"AG-0007","entity_type":"GovernmentAgency","canonical_name":"National Park Service","country":"United States"},
+    {"entity_id":"AG-0101","entity_type":"Person","canonical_name":"José de San Martín","native_name":"José de San Martín","country":"Argentina"},
+    {"entity_id":"AG-0103","entity_type":"PeopleNation","canonical_name":"People of Argentina","native_name":"Pueblo argentino","language":"es","country":"Argentina"},
+    {"entity_id":"AG-0201","entity_type":"Government","canonical_name":"Government of Cuba","native_name":"Gobierno de Cuba","language":"es","country":"Cuba"},
+    {"entity_id":"AG-0202","entity_type":"Person","canonical_name":"Gerardo Machado","country":"Cuba"},
+    {"entity_id":"AG-0203","entity_type":"Person","canonical_name":"Calvin Coolidge","country":"United States"}
+  ]
+}
