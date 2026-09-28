@@ -5,8 +5,8 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]; DATA=ROOT/"data"; OUT=ROOT/"site"; ASSETS=OUT/"assets"
 def load(name): return json.loads((DATA/name).read_text(encoding="utf-8"))
-ep=load("entities.json"); ap=load("assertions.json"); evp=load("assertion-evidence.json"); sp=load("sources.json")
-entities=ep["entities"]; assertions=ap["assertions"]; evidence=evp["assertion_evidence"]; sources=sp["sources"]
+ep=load("entities.json"); ap=load("assertions.json"); evp=load("assertion-evidence.json"); sp=load("sources.json"); rp=load("predicate-rules.json")
+entities=ep["entities"]; assertions=ap["assertions"]; evidence=evp["assertion_evidence"]; sources=sp["sources"]; rules=rp["predicate_rules"]
 E={x["entity_id"]:x for x in entities}; S={x["source_id"]:x for x in sources}; EV={}
 for x in evidence: EV.setdefault(x["assertion_id"],[]).append(x)
 OBJECTS=["OBJ-0001","OBJ-0002","OBJ-0003"]
@@ -14,25 +14,41 @@ SLUGS={"OBJ-0001":"jose-gervasio-artigas","OBJ-0002":"jose-de-san-martin","OBJ-0
 COUNTRIES={"OBJ-0001":"Uruguay","OBJ-0002":"Argentina","OBJ-0003":"Cuba"}
 POS={"PRIMARY_SUPPORT","FIELD_VERIFICATION","CORROBORATION"}; DIRECT={"PRIMARY_SUPPORT","FIELD_VERIFICATION"}
 
-def independent(a,b):
-    if a==b: return False
-    x,y=S[a],S[b]
-    if x.get("source_family_id")==y.get("source_family_id"): return False
-    return b not in x.get("derived_from_source_ids",[]) and a not in y.get("derived_from_source_ids",[])
+def qualifying_single_source(rule,evs):
+    direct=[e for e in evs if e.get("evidence_role") in DIRECT and e.get("authority_fit")=="DIRECT"]
+    standard=rule.get("standard")
+    if standard=="CONTEMPORANEOUS_OR_CONSTITUTIVE":
+        return any(e.get("proximity") in {"CONTEMPORANEOUS_PRIMARY","CONSTITUTIVE_REGISTRY_RECORD"} for e in direct)
+    if standard=="CURRENT_ADMINISTRATIVE":
+        return any(e.get("proximity")=="CURRENT_ADMINISTRATIVE_RECORD" for e in direct)
+    if standard=="CONSTITUTIVE_REGISTRY":
+        return any(e.get("proximity")=="CONSTITUTIVE_REGISTRY_RECORD" for e in direct)
+    if standard=="OBJECT_LINEAGE":
+        return any(e.get("proximity")=="CONTEMPORANEOUS_PRIMARY" for e in direct)
+    return False
+
+def independent_pair(evs):
+    direct=[e for e in evs if e.get("evidence_role") in DIRECT and e.get("authority_fit")=="DIRECT"]
+    corr=[e for e in evs if e.get("evidence_role")=="CORROBORATION" and e.get("authority_fit") in {"DIRECT","SUPPORTING"}]
+    return any(c.get("dependency_status")=="INDEPENDENT" for d in direct for c in corr if d.get("source_id")!=c.get("source_id"))
 
 def compute(a):
-    evs=EV.get(a["assertion_id"],[]); obj=a.get("object_entity_id"); lit="literal_value" in a
-    if not obj and not lit and any(e.get("evidence_role")=="QUALIFIES" for e in evs): return "UNRESOLVED"
-    if any(e.get("evidence_role") in POS for e in evs) and any(e.get("evidence_role")=="CONTRADICTS" for e in evs): return "CONTESTED"
-    direct=[e for e in evs if e.get("evidence_role") in DIRECT and e.get("authority_fit")=="DIRECT" and e.get("source_id") in S]
-    corr=[e for e in evs if e.get("evidence_role")=="CORROBORATION" and e.get("authority_fit") in {"DIRECT","SUPPORTING"} and e.get("source_id") in S]
-    if any(independent(d["source_id"],c["source_id"]) for d in direct for c in corr): return "VERIFIED"
-    if direct or any(e.get("evidence_role") in POS for e in evs): return "SUPPORTED"
-    return "UNRESOLVED" if not obj and not lit else "UNSUPPORTED"
+    evs=EV.get(a["assertion_id"],[]); rule=rules[a["predicate"]]; obj=a.get("object_entity_id"); lit="literal_value" in a
+    if not obj and not lit and any(e.get("evidence_role")=="QUALIFIES" for e in evs):
+        return "UNRESOLVED","An authoritative source explicitly records the value as unknown or unresolved."
+    if any(e.get("evidence_role") in POS for e in evs) and any(e.get("evidence_role")=="CONTRADICTS" for e in evs):
+        return "CONTESTED","Material supporting and contradictory evidence are both present."
+    if rule.get("single_source_can_verify") and qualifying_single_source(rule,evs):
+        return "VERIFIED","The predicate rule permits verification from one directly authoritative source of the required proximity."
+    if independent_pair(evs):
+        return "VERIFIED","Direct support is independently corroborated; independence is explicitly recorded."
+    if any(e.get("evidence_role") in POS for e in evs):
+        return "SUPPORTED","Credible positive evidence exists, but the rule's verification threshold is not met."
+    return ("UNRESOLVED","No resolved value is asserted.") if not obj and not lit else ("UNSUPPORTED","No adequate positive evidence is recorded.")
 
 derived=[]
 for a in assertions:
-    d=dict(a); d["computed_status"]=compute(a); derived.append(d)
+    d=dict(a); status,reason=compute(a); d["computed_status"]=status; d["status_reason"]=reason; d["evidence_standard"]=rules[a["predicate"]]["standard"]; derived.append(d)
 
 if OUT.exists(): shutil.rmtree(OUT)
 ASSETS.mkdir(parents=True)
