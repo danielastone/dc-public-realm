@@ -1,0 +1,46 @@
+name: Build alpha site
+
+on:
+  push:
+    paths:
+      - 'data/**'
+      - 'scripts/build_site.py'
+      - 'scripts/validate_data.py'
+      - '.github/workflows/build-site.yml'
+  pull_request:
+    paths:
+      - 'data/**'
+      - 'scripts/build_site.py'
+      - 'scripts/validate_data.py'
+      - '.github/workflows/build-site.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate semantic data
+        run: python scripts/validate_data.py
+      - name: Build static alpha
+        run: python scripts/build_site.py
+      - name: Verify required routes
+        run: |
+          test -f site/index.html
+          test -f site/objects/jose-gervasio-artigas/index.html
+          test -f site/objects/jose-de-san-martin/index.html
+          test -f site/objects/cuban-american-friendship-urn/index.html
+          test -f site/countries/uruguay/index.html
+          test -f site/countries/argentina/index.html
+          test -f site/countries/cuba/index.html
+          test -f site/methodology/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: diplomatic-gifts-alpha-site
+          path: site/
