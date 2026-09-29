@@ -1,0 +1,51 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Behavioral fixtures for historical-image and collaboration acquisition controls; these are workflow tests, not new historical evidence.",
+  "fixtures": [
+    {
+      "fixture_id": "ACQ-IMAGE-001",
+      "scenario": "Repository catalog supplies a date and creator while the image pixels only establish object presence.",
+      "required_behavior": [
+        "store visible object presence as IMAGE_OBSERVATION",
+        "store date and creator as CATALOG_ASSERTION unless independently visible/established",
+        "do not convert catalog date into direct pixel observation"
+      ]
+    },
+    {
+      "fixture_id": "ACQ-IMAGE-002",
+      "scenario": "LOC, NARA or newspaper repository hosts a derivative copy of the same underlying photograph.",
+      "required_behavior": [
+        "trace image lineage",
+        "do not count repository copies as independent exposures",
+        "preserve uncertainty when original exposure/negative cannot be identified"
+      ]
+    },
+    {
+      "fixture_id": "ACQ-COLLAB-001",
+      "scenario": "Collaborator retrieves a requested archival artifact that appears to resolve a contested claim.",
+      "required_behavior": [
+        "mark acquisition task complete",
+        "route artifact through source audit and schema-fit review",
+        "do not change canonical assertion merely because task is complete"
+      ]
+    },
+    {
+      "fixture_id": "ACQ-COLLAB-002",
+      "scenario": "A bounded search in a foreign archive returns no responsive record while U.S. sources survive online.",
+      "required_behavior": [
+        "record bounded null search as research result",
+        "do not create counter-evidence from absence alone",
+        "do not increase epistemic weight of U.S. sources merely because they are easier to access"
+      ]
+    },
+    {
+      "fixture_id": "ACQ-PRIORITY-001",
+      "scenario": "Several collaboration tasks compete for attention.",
+      "required_behavior": [
+        "expose defect severity, affected assertions, discriminatory power, root movement, independence potential and feasibility separately",
+        "do not manufacture a pseudo-precise scalar epistemic score",
+        "prioritize tasks because of epistemic leverage rather than archive prestige"
+      ]
+    }
+  ]
+}
