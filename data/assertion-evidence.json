@@ -10,7 +10,11 @@
       "locator": "report text",
       "authority_fit": "DIRECT",
       "proximity": "CONTEMPORANEOUS_PRIMARY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0002",
@@ -21,7 +25,11 @@
       "locator": "memorial record",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_OFFICIAL_SUMMARY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0003",
@@ -32,7 +40,11 @@
       "locator": "inventory record",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0004",
@@ -43,7 +55,11 @@
       "locator": "ownership/custody fields",
       "authority_fit": "DIRECT",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "ORIGINAL_TO_SOURCE",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "This evidence is treated as the source's own administrative or constitutive statement for this proposition; no upstream claim source is presently identified."
     },
     {
       "assertion_evidence_id": "AE-0005",
@@ -54,7 +70,11 @@
       "locator": "inventory record",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0006",
@@ -66,7 +86,11 @@
       "evidence_note": "Smithsonian lists the founder as Unknown (Montevideo, Uruguay).",
       "authority_fit": "LIMITED",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0009",
@@ -78,7 +102,11 @@
       "evidence_note": "Smithsonian identifies an original 1898 cast and an early-1940s Washington recast.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0010",
@@ -90,7 +118,11 @@
       "evidence_note": "Uruguay's heritage resolution names Washington, DC among foreign bronzes copying the San José monument.",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0011",
@@ -102,7 +134,11 @@
       "authority_fit": "DIRECT",
       "evidence_note": "Smithsonian identifies the founder location as Montevideo, Uruguay.",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0012",
@@ -114,7 +150,11 @@
       "locator": "date and remarks",
       "evidence_note": "Smithsonian dates the Washington recast to approximately the early 1940s.",
       "proximity": "LATER_INVENTORY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0007A",
@@ -125,7 +165,11 @@
       "locator": "Resultando IV",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0007B",
@@ -136,7 +180,11 @@
       "locator": "Resultando IV",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0007C",
@@ -147,7 +195,11 @@
       "locator": "Resultando IV-V",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0008",
@@ -158,7 +210,11 @@
       "locator": "artist record",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_MUSEUM_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0101",
@@ -170,7 +226,11 @@
       "evidence_note": "Congressional report states that the people of Argentina presented the equestrian statue to the United States.",
       "authority_fit": "DIRECT",
       "proximity": "CONTEMPORANEOUS_PRIMARY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0102",
@@ -182,7 +242,11 @@
       "evidence_note": "Authorization expressly describes the Washington monument as a copy of the San Martín statue.",
       "authority_fit": "DIRECT",
       "proximity": "CONTEMPORANEOUS_PRIMARY",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0103",
@@ -194,7 +258,11 @@
       "evidence_note": "National Register documentation calls the Washington bronze a copy of a late-nineteenth-century work in Buenos Aires.",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0104",
@@ -205,7 +273,11 @@
       "locator": "owner field",
       "authority_fit": "DIRECT",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "ORIGINAL_TO_SOURCE",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "This evidence is treated as the source's own administrative or constitutive statement for this proposition; no upstream claim source is presently identified."
     },
     {
       "assertion_evidence_id": "AE-0105",
@@ -217,7 +289,11 @@
       "evidence_note": "Records disassembly in 1970 for Metro construction and relocation to Virginia Avenue in 1976.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0106",
@@ -229,7 +305,11 @@
       "evidence_note": "Buenos Aires city government identifies Louis-Joseph Daumas as creator of the 1862 equestrian work.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0107",
@@ -241,7 +321,11 @@
       "evidence_note": "Instituto Nacional Sanmartiniano records the commission to Louis-Joseph Daumas.",
       "authority_fit": "SUPPORTING",
       "proximity": "LATER_OFFICIAL_RESEARCH",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0108",
@@ -253,7 +337,11 @@
       "evidence_note": "Argentine national institute identifies Washington (1925) among copies of Daumas's equestrian San Martín.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_RESEARCH",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0109",
@@ -265,7 +353,11 @@
       "evidence_note": "U.S. National Register documentation instead attributes the original to Augustin-Alexandre Dumont.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0201",
@@ -277,7 +369,11 @@
       "evidence_note": "NCPC labels the sponsor as a gift from the Government of Cuba.",
       "authority_fit": "DIRECT",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0202",
@@ -289,7 +385,11 @@
       "evidence_note": "National Register nomination instead says the urn was a gift from citizens of Cuba to the people of the United States.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0202B",
@@ -301,7 +401,11 @@
       "evidence_note": "National Register donor wording: citizens of Cuba.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0202C",
@@ -313,7 +417,11 @@
       "evidence_note": "NCPC instead attributes the gift to the Government of Cuba.",
       "authority_fit": "DIRECT",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0203",
@@ -324,7 +432,11 @@
       "locator": "NPS object record",
       "authority_fit": "DIRECT",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "ORIGINAL_TO_SOURCE",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "This evidence is treated as the source's own administrative or constitutive statement for this proposition; no upstream claim source is presently identified."
     },
     {
       "assertion_evidence_id": "AE-0204",
@@ -335,7 +447,11 @@
       "locator": "Owner field",
       "authority_fit": "SUPPORTING",
       "proximity": "CURRENT_ADMINISTRATIVE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0205",
@@ -347,7 +463,11 @@
       "evidence_note": "Records Machado directing use of fallen monument material and presenting the urn to Coolidge in Havana in January 1928.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0206",
@@ -359,7 +479,11 @@
       "evidence_note": "Records presentation to President Calvin Coolidge.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0207",
@@ -371,7 +495,11 @@
       "evidence_note": "States the urn was carved from a fragment/piece of the fallen marble Maine Monument.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0207B",
@@ -383,7 +511,11 @@
       "evidence_note": "States that the relief and compositional elements derive from Cabarrocas' Maine Monument.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0207C",
@@ -395,7 +527,11 @@
       "evidence_note": "Identifies Felix Cabarrocas as engineer who won the design competition for the Havana Maine Monument.",
       "authority_fit": "DIRECT",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0207D",
@@ -407,7 +543,11 @@
       "evidence_note": "Explicitly states the urn's sculptor is unknown and lists architect/builder as unknown.",
       "authority_fit": "LIMITED",
       "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "UNKNOWN",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
     },
     {
       "assertion_evidence_id": "AE-0208",
@@ -419,7 +559,11 @@
       "evidence_note": "Reference number 07001053; entered October 11, 2007.",
       "authority_fit": "DIRECT",
       "proximity": "CONSTITUTIVE_REGISTRY_RECORD",
-      "dependency_status": "UNKNOWN"
+      "dependency_status": "UNKNOWN",
+      "claim_origin": "ORIGINAL_TO_SOURCE",
+      "inherits_claim_from_source_ids": [],
+      "inheritance_basis": "UNKNOWN",
+      "inheritance_note": "This evidence is treated as the source's own administrative or constitutive statement for this proposition; no upstream claim source is presently identified."
     }
   ]
 }
