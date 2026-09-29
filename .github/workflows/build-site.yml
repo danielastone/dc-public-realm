@@ -10,6 +10,7 @@ on:
       - 'scripts/build_database.py'
       - 'scripts/build_site.py'
       - 'scripts/build_artigas_public.py'
+      - 'scripts/inject_external_records.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
   pull_request:
@@ -20,6 +21,7 @@ on:
       - 'scripts/build_database.py'
       - 'scripts/build_site.py'
       - 'scripts/build_artigas_public.py'
+      - 'scripts/inject_external_records.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
@@ -51,12 +53,16 @@ jobs:
         run: python scripts/validate_data.py
       - name: Stage materialized database for publication
         run: |
+          cp data/external-records.json /tmp/external-records.json
           rm -rf data
           cp -R build/data data
+          cp /tmp/external-records.json data/external-records.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
+      - name: Add Artigas external interoperability records
+        run: python scripts/inject_external_records.py
       - name: Verify required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
@@ -64,6 +70,11 @@ jobs:
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'External records' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'not automatically evidence' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'siris_ari_325679' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Q15221517' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'n50001870' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
