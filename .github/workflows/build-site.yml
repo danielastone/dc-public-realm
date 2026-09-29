@@ -86,6 +86,8 @@ jobs:
           grep -q 'n50001870' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Historical record' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Attribution' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Where this claim comes from' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'several publications repeating a statement may still represent one underlying evidence lineage' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
