@@ -7,24 +7,14 @@ on:
       - 'data/**'
       - 'transactions/**'
       - 'skills/**'
-      - 'scripts/build_database.py'
-      - 'scripts/build_site.py'
-      - 'scripts/build_artigas_public.py'
-      - 'scripts/inject_external_records.py'
-      - 'scripts/build_smithsonian_review.py'
-      - 'scripts/validate_data.py'
-      - 'scripts/validate_claim_modes.py'
+      - 'scripts/**'
       - '.github/workflows/build-site.yml'
   pull_request:
     paths:
       - 'data/**'
       - 'transactions/**'
       - 'skills/**'
-      - 'scripts/build_database.py'
-      - 'scripts/build_site.py'
-      - 'scripts/build_artigas_public.py'
-      - 'scripts/inject_external_records.py'
-      - 'scripts/validate_data.py'
+      - 'scripts/**'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
 
@@ -75,10 +65,13 @@ jobs:
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
         run: python scripts/build_smithsonian_review.py
+      - name: Verify publication status consistency
+        run: python scripts/validate_publication_consistency.py
       - name: Verify required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
+          test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
