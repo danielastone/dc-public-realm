@@ -53,8 +53,10 @@ jobs:
         run: python scripts/validate_data.py
       - name: Stage materialized database for publication
         run: |
+          cp data/external-records.json /tmp/external-records.json
           rm -rf data
           cp -R build/data data
+          cp /tmp/external-records.json data/external-records.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
       - name: Build Artigas public vertical slice
