@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-audit.schema.json",
+  "title": "Epistemic Source Audit",
+  "type": "object",
+  "required": ["audit_id","source_forensics","propositions","schema_fit","inheritance","evidence_candidates","conflicts","unresolved_questions","recommended_actions"],
+  "properties": {
+    "audit_id": {"type":"string","minLength":1},
+    "source_forensics": {
+      "type":"object",
+      "required":["source_id_candidate","title","repository","document_type","retrieved_at","locator","access_route"],
+      "properties": {
+        "source_id_candidate":{"type":"string","minLength":1},
+        "title":{"type":"string","minLength":1},
+        "repository":{"type":"string","minLength":1},
+        "document_type":{"type":"string","minLength":1},
+        "retrieved_at":{"type":"string","format":"date"},
+        "locator":{"type":"string","minLength":1},
+        "access_route":{"type":"string","minLength":1},
+        "original_reproduction_status":{"type":"string"},
+        "known_upstream_sources":{"type":"array","items":{"type":"string"}}
+      },
+      "additionalProperties": true
+    },
+    "propositions": {
+      "type":"array","minItems":1,
+      "items":{"type":"object","required":["proposition_id","subject","predicate_candidate","value","evidence_mode","locator"],"properties":{
+        "proposition_id":{"type":"string","minLength":1},"subject":{"type":"string","minLength":1},"predicate_candidate":{"type":"string","minLength":1},"value":{},"evidence_mode":{"enum":["DOCUMENT_TEXT","IMAGE_OBSERVATION","CATALOG_ASSERTION","INSCRIPTION_OBSERVATION","ANALYTICAL_INFERENCE"]},"locator":{"type":"string","minLength":1},"temporal_scope":{"type":["string","null"]},"supports_proposition_ids":{"type":"array","items":{"type":"string"}}
+      },"additionalProperties":true}
+    },
+    "schema_fit": {"type":"array","minItems":1,"items":{"type":"object","required":["proposition_id","classification"],"properties":{"proposition_id":{"type":"string"},"classification":{"enum":["EXACT_FIT","FIT_WITH_QUALIFIER","NEW_PREDICATE_CANDIDATE","NEW_ENTITY_TYPE_CANDIDATE","PROVENANCE_RELATION_REQUIRED","NOT_MODELABLE_YET"]},"note":{"type":"string"}},"additionalProperties":true}},
+    "inheritance": {"type":"array","minItems":1,"items":{"type":"object","required":["proposition_id","classification"],"properties":{"proposition_id":{"type":"string"},"classification":{"enum":["ORIGINAL_TO_SOURCE","EXPLICITLY_DERIVED","PROBABLY_DERIVED","INDEPENDENT","UNKNOWN"]},"upstream_source_ids":{"type":"array","items":{"type":"string"}},"basis":{"type":"string"}},"additionalProperties":true}},
+    "evidence_candidates":{"type":"array","items":{"type":"object"}},
+    "conflicts":{"type":"array","items":{}},
+    "unresolved_questions":{"type":"array","items":{}},
+    "recommended_actions":{"type":"array","items":{"type":"object","required":["action","proposition_ids","basis"],"properties":{"action":{"enum":["CREATE_ASSERTION_CANDIDATE","SUPPORT_EXISTING","CONTRADICT_EXISTING","QUALIFY_EXISTING","REPLACE_OR_MOVE_SOURCE_ROOT","REVEAL_SHARED_LINEAGE","NO_KNOWLEDGE_CHANGE","RESEARCH_LEAD_ONLY"]},"proposition_ids":{"type":"array","minItems":1,"items":{"type":"string"}},"basis":{"type":"string","minLength":1}},"additionalProperties":true}}
+  },
+  "additionalProperties": true
+}

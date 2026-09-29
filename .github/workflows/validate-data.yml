@@ -8,10 +8,13 @@ on:
       - 'migrations/**'
       - 'skills/**'
       - 'fixtures/**'
+      - 'schemas/**'
+      - 'qualifications/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - 'scripts/validate_research_tasks.py'
       - 'scripts/validate_epistemic_fixtures.py'
+      - 'scripts/validate_source_audits.py'
       - '.github/workflows/validate-data.yml'
   pull_request:
     paths:
@@ -20,10 +23,13 @@ on:
       - 'migrations/**'
       - 'skills/**'
       - 'fixtures/**'
+      - 'schemas/**'
+      - 'qualifications/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - 'scripts/validate_research_tasks.py'
       - 'scripts/validate_epistemic_fixtures.py'
+      - 'scripts/validate_source_audits.py'
       - '.github/workflows/validate-data.yml'
   workflow_dispatch:
 
@@ -42,6 +48,8 @@ jobs:
           python-version: '3.12'
       - name: Validate epistemic regression fixtures
         run: python scripts/validate_epistemic_fixtures.py
+      - name: Validate real source-audit qualification outputs
+        run: python scripts/validate_source_audits.py
       - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
       - name: Validate collaboration epistemic targets
