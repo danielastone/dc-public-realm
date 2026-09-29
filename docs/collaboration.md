@@ -16,6 +16,24 @@ Use a GitHub issue for each bounded research task. A task should identify:
 
 A finding aid, catalog entry, or archive referral is a **research lead**, not evidence for the underlying historical assertion. Evidence enters the knowledge base only after the underlying record has been examined.
 
+## Collaboration lifecycle
+
+Collaboration status is deliberately separate from assertion status:
+
+`OPEN → CLAIMED → SUBMITTED → REVIEWED → INCORPORATED / REJECTED / CLOSED-NO-EVIDENCE`
+
+- **OPEN** — available for a collaborator.
+- **CLAIMED** — someone is actively working the bounded task.
+- **SUBMITTED** — a collaborator has returned records, citations, scans, links, or a documented no-evidence result.
+- **REVIEWED** — the project has checked archival identity, completeness, claim fit, chronology, and source inheritance.
+- **INCORPORATED** — a separate evidence transaction has added or changed the knowledge graph.
+- **REJECTED** — the submission was reviewed but does not support a knowledge-graph change.
+- **CLOSED-NO-EVIDENCE** — the bounded search was completed without relevant evidence; this is a research result, not evidence that the historical proposition is false.
+
+A collaborator does **not** assign `VERIFIED`, `SUPPORTED`, or any other assertion status. Those are computed only after evidence review and transaction ingestion.
+
+Each public task receives a stable route at `/tasks/<task-id>/`. The task page is the handoff surface: it defines the archive target, acceptable result, evidence boundary, capture standard, and submission link.
+
 ## Contributor capture standard
 
 For every relevant archival record, capture enough context for another researcher to reproduce the finding:
