@@ -40,10 +40,10 @@
         "evidence_note": "The urn's base inscription states that the urn was sculpted from a fragment of the marble column of the Monument to the Victims of the Maine in Havana and identifies the 20 October 1926 hurricane as the event that toppled the column.",
         "authority_fit": "DIRECT",
         "proximity": "CONTEMPORANEOUS_PRIMARY",
-        "dependency_status": "INDEPENDENT_OBJECT_EVIDENCE",
+        "dependency_status": "INDEPENDENT",
         "claim_origin": "ORIGINAL_TO_SOURCE",
         "inherits_claim_from_source_ids": [],
-        "inheritance_basis": "OBJECT_INSCRIPTION",
+        "inheritance_basis": "UNKNOWN",
         "inheritance_note": "The claim is recorded on the object itself. The NPS nomination supplies web access and transcription but is not the upstream origin of the inscription claim."
       }
     },
@@ -61,10 +61,10 @@
         "evidence_note": "The object's inscription is attributed to Gerardo Machado and records the Cuba–United States friendship/presentation context. It corroborates Machado's role but does not by itself reconstruct the mechanics of the January 1928 presentation event.",
         "authority_fit": "SUPPORTING",
         "proximity": "CONTEMPORANEOUS_PRIMARY",
-        "dependency_status": "INDEPENDENT_OBJECT_EVIDENCE",
+        "dependency_status": "INDEPENDENT",
         "claim_origin": "ORIGINAL_TO_SOURCE",
         "inherits_claim_from_source_ids": [],
-        "inheritance_basis": "OBJECT_INSCRIPTION",
+        "inheritance_basis": "UNKNOWN",
         "inheritance_note": "The inscription is contemporaneous object evidence. Its commemorative wording is treated more cautiously than the material-provenance inscription for event reconstruction."
       }
     }
