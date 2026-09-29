@@ -30,9 +30,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate frozen migration baseline
+        run: python scripts/validate_data.py
       - name: Build transaction materialization
         run: python scripts/build_database.py
-      - name: Validate migration baseline
+      - name: Validate materialized database
+        env:
+          KNOWLEDGE_DATA_DIR: build/data
         run: python scripts/validate_data.py
       - name: Verify audit manifest exists
         run: test -s build/audit/manifest.json
