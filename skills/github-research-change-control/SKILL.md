@@ -41,10 +41,9 @@ A successful workflow on an older head is not a merge gate for a newer head.
 Default merge mutation contains only:
 - repository;
 - PR number;
-- merge method;
 - expected head SHA.
 
-Do not send optional custom merge commit title/message unless required. In this repository, optional merge metadata previously triggered connector safety blocking while the same merge succeeded with the minimal payload.
+Let GitHub use the repository's default merge method unless a specific method is itself a requirement. Do not send optional merge method, custom commit title, or custom commit message merely for presentation. In this repository, optional merge metadata and, later, an explicit merge method have both coincided with connector safety blocks while narrower payloads succeeded.
 
 Preserve expected_head_sha on retries.
 
@@ -65,13 +64,28 @@ Action: resolve repository state; do not weaken validation.
 
 ### Connector/safety failure
 Mutation is blocked before GitHub accepts it.
-Action: preserve safety-critical fields, remove unnecessary optional fields, retry minimal mutation. Do not represent the operation as completed until GitHub confirms it.
+Action: preserve safety-critical fields and remove unnecessary optional fields. One minimal retry is reasonable after re-reading PR state. If the minimal mutation containing only repository, PR number and expected_head_sha is also blocked, stop automated merge attempts for that validated head. Do not repeatedly hammer the same mutation and do not remove expected_head_sha merely to seek execution.
+
+Connector permission to execute a mutation is distinct from repository readiness. Record both states separately.
 
 ### Temporary mergeability state
 A newly created PR can briefly report indeterminate/not mergeable while GitHub computes state.
 Action: re-read rather than treating it as a substantive conflict.
 
-## 6. Transaction-specific controls
+## 6. Validated human-merge handoff
+When the connector blocks the minimal protected merge but all repository controls pass, produce a bounded handoff containing:
+- PR number and link;
+- validated head SHA;
+- workflows checked and their successful conclusions;
+- latest mergeable state;
+- statement that the connector blocked execution before GitHub accepted the mutation;
+- instruction to merge that PR in GitHub only if the displayed head still matches the validated SHA and required checks remain green.
+
+After a human merge, re-read the PR before claiming completion. If the head changed before human merge, the prior validation is stale and the new head must be validated.
+
+Do not substitute auto-merge unless the repository supports it and the user actually wants that behavior.
+
+## 7. Transaction-specific controls
 - Check transaction ID uniqueness before write.
 - Use precondition hashes for updates to existing evidence records.
 - Validate baseline and materialized state.
@@ -86,7 +100,9 @@ The workflow must correctly handle:
 4. CI success on an obsolete PR head;
 5. temporary PR mergeability lag;
 6. connector merge block caused by optional metadata;
-7. canonical JSON rewrite when a transaction is sufficient.
+7. connector merge block even after a minimal protected payload;
+8. unsupported auto-merge;
+9. canonical JSON rewrite when a transaction is sufficient.
 
 ## Merge completion standard
-Do not say "merged" until the merge action returns success and a merge commit SHA. If the connector blocks the mutation, report the PR as validated/open, not merged.
+Do not say "merged" until GitHub state confirms the PR was merged. A successful merge mutation normally supplies a merge commit SHA; after a human handoff, verify by re-reading the PR. If the connector blocks the mutation, report the PR as validated/open, not merged.
