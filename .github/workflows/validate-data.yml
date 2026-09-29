@@ -7,6 +7,7 @@ on:
       - 'transactions/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_research_tasks.py'
       - '.github/workflows/validate-data.yml'
   pull_request:
     paths:
@@ -14,6 +15,7 @@ on:
       - 'transactions/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_research_tasks.py'
       - '.github/workflows/validate-data.yml'
   workflow_dispatch:
 
@@ -32,6 +34,8 @@ jobs:
           python-version: '3.12'
       - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
+      - name: Validate collaboration epistemic targets
+        run: python scripts/validate_research_tasks.py
       - name: Build transaction materialization
         run: python scripts/build_database.py
       - name: Validate materialized database
