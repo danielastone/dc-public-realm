@@ -12,6 +12,7 @@ on:
       - 'scripts/build_artigas_public.py'
       - 'scripts/inject_external_records.py'
       - 'scripts/build_smithsonian_review.py'
+      - 'scripts/inject_project_frontdoor.py'
       - 'scripts/validate_data.py'
       - 'scripts/validate_claim_modes.py'
       - '.github/workflows/build-site.yml'
@@ -24,7 +25,10 @@ on:
       - 'scripts/build_site.py'
       - 'scripts/build_artigas_public.py'
       - 'scripts/inject_external_records.py'
+      - 'scripts/build_smithsonian_review.py'
+      - 'scripts/inject_project_frontdoor.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_claim_modes.py'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
 
@@ -75,10 +79,17 @@ jobs:
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
         run: python scripts/build_smithsonian_review.py
+      - name: Update public project front door
+        run: python scripts/inject_project_frontdoor.py
       - name: Verify required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
+          grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
+          grep -q 'Knowledge history' site/index.html
+          test -f site/collaborate/artigas/index.html
+          grep -q 'Help trace the Artigas memorial record' site/collaborate/artigas/index.html
+          grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
