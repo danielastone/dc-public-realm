@@ -18,16 +18,39 @@ def qualifying(rule,evs):
  if s=='CONSTITUTIVE_REGISTRY': return any(e.get('proximity')=='CONSTITUTIVE_REGISTRY_RECORD' for e in d)
  if s=='OBJECT_LINEAGE': return any(e.get('proximity')=='CONTEMPORANEOUS_PRIMARY' for e in d)
  return False
+def effective_roots(ev,by_source,visiting=None):
+ visiting=set() if visiting is None else set(visiting); sid=ev.get('source_id')
+ if sid in visiting: return None
+ visiting.add(sid); origin=ev.get('claim_origin'); parents=ev.get('inherits_claim_from_source_ids',[])
+ if origin=='UNKNOWN': return None
+ if origin=='ORIGINAL_TO_SOURCE': return {sid}
+ if origin not in {'INHERITED','MIXED'}: return None
+ roots={sid} if origin=='MIXED' else set()
+ for parent in parents:
+  pev=by_source.get(parent)
+  if pev is None: roots.add(parent); continue
+  proots=effective_roots(pev,by_source,visiting)
+  if proots is None: return None
+  roots.update(proots)
+ return roots or None
 def independent(evs):
+ by_source={e.get('source_id'):e for e in evs}
  d=[e for e in evs if e.get('evidence_role') in DIRECT and e.get('authority_fit')=='DIRECT']; c=[e for e in evs if e.get('evidence_role')=='CORROBORATION' and e.get('authority_fit') in {'DIRECT','SUPPORTING'}]
- return any(y.get('dependency_status')=='INDEPENDENT' for x in d for y in c if x.get('source_id')!=y.get('source_id'))
+ for x in d:
+  xr=effective_roots(x,by_source)
+  if xr is None: continue
+  for y in c:
+   if x.get('source_id')==y.get('source_id'): continue
+   yr=effective_roots(y,by_source)
+   if yr is not None and xr.isdisjoint(yr): return True
+ return False
 def compute(a):
  evs=EV.get(a['assertion_id'],[]); r=rules[a['predicate']]; obj=a.get('object_entity_id'); lit='literal_value' in a
  if not obj and not lit and any(e.get('evidence_role')=='QUALIFIES' for e in evs): return 'UNRESOLVED','An authoritative source explicitly records the value as unknown or unresolved.'
  if any(e.get('evidence_role') in POS for e in evs) and any(e.get('evidence_role')=='CONTRADICTS' for e in evs): return 'CONTESTED','Material supporting and contradictory evidence are both present.'
  if r.get('single_source_can_verify') and qualifying(r,evs): return 'VERIFIED','The predicate rule permits verification from one directly authoritative source of the required proximity.'
- if independent(evs): return 'VERIFIED','Direct support is independently corroborated; independence is explicitly recorded.'
- if any(e.get('evidence_role') in POS for e in evs): return 'SUPPORTED',"Credible positive evidence exists, but the rule's verification threshold is not met."
+ if independent(evs): return 'VERIFIED','Direct support is corroborated by evidence with known, disjoint effective claim roots.'
+ if any(e.get('evidence_role') in POS for e in evs): return 'SUPPORTED',"Credible positive evidence exists, but the verification threshold is not met; unknown or shared claim ancestry does not count as independent corroboration."
  return ('UNRESOLVED','No resolved value is asserted.') if not obj and not lit else ('UNSUPPORTED','No adequate positive evidence is recorded.')
 derived=[]
 for a in assertions:
@@ -39,7 +62,10 @@ def esc(x): return html.escape(str(x))
 def pred(p): return p.replace('_',' ').title()
 def value(a): return E.get(a.get('object_entity_id'),{}).get('canonical_name',a.get('object_entity_id')) if a.get('object_entity_id') else a.get('literal_value','Unresolved')
 def evblock(ev):
- s=S[ev['source_id']]; return f'<div class="evidence"><strong>{esc(ev["evidence_role"].replace("_"," ").title())}</strong>: <a href="{esc(s["url"])}">{esc(s["title"])}</a><br><span class="meta">Authority: {esc(ev["authority_fit"])} · proximity: {esc(ev.get("proximity"))} · dependency: {esc(ev.get("dependency_status"))}</span></div>'
+ s=S[ev['source_id']]; evs=EV.get(ev['assertion_id'],[]); roots=effective_roots(ev,{x.get('source_id'):x for x in evs})
+ root_label='unresolved' if roots is None else '; '.join(S.get(r,{}).get('title',r) for r in sorted(roots))
+ inherited=ev.get('inherits_claim_from_source_ids',[]); inherit_label='none recorded' if not inherited else '; '.join(S.get(r,{}).get('title',r) for r in inherited)
+ return f'<div class="evidence"><strong>{esc(ev["evidence_role"].replace("_"," ").title())}</strong>: <a href="{esc(s["url"])}">{esc(s["title"])}</a><br><span class="meta">Authority: {esc(ev["authority_fit"])} · proximity: {esc(ev.get("proximity"))} · claim origin: {esc(ev.get("claim_origin"))} · effective roots: {esc(root_label)}<br>Inherited from: {esc(inherit_label)} · basis: {esc(ev.get("inheritance_basis"))}</span><br><span class="meta">{esc(ev.get("inheritance_note",""))}</span></div>'
 def ablock(a): return f'<article class="assertion"><div class="status {esc(a["computed_status"])}">{esc(a["computed_status"])} · computed</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><p class="meta">Evidence standard: {esc(a["evidence_standard"])}. {esc(a["status_reason"])}</p>{"".join(evblock(x) for x in EV.get(a["assertion_id"],[]))}</article>'
 def taskurl(t):
  body=f'Task: {t["task_id"]}\n\nArchive/repository: {t["repository"]}\nCollection: {t["collection"]}\nPriority units:\n- '+"\n- ".join(t['priority_units'])+f'\n\nGoal: {t["high_value_result"]}\n\nCritical evidence rule: {t["critical_rule"]}\n\nStatus: CLAIMED / RETRIEVED / NO EVIDENCE\n\nResearcher:\nDate checked:\n\nFindings:\n\nArchival/bibliographic citations:\n\nFiles/images/links:\n\nNotes on source dependency:\n'
@@ -60,7 +86,7 @@ for oid in OBJECTS:
  d=OUT/'objects'/SLUGS[oid]; d.mkdir(parents=True); (d/'index.html').write_text(shell(E[oid]['canonical_name'],body),encoding='utf-8')
 for country in sorted(set(COUNTRIES.values())):
  body=f'<h1>{country}</h1>'+''.join(f'<div class="card"><h2><a href="/dc-public-realm/objects/{SLUGS[o]}/">{esc(E[o]["canonical_name"])}</a></h2></div>' for o in OBJECTS if COUNTRIES[o]==country); d=OUT/'countries'/country.lower(); d.mkdir(parents=True); (d/'index.html').write_text(shell(country,body),encoding='utf-8')
-method='<h1>Methodology</h1><p class="lede">Credibility is claim-specific. Research leads, finding aids and unexamined archival units are explicitly separated from evidence.</p><h2>Research boundary</h2><p>A task can identify a promising archive without changing a claim. Status changes only after the underlying record is retrieved, its source lineage established, and its authority for the exact assertion reviewed.</p>'
+method='<h1>Methodology</h1><p class="lede">Credibility is claim-specific. The generator separates repository custody, document genealogy, and the ancestry of each individual claim.</p><h2>Source inheritance</h2><p>Independent corroboration is computed from effective claim roots. Different websites, agencies, repositories, or source families do not count as independent when they inherit the same proposition from a common upstream source. Unknown ancestry remains unresolved and does not count as independence.</p><h2>Research boundary</h2><p>A task can identify a promising archive without changing a claim. Status changes only after the underlying record is retrieved, its source lineage established, and its authority for the exact assertion reviewed.</p><p><a href="'+REPO+'/blob/main/docs/source-inheritance.md">Source-inheritance specification</a></p>'
 d=OUT/'methodology'; d.mkdir(); (d/'index.html').write_text(shell('Methodology',method),encoding='utf-8')
 collab='<h1>Open research tasks</h1><p class="lede">Choose one bounded task. The issue link carries the retrieval target, evidence rule and reporting template so a collaborator can contribute without first learning the entire data model.</p>'+''.join(taskblock(t) for t in tasks)+'<h2>Contributor standard</h2><p>Return repository, collection, series, box/folder/item identifiers, document date, sender and recipient where applicable, complete relevant pages and enclosures, exact disputed spellings, retrieval date and reproduction restrictions. A transcription alone is insufficient when lawful scans or photographs can be obtained.</p><h2>What happens after retrieval</h2><p>A completed task still has no automatic evidentiary effect. Material is reviewed for archival identity, claim-specific authority, temporal proximity, source dependency and contradiction before it enters the evidence graph or changes a computed assertion status.</p><p><a class="button" href="'+REPO+'/blob/main/docs/collaboration.md">Full contributor protocol</a><a class="button" href="/dc-public-realm/data/research-tasks.json">Research tasks JSON</a></p>'
 d=OUT/'collaborate'; d.mkdir(); (d/'index.html').write_text(shell('Collaborate',collab),encoding='utf-8')
