@@ -1,0 +1,52 @@
+{
+  "transaction_id": "TX-20260929-001",
+  "recorded_at": "2026-09-29",
+  "actor": "research",
+  "purpose": "Add the 1925 Coolidge San Martin dedication address as a contemporaneous source while preserving unresolved claim ancestry.",
+  "evidence_decision": "The address directly supports the contemporaneous characterization of the monument as given by Argentina to the United States. LOC is repository, not epistemic author. This transaction adds no independent-corroboration credit because the speech's upstream documentary ancestry has not yet been traced.",
+  "supersedes": null,
+  "operations": [
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-AR-LOC-001",
+      "value": {
+        "source_id": "SRC-AR-LOC-001",
+        "title": "Address at the dedication of the monument to General San Martin, Washington, D.C., October 28, 1925",
+        "publisher_or_creator": "Calvin Coolidge / U.S. Government Printing Office; preserved in the Everett Sanders Papers, Library of Congress Manuscript Division",
+        "language": "en",
+        "source_type": "PresidentialAddress",
+        "url": "https://www.loc.gov/resource/amrlm.mss38893_07/?st=pdf",
+        "authority_scope": "Contemporaneous dedication and characterization of the San Martin monument as given by Argentina to the United States",
+        "retrieved_at": "2026-09-29",
+        "archived_url": null,
+        "source_family_id": "COOLIDGE_GPO_LOC_SANDERS",
+        "derived_from_source_ids": [],
+        "independence_note": "Repository custody does not establish claim independence. Upstream documentary ancestry of the gift characterization remains unresolved and must be traced before this source can independently corroborate congressional or State Department records.",
+        "source_role": "CONTEMPORANEOUS_PRIMARY_RECORD",
+        "credibility_note": "Contemporaneous presidential dedication address preserved by the Library of Congress. Authority is claim-specific; LOC custody authenticates access to the record but does not make LOC the author of the historical proposition."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0108",
+      "value": {
+        "assertion_evidence_id": "AE-0108",
+        "assertion_id": "A-0101",
+        "source_id": "SRC-AR-LOC-001",
+        "evidence_role": "CORROBORATION",
+        "source_language": "en",
+        "locator": "dedication address title/context and address text",
+        "evidence_note": "Coolidge's October 28, 1925 dedication address contemporaneously characterizes the San Martin monument as given by Argentina to the United States.",
+        "authority_fit": "SUPPORTING",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The proposition may derive from Argentine diplomatic, State Department, congressional, or White House preparation records. Until that ancestry is traced, this record does not count as an independent effective claim root."
+      }
+    }
+  ]
+}
