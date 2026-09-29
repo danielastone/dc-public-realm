@@ -5,6 +5,7 @@ on:
     paths:
       - 'data/**'
       - 'transactions/**'
+      - 'skills/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - 'scripts/validate_research_tasks.py'
@@ -13,6 +14,7 @@ on:
     paths:
       - 'data/**'
       - 'transactions/**'
+      - 'skills/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - 'scripts/validate_research_tasks.py'
