@@ -5,12 +5,16 @@ on:
     branches: [main]
     paths:
       - 'data/**'
+      - 'transactions/**'
+      - 'scripts/build_database.py'
       - 'scripts/build_site.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
   pull_request:
     paths:
       - 'data/**'
+      - 'transactions/**'
+      - 'scripts/build_database.py'
       - 'scripts/build_site.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
@@ -33,12 +37,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate semantic data
+      - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
-      - name: Build static alpha
-        run: python scripts/build_site.py
-      - name: Verify required routes
+      - name: Materialize transaction database
+        run: python scripts/build_database.py
+      - name: Validate materialized database
+        env:
+          KNOWLEDGE_DATA_DIR: build/data
+        run: python scripts/validate_data.py
+      - name: Stage materialized database for publication
         run: |
+          rm -rf data
+          cp -R build/data data
+      - name: Build static alpha from materialized database
+        run: python scripts/build_site.py
+      - name: Verify required routes and audit artifact
+        run: |
+          test -f build/audit/manifest.json
           test -f site/index.html
           test -f site/objects/jose-gervasio-artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
@@ -50,7 +65,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: diplomatic-gifts-alpha-site
-          path: site/
+          path: |
+            site/
+            build/audit/manifest.json
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
