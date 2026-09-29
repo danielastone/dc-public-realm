@@ -1,21 +1,13 @@
 #!/usr/bin/env python3
-"""Materialize the diplomatic-gifts database from a frozen baseline plus ordered transactions.
-
-The checked-in data/ directory is the migration baseline. Future epistemic changes belong in
-transactions/*.json. This builder never mutates data/. It writes build/data/ and build/audit/.
-"""
+"""Materialize database from frozen baseline + ordered schema migrations + transactions."""
 from __future__ import annotations
 import copy, hashlib, json, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-BASE=ROOT/'data'; TX=ROOT/'transactions'; OUT=ROOT/'build'/'data'; AUDIT=ROOT/'build'/'audit'
-FILES={
- 'entities':'entities.json','sources':'sources.json','assertions':'assertions.json',
- 'assertion_evidence':'assertion-evidence.json','predicate_rules':'predicate-rules.json',
- 'research_tasks':'research-tasks.json'
-}
+BASE=ROOT/'data'; MIG=ROOT/'migrations'; TX=ROOT/'transactions'; OUT=ROOT/'build'/'data'; AUDIT=ROOT/'build'/'audit'
+FILES={'entities':'entities.json','sources':'sources.json','assertions':'assertions.json','assertion_evidence':'assertion-evidence.json','predicate_rules':'predicate-rules.json','research_tasks':'research-tasks.json'}
 ARRAY_KEY={'entities':'entities','sources':'sources','assertions':'assertions','assertion_evidence':'assertion_evidence','research_tasks':'tasks'}
 ID_KEY={'entities':'entity_id','sources':'source_id','assertions':'assertion_id','assertion_evidence':'assertion_evidence_id','research_tasks':'task_id'}
 
@@ -23,8 +15,14 @@ def canon(x): return json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(
 def sha(x): return hashlib.sha256(canon(x)).hexdigest()
 def load(p): return json.loads(p.read_text(encoding='utf-8'))
 def dump(p,x): p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-
 def index(rows,key): return {r[key]:i for i,r in enumerate(rows)}
+def assertions(db): return {x['assertion_id']:x for x in db['assertions']['assertions']}
+def evidence_for(db,aid): return sorted((x for x in db['assertion_evidence']['assertion_evidence'] if x.get('assertion_id')==aid),key=lambda x:x['assertion_evidence_id'])
+def epistemic_snapshot(db,aid):
+ a=assertions(db).get(aid)
+ if not a: return None
+ es=evidence_for(db,aid)
+ return {'computed_status':a.get('computed_status'),'evidence_ids':[x['assertion_evidence_id'] for x in es],'source_ids':sorted({x.get('source_id') for x in es if x.get('source_id')}),'inherited_source_ids':sorted({p for x in es for p in x.get('inherits_claim_from_source_ids',[])})}
 
 def apply_op(db,op):
  table=op['table']; action=op['action']
@@ -40,6 +38,8 @@ def apply_op(db,op):
    target[key]=op['value']
   elif action=='delete':
    if key not in target: raise ValueError(f'{table}:{key} missing')
+   expected=op.get('before_sha256')
+   if expected and sha(target[key])!=expected: raise ValueError(f'{table}:{key} precondition failed')
    del target[key]
   else: raise ValueError(f'unknown action {action}')
   return
@@ -65,8 +65,7 @@ def apply_op(db,op):
  else: raise ValueError(f'unknown action {action}')
 
 def integrity(db):
- errors=[]
- E={x['entity_id'] for x in db['entities']['entities']}; S={x['source_id'] for x in db['sources']['sources']}; A={x['assertion_id'] for x in db['assertions']['assertions']}
+ errors=[]; E={x['entity_id'] for x in db['entities']['entities']}; S={x['source_id'] for x in db['sources']['sources']}; A={x['assertion_id'] for x in db['assertions']['assertions']}
  for a in db['assertions']['assertions']:
   if a.get('subject_id') not in E: errors.append(f"{a['assertion_id']}: missing subject")
   if a.get('object_entity_id') and a['object_entity_id'] not in E: errors.append(f"{a['assertion_id']}: missing object")
@@ -77,27 +76,38 @@ def integrity(db):
    if p not in S: errors.append(f"{e['assertion_evidence_id']}: missing inherited source {p}")
  if errors: raise ValueError('; '.join(errors))
 
-def main():
- db={k:load(BASE/v) for k,v in FILES.items()}
- baseline={k:sha(v) for k,v in db.items()}
- txs=[]; seen=set(); previous=None
- for p in sorted(TX.glob('*.json')) if TX.exists() else []:
-  t=load(p); tid=t['transaction_id']
-  if tid in seen: raise ValueError(f'duplicate transaction {tid}')
-  seen.add(tid)
-  if t.get('supersedes') and t['supersedes']!=previous: raise ValueError(f'{tid}: supersedes must equal prior transaction {previous}')
-  before=sha(db)
+def affected_assertions(before,after):
+ ids=set(assertions(before))|set(assertions(after)); out=[]
+ for aid in sorted(ids):
+  b=epistemic_snapshot(before,aid); a=epistemic_snapshot(after,aid)
+  if b!=a: out.append({'assertion_id':aid,'before':b,'after':a})
+ return out
+
+def apply_ledger(db,paths,kind,previous=None):
+ records=[]; seen=set()
+ for p in paths:
+  t=load(p); idkey='migration_id' if kind=='migration' else 'transaction_id'; rid=t[idkey]
+  if rid in seen: raise ValueError(f'duplicate {kind} {rid}')
+  seen.add(rid)
+  if kind=='transaction' and t.get('supersedes') and t['supersedes']!=previous: raise ValueError(f'{rid}: supersedes must equal prior transaction {previous}')
+  before_db=copy.deepcopy(db); before=sha(db)
   for op in t['operations']: apply_op(db,op)
-  integrity(db)
-  after=sha(db)
-  txs.append({'transaction_id':tid,'file':str(p.relative_to(ROOT)),'purpose':t['purpose'],'before_sha256':before,'after_sha256':after,'operation_count':len(t['operations'])})
-  previous=tid
+  integrity(db); after=sha(db); deltas=affected_assertions(before_db,db)
+  records.append({idkey:rid,'file':str(p.relative_to(ROOT)),'purpose':t['purpose'],'before_sha256':before,'after_sha256':after,'operation_count':len(t['operations']),'epistemic_deltas':deltas})
+  previous=rid
+ return records,previous
+
+def main():
+ db={k:load(BASE/v) for k,v in FILES.items()}; baseline={k:sha(v) for k,v in db.items()}
+ migrations,_=apply_ledger(db,sorted(MIG.glob('*.json')) if MIG.exists() else [],'migration')
+ txs,_=apply_ledger(db,sorted(TX.glob('*.json')) if TX.exists() else [],'transaction')
  integrity(db)
  OUT.mkdir(parents=True,exist_ok=True)
  for k,f in FILES.items(): dump(OUT/f,db[k])
- manifest={'build_format':'transaction-ledger-v1','built_at_utc':datetime.now(timezone.utc).isoformat(),'baseline_sha256':baseline,'transactions':txs,'database_sha256':sha(db)}
- dump(AUDIT/'manifest.json',manifest)
- print(f"Built database from {len(txs)} transaction(s); database_sha256={manifest['database_sha256']}")
+ semantic={'build_format':'transaction-ledger-v2','baseline_sha256':baseline,'migrations':migrations,'transactions':txs,'database_sha256':sha(db)}
+ manifest=dict(semantic); manifest['built_at_utc']=datetime.now(timezone.utc).isoformat()
+ dump(AUDIT/'manifest.json',manifest); dump(AUDIT/'semantic-manifest.json',semantic)
+ print(f"Built database from {len(migrations)} migration(s), {len(txs)} transaction(s); database_sha256={semantic['database_sha256']}")
  return 0
 if __name__=='__main__':
  try: raise SystemExit(main())
