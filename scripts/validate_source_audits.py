@@ -8,17 +8,24 @@ FITS={'EXACT_FIT','FIT_WITH_QUALIFIER','NEW_PREDICATE_CANDIDATE','NEW_ENTITY_TYP
 INHERIT={'ORIGINAL_TO_SOURCE','EXPLICITLY_DERIVED','PROBABLY_DERIVED','INDEPENDENT','UNKNOWN'}
 ACTIONS={'CREATE_ASSERTION_CANDIDATE','SUPPORT_EXISTING','CONTRADICT_EXISTING','QUALIFY_EXISTING','REPLACE_OR_MOVE_SOURCE_ROOT','REVEAL_SHARED_LINEAGE','NO_KNOWLEDGE_CHANGE','RESEARCH_LEAD_ONLY'}
 
-def req(o,k,ctx):
- if k not in o or o[k] in (None,'',[]): raise ValueError(f'{ctx}: missing {k}')
+def present(o,k,ctx):
+ if k not in o or o[k] is None: raise ValueError(f'{ctx}: missing {k}')
+def nonempty(o,k,ctx):
+ present(o,k,ctx)
+ if o[k]=='' or o[k]==[]: raise ValueError(f'{ctx}: empty {k}')
 
 def validate(p):
  d=json.loads(p.read_text(encoding='utf-8')); ctx=p.name
- for k in ('audit_id','source_forensics','propositions','schema_fit','inheritance','evidence_candidates','conflicts','unresolved_questions','recommended_actions'): req(d,k,ctx)
+ # Some review collections are required structurally but may legitimately be empty.
+ for k in ('audit_id','source_forensics','propositions','schema_fit','inheritance','evidence_candidates','conflicts','unresolved_questions','recommended_actions'): present(d,k,ctx)
+ for k in ('audit_id','source_forensics','propositions','schema_fit','inheritance','recommended_actions'): nonempty(d,k,ctx)
+ for k in ('evidence_candidates','conflicts','unresolved_questions'):
+  if not isinstance(d[k],list): raise ValueError(f'{ctx}: {k} must be an array')
  sf=d['source_forensics']
- for k in ('source_id_candidate','title','repository','document_type','retrieved_at','locator','access_route'): req(sf,k,ctx)
+ for k in ('source_id_candidate','title','repository','document_type','retrieved_at','locator','access_route'): nonempty(sf,k,ctx)
  props=d['propositions']; ids=[]
  for x in props:
-  for k in ('proposition_id','subject','predicate_candidate','value','evidence_mode','locator'): req(x,k,ctx)
+  for k in ('proposition_id','subject','predicate_candidate','value','evidence_mode','locator'): nonempty(x,k,ctx)
   if x['evidence_mode'] not in MODES: raise ValueError(f"{ctx}:{x['proposition_id']}: invalid evidence_mode")
   ids.append(x['proposition_id'])
  if len(ids)!=len(set(ids)): raise ValueError(f'{ctx}: duplicate proposition IDs')
@@ -33,10 +40,8 @@ def validate(p):
   ups=x.get('upstream_source_ids',[])
   if c in {'EXPLICITLY_DERIVED','PROBABLY_DERIVED'} and not ups: raise ValueError(f'{ctx}:{pid}: derived claim requires upstream source')
   if c=='INDEPENDENT' and ups: raise ValueError(f'{ctx}:{pid}: independent claim cannot name inherited upstream source')
- # Inference cannot masquerade as direct evidence.
  for x in props:
   if x['evidence_mode']=='ANALYTICAL_INFERENCE' and not x.get('supports_proposition_ids'): raise ValueError(f"{ctx}:{x['proposition_id']}: inference requires supporting propositions")
- # Schema mismatches block mutation-oriented actions.
  blocked={pid for pid,x in fit.items() if x['classification'] not in {'EXACT_FIT','FIT_WITH_QUALIFIER'}}
  mutation={'CREATE_ASSERTION_CANDIDATE','SUPPORT_EXISTING','CONTRADICT_EXISTING','QUALIFY_EXISTING','REPLACE_OR_MOVE_SOURCE_ROOT'}
  for a in d['recommended_actions']:
@@ -44,7 +49,6 @@ def validate(p):
   ps=a.get('proposition_ids',[])
   if not ps or not set(ps)<=ids: raise ValueError(f'{ctx}: action references unknown proposition')
   if a['action'] in mutation and set(ps)&blocked: raise ValueError(f'{ctx}: schema-blocked proposition cannot recommend canonical mutation')
- # Derived evidence may be recorded, but must not be described as independent support.
  for e in d['evidence_candidates']:
   pid=e.get('proposition_id')
   if pid not in ids: raise ValueError(f'{ctx}: evidence candidate references unknown proposition')
