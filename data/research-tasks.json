@@ -15,6 +15,36 @@
       "critical_rule": "Preserve Daumas, Dumont, or any other attribution exactly as written; do not normalize disputed names.",
       "high_value_result": "A dated Argentine-origin record identifying the sculptor, original work, fabrication or copy process, donor, or information formally transmitted to the U.S. government.",
       "instructions_path": "docs/collaboration.md"
+    },
+    {
+      "task_id": "URY-ART-001",
+      "object_entity_id": "OBJ-0001",
+      "title": "Retrieve Uruguay-Washington Artigas monument correspondence, 1947-1951",
+      "status": "OPEN",
+      "evidence_effect": "NONE_UNTIL_REVIEWED",
+      "research_gap": "Uruguay's diplomatic archive identifies a U.S. Embassy record series covering 1900-1990, but the underlying 1947-1951 correspondence has not been examined. It may establish the donor, fabrication and casting history, shipment, installation, dedication, and the precise relationship between the Washington statue and the Juan Luis Blanes Artigas model.",
+      "repository": "Archivo Historico-Diplomatico, Ministerio de Relaciones Exteriores, Uruguay",
+      "collection": "Sub Fondo Legaciones y Embajadas, 2.10 Embajada de la Republica en Estados Unidos (1900-1990)",
+      "priority_units": ["Request inventory/folder-level description for 1947-1951 before retrieval"],
+      "search_terms": ["Jose Gervasio Artigas", "Artigas", "Washington", "estatua", "monumento", "Juan Luis Blanes", "Juan Manuel Blanes", "San Jose de Mayo", "reproduccion", "copia", "fundicion", "bronce", "donacion", "obsequio", "embajada", "inauguracion", "1950"],
+      "critical_rule": "Separate the Washington object's documented fabrication and casting from the authorship/model lineage. A later reproduction of the Juan Luis Blanes model does not make every fabricator or caster the sculptor.",
+      "high_value_result": "A contemporaneous Uruguayan diplomatic or administrative record identifying who authorized, fabricated, cast, shipped, presented, or described the Washington Artigas statue and its relationship to the San Jose de Mayo model.",
+      "instructions_path": "docs/collaboration.md"
+    },
+    {
+      "task_id": "CUB-URN-001",
+      "object_entity_id": "OBJ-0003",
+      "title": "Reconstruct the Cuban Friendship Urn's 1926-1928 diplomatic and material provenance",
+      "status": "OPEN",
+      "evidence_effect": "NONE_UNTIL_REVIEWED",
+      "research_gap": "Later NPS narratives state that material from the Havana USS Maine memorial was fashioned into the urn and presented in 1928. Contemporary State Department records can test the ceremony and material-lineage narrative, but the relevant underlying file has not yet been ingested into the evidence graph.",
+      "repository": "National Archives and Records Administration, United States",
+      "collection": "RG 59, General Records of the Department of State, 1910-29 Central Decimal File; USS Maine memorial in Cuba",
+      "priority_units": ["File 837.413M28/16 - Despatch No. 172, Noble Brandon Judah to Secretary of State, 10 Apr 1928", "National Archives Microfilm Publication M488, roll 55", "Review surrounding file 837.413M28 for 1926-1928 context"],
+      "search_terms": ["USS Maine", "Maine memorial", "Cuba", "Havana", "urn", "friendship urn", "Gerardo Machado", "Calvin Coolidge", "Noble Brandon Judah", "1926 hurricane", "marble", "fragment", "memorial", "presentation", "gift"],
+      "critical_rule": "Keep ceremony evidence separate from material-lineage evidence. A 1928 diplomatic despatch can directly document what officials said or did; it verifies reuse of Maine memorial material only if the record itself supplies sufficiently direct evidence for that proposition.",
+      "high_value_result": "Contemporaneous U.S. or Cuban government documentation establishing the urn's fabrication from the damaged Havana memorial, its chain of custody, and the circumstances and parties of the 1928 transfer.",
+      "instructions_path": "docs/collaboration.md"
     }
   ]
 }
