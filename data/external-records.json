@@ -1,0 +1,82 @@
+{
+  "schema_version": "0.1",
+  "external_records": [
+    {
+      "entity_id": "OBJ-0001",
+      "system": "Smithsonian Institution",
+      "record_type": "collection_record",
+      "identifier": "siris_ari_325679",
+      "label": "General Jose Gervasio Artigas, (sculpture)",
+      "url": "https://www.si.edu/object/general-jose-gervasio-artigas-sculpture:siris_ari_325679",
+      "relationship": "same_object_record",
+      "evidence_policy": "DISCOVERY_ONLY_UNLESS_CLAIM_LINKED",
+      "note": "Institutional object record. Its existence and identifier do not independently support claims; individual claims require explicit assertion-evidence edges."
+    },
+    {
+      "entity_id": "OBJ-0001",
+      "system": "National Park Service",
+      "record_type": "place_record",
+      "identifier": "general-jose-gervasio-artigas-memorial",
+      "label": "José Gervasio Artigas Memorial",
+      "url": "https://www.nps.gov/places/000/general-jose-gervasio-artigas-memorial.htm",
+      "relationship": "same_object_record",
+      "evidence_policy": "DISCOVERY_ONLY_UNLESS_CLAIM_LINKED",
+      "note": "Current NPS place page. Treat its historical prose as a source only when a claim is explicitly linked and evaluated."
+    },
+    {
+      "entity_id": "OBJ-0001",
+      "system": "NPS NPGallery",
+      "record_type": "digital_asset",
+      "identifier": "96a9bfdb-bd4e-418b-a8a8-21f88cdd0810",
+      "label": "General Jose Gervasio Artigas Memorial image",
+      "url": "https://npgallery.nps.gov/AssetDetail/96a9bfdb-bd4e-418b-a8a8-21f88cdd0810",
+      "relationship": "depicts_object",
+      "evidence_policy": "DISCOVERY_ONLY_UNLESS_CLAIM_LINKED",
+      "note": "NPS digital asset depicting the monument; useful for identity, location, and dated visual observation when explicitly linked to a claim."
+    },
+    {
+      "entity_id": "OBJ-0001",
+      "system": "Wikidata",
+      "record_type": "knowledge_graph_entity",
+      "identifier": "Q15221517",
+      "label": "General José Gervasio Artigas",
+      "url": "https://www.wikidata.org/wiki/Q15221517",
+      "relationship": "same_object_record",
+      "evidence_policy": "IDENTITY_AND_DISCOVERY_ONLY",
+      "note": "Interoperability identifier. Wikidata statements may inherit Wikipedia or other sources and are not automatically evidence in this project."
+    },
+    {
+      "entity_id": "OBJ-0001",
+      "system": "Wikimedia Commons",
+      "record_type": "media_category",
+      "identifier": "Category:Statue of José Gervasio Artigas (Washington, D.C.)",
+      "label": "Statue of José Gervasio Artigas (Washington, D.C.)",
+      "url": "https://commons.wikimedia.org/wiki/Category:Statue_of_José_Gervasio_Artigas_(Washington,_D.C.)",
+      "relationship": "media_about_object",
+      "evidence_policy": "DISCOVERY_ONLY_UNLESS_CLAIM_LINKED",
+      "note": "Media/discovery link. Individual images can become evidence only through explicit claim-level review."
+    },
+    {
+      "entity_id": "AG-0001",
+      "system": "Library of Congress Name Authority",
+      "record_type": "authority_record",
+      "identifier": "n50001870",
+      "label": "Artigas, José Gervasio, 1764-1850",
+      "url": "https://id.loc.gov/authorities/names/n50001870",
+      "relationship": "identifies_subject",
+      "evidence_policy": "IDENTITY_AND_DISCOVERY_ONLY",
+      "note": "Authority identifier for the historical person represented by the monument, not an object-level historical source."
+    },
+    {
+      "entity_id": "AG-0001",
+      "system": "Wikidata",
+      "record_type": "knowledge_graph_entity",
+      "identifier": "Q252847",
+      "label": "José Gervasio Artigas",
+      "url": "https://www.wikidata.org/wiki/Q252847",
+      "relationship": "identifies_subject",
+      "evidence_policy": "IDENTITY_AND_DISCOVERY_ONLY",
+      "note": "Person-level interoperability identifier; kept separate from the monument's Wikidata entity."
+    }
+  ]
+}
