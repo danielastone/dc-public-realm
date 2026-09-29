@@ -4,11 +4,15 @@ on:
   push:
     paths:
       - 'data/**'
+      - 'transactions/**'
+      - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/validate-data.yml'
   pull_request:
     paths:
       - 'data/**'
+      - 'transactions/**'
+      - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/validate-data.yml'
   workflow_dispatch:
@@ -26,5 +30,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate provenance-linked semantic data
+      - name: Build transaction materialization
+        run: python scripts/build_database.py
+      - name: Validate migration baseline
         run: python scripts/validate_data.py
+      - name: Verify audit manifest exists
+        run: test -s build/audit/manifest.json
+      - name: Show transaction audit manifest
+        run: cat build/audit/manifest.json
