@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.1",
+  "claim_modes": [
+    {"assertion_id":"A-0001","mode":"DOCUMENTARY_FACT","rationale":"Donor wording is a proposition about what legal and administrative records state."},
+    {"assertion_id":"A-0002","mode":"DOCUMENTARY_FACT","rationale":"Current custody is an administrative fact susceptible to direct institutional documentation."},
+    {"assertion_id":"A-0003","mode":"ATTRIBUTION_RECONSTRUCTION","rationale":"Caster identity is an authorship/fabrication attribution problem; a catalog's unknown founder field does not establish historical unknowability."},
+    {"assertion_id":"A-0004","mode":"ATTRIBUTION_RECONSTRUCTION","rationale":"The exact predecessor/recast relationship requires reconstruction across conflicting object histories."},
+    {"assertion_id":"A-0005","mode":"DOCUMENTARY_FACT","rationale":"Casting location is a historical event/location proposition, even though current support is incomplete."},
+    {"assertion_id":"A-0005B","mode":"DOCUMENTARY_FACT","rationale":"Approximate recast date is a historical chronology proposition."},
+    {"assertion_id":"A-0007A","mode":"DOCUMENTARY_FACT","rationale":"The 1894 commission is an administrative event that can be established from the underlying act."},
+    {"assertion_id":"A-0007B","mode":"ATTRIBUTION_RECONSTRUCTION","rationale":"Creative responsibility for development of the boceto is an authorship-role attribution."},
+    {"assertion_id":"A-0007C","mode":"ATTRIBUTION_RECONSTRUCTION","rationale":"Modeling and casting responsibility is a creative/fabrication-role attribution."}
+  ]
+}

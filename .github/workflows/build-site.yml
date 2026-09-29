@@ -12,6 +12,7 @@ on:
       - 'scripts/build_artigas_public.py'
       - 'scripts/inject_external_records.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_claim_modes.py'
       - '.github/workflows/build-site.yml'
   pull_request:
     paths:
@@ -45,18 +46,26 @@ jobs:
           python-version: '3.12'
       - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
+      - name: Validate scholarly claim modes
+        run: python scripts/validate_claim_modes.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
       - name: Validate materialized database
         env:
           KNOWLEDGE_DATA_DIR: build/data
         run: python scripts/validate_data.py
+      - name: Validate materialized scholarly claim modes
+        env:
+          KNOWLEDGE_DATA_DIR: build/data
+        run: python scripts/validate_claim_modes.py
       - name: Stage materialized database for publication
         run: |
           cp data/external-records.json /tmp/external-records.json
+          cp data/claim-modes.json /tmp/claim-modes.json
           rm -rf data
           cp -R build/data data
           cp /tmp/external-records.json data/external-records.json
+          cp /tmp/claim-modes.json data/claim-modes.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
       - name: Build Artigas public vertical slice
@@ -75,6 +84,8 @@ jobs:
           grep -q 'siris_ari_325679' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Q15221517' site/objects/jose-gervasio-artigas/index.html
           grep -q 'n50001870' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Historical record' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Attribution' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
