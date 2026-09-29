@@ -9,7 +9,9 @@ SCHEMA="0.5"
 ROLES={"PRIMARY_SUPPORT","IMAGE_EVIDENCE","CORROBORATION","CONTRADICTS","QUALIFIES"}
 FIT={"DIRECT","SUPPORTING","LIMITED"}
 PROX={"CONTEMPORANEOUS_PRIMARY","CONSTITUTIVE_REGISTRY_RECORD","CURRENT_ADMINISTRATIVE_RECORD","LATER_OFFICIAL_HERITAGE_RECORD","LATER_OFFICIAL_RECORD","LATER_OFFICIAL_RESEARCH","LATER_OFFICIAL_SUMMARY","LATER_INVENTORY","LATER_MUSEUM_RECORD","CONTEMPORANEOUS_IMAGE","LATER_HISTORICAL_IMAGE","UNKNOWN"}
-DEPENDENCY={"INDEPENDENT","DERIVED","POSSIBLY_DERIVED","UNKNOWN"}
+DEPENDENCY={"INDEPENDENT","DERIVED","POSSIBLY_DERIVED","UNKNOWN"}  # legacy/migration field
+CLAIM_ORIGIN={"ORIGINAL_TO_SOURCE","INHERITED","MIXED","UNKNOWN"}
+INHERITANCE_BASIS={"EXPLICIT_CITATION","REPRODUCED_TEXT","CREATOR_REPOSITORY_RELATION","WIRE_SERVICE","CATALOG_DERIVATION","TEXTUAL_MATCH","SCHOLARLY_INFERENCE","UNKNOWN"}
 IMAGE_SCOPE={"OBJECT_IDENTITY","INSCRIPTION_TEXT","MAKER_MARK","HISTORICAL_LOCATION","HISTORICAL_APPEARANCE","VISIBLE_MATERIAL","VISIBLE_CONDITION","CONTEXT","OTHER_OBSERVABLE"}
 POS={"PRIMARY_SUPPORT","IMAGE_EVIDENCE","CORROBORATION"}
 DIRECT_ROLES={"PRIMARY_SUPPORT","IMAGE_EVIDENCE"}
@@ -43,19 +45,61 @@ def qualifying_single_source(rule,evs):
         return any(e.get("proximity")=="CONTEMPORANEOUS_PRIMARY" for e in direct)
     return False
 
+def effective_roots(ev, by_source, visiting=None):
+    """Return set of effective claim-root source IDs, or None when ancestry is unresolved."""
+    visiting=set() if visiting is None else set(visiting)
+    sid=ev.get("source_id")
+    if sid in visiting:
+        raise ValueError(f"claim inheritance cycle involving {sid}")
+    visiting.add(sid)
+    origin=ev.get("claim_origin")
+    parents=ev.get("inherits_claim_from_source_ids",[])
+    if origin=="UNKNOWN":
+        return None
+    if origin=="ORIGINAL_TO_SOURCE":
+        return {sid}
+    if origin not in {"INHERITED","MIXED"}:
+        return None
+    roots={sid} if origin=="MIXED" else set()
+    for parent in parents:
+        pev=by_source.get(parent)
+        if pev is None:
+            roots.add(parent)
+            continue
+        proots=effective_roots(pev,by_source,visiting)
+        if proots is None:
+            return None
+        roots.update(proots)
+    return roots or None
+
 def independent_pair(evs):
+    """Independent corroboration requires known, disjoint effective claim roots."""
+    by_source={e.get("source_id"):e for e in evs}
     direct=[e for e in evs if e.get("evidence_role") in DIRECT_ROLES and e.get("authority_fit")=="DIRECT"]
     corr=[e for e in evs if e.get("evidence_role")=="CORROBORATION" and e.get("authority_fit") in {"DIRECT","SUPPORTING"}]
-    return any(c.get("dependency_status")=="INDEPENDENT" for d in direct for c in corr if d.get("source_id")!=c.get("source_id"))
+    for d in direct:
+        dr=effective_roots(d,by_source)
+        if dr is None: continue
+        for c in corr:
+            if d.get("source_id")==c.get("source_id"): continue
+            cr=effective_roots(c,by_source)
+            if cr is not None and dr.isdisjoint(cr):
+                return True
+    return False
 
 def compute(a,evs,rule):
     obj=a.get("object_entity_id"); lit="literal_value" in a
-    if not obj and not lit and any(e.get("evidence_role")=="QUALIFIES" for e in evs): return "UNRESOLVED","An authoritative source explicitly records the value as unknown or unresolved."
+    if not obj and not lit and any(e.get("evidence_role")=="QUALIFIES" for e in evs):
+        return "UNRESOLVED","An authoritative source explicitly records the value as unknown or unresolved."
     has_pos=any(e.get("evidence_role") in POS for e in evs); has_contra=any(e.get("evidence_role")=="CONTRADICTS" for e in evs)
-    if has_pos and has_contra: return "CONTESTED","Material supporting and contradictory evidence are both present."
-    if rule.get("single_source_can_verify") and qualifying_single_source(rule,evs): return "VERIFIED","The predicate rule permits verification from one directly authoritative source of the required proximity."
-    if independent_pair(evs): return "VERIFIED","Direct support is independently corroborated; independence is explicitly recorded rather than inferred."
-    if has_pos: return "SUPPORTED","Credible positive evidence exists, but the rule's verification threshold is not met."
+    if has_pos and has_contra:
+        return "CONTESTED","Material supporting and contradictory evidence are both present."
+    if rule.get("single_source_can_verify") and qualifying_single_source(rule,evs):
+        return "VERIFIED","The predicate rule permits verification from one directly authoritative source of the required proximity."
+    if independent_pair(evs):
+        return "VERIFIED","Direct support is corroborated by evidence with known, disjoint effective claim roots."
+    if has_pos:
+        return "SUPPORTED","Credible positive evidence exists, but the verification threshold is not met; unknown or shared claim ancestry does not count as independent corroboration."
     return ("UNRESOLVED","No resolved value is asserted.") if not obj and not lit else ("UNSUPPORTED","No adequate positive evidence is recorded.")
 
 def main():
@@ -67,7 +111,9 @@ def main():
         rules=rules_payload.get("predicate_rules",{})
     except Exception as exc:
         print(f"VALIDATION FAILED\n- {exc}"); return 1
+
     E=index(entities,"entity_id","entities",errors); A=index(assertions,"assertion_id","assertions",errors); S=index(sources,"source_id","sources",errors); index(evidence,"assertion_evidence_id","assertion_evidence",errors)
+
     for sid,s in S.items():
         for k in ("title","publisher_or_creator","language","retrieved_at","source_family_id","source_role","credibility_note"):
             if not s.get(k): errors.append(f"{sid}: missing {k}")
@@ -79,6 +125,7 @@ def main():
             for k in ("repository_or_host","record_url","image_date","rights_statement","object_entity_id"):
                 if not s.get(k): errors.append(f"{sid}: historical photograph missing {k}")
             if s.get("object_entity_id") not in E: errors.append(f"{sid}: historical photograph references missing object entity")
+
     by={}
     for ev in evidence:
         eid=ev.get("assertion_evidence_id","<missing>"); aid=ev.get("assertion_id"); sid=ev.get("source_id")
@@ -88,12 +135,31 @@ def main():
         if ev.get("authority_fit") not in FIT: errors.append(f"{eid}: invalid authority_fit")
         if ev.get("proximity") not in PROX: errors.append(f"{eid}: invalid proximity")
         if ev.get("dependency_status") not in DEPENDENCY: errors.append(f"{eid}: invalid dependency_status")
+        if ev.get("claim_origin") not in CLAIM_ORIGIN: errors.append(f"{eid}: invalid or missing claim_origin")
+        if ev.get("inheritance_basis") not in INHERITANCE_BASIS: errors.append(f"{eid}: invalid or missing inheritance_basis")
+        parents=ev.get("inherits_claim_from_source_ids")
+        if not isinstance(parents,list): errors.append(f"{eid}: inherits_claim_from_source_ids must be a list"); parents=[]
+        if not ev.get("inheritance_note"): errors.append(f"{eid}: missing inheritance_note")
+        if ev.get("claim_origin")=="INHERITED" and not parents: errors.append(f"{eid}: INHERITED claim requires at least one upstream source")
+        if ev.get("claim_origin")=="ORIGINAL_TO_SOURCE" and parents: errors.append(f"{eid}: ORIGINAL_TO_SOURCE must not inherit claim from another source")
+        for parent in parents:
+            if parent not in S: errors.append(f"{eid}: inherits claim from missing source {parent}")
+            if parent==sid: errors.append(f"{eid}: source cannot inherit claim from itself")
         if sid in S and ev.get("source_language")!=S[sid].get("language"): errors.append(f"{eid}: source_language disagrees with {sid}")
         if sid in S and S[sid].get("source_type")=="HistoricalPhotograph":
             if ev.get("evidence_role")!="IMAGE_EVIDENCE": errors.append(f"{eid}: historical photograph must use IMAGE_EVIDENCE")
             if ev.get("proximity") not in {"CONTEMPORANEOUS_IMAGE","LATER_HISTORICAL_IMAGE"}: errors.append(f"{eid}: historical photograph requires image proximity")
             if ev.get("observation_scope") not in IMAGE_SCOPE: errors.append(f"{eid}: historical photograph requires valid observation_scope")
         by.setdefault(aid,[]).append(ev)
+
+    for aid,evs in by.items():
+        by_source={e.get("source_id"):e for e in evs}
+        for ev in evs:
+            try:
+                effective_roots(ev,by_source)
+            except ValueError as exc:
+                errors.append(f"{ev.get('assertion_evidence_id')}: {exc}")
+
     counts={}
     for aid,a in A.items():
         pred=a.get("predicate"); obj=a.get("object_entity_id"); lit="literal_value" in a
@@ -107,10 +173,14 @@ def main():
         if not evs: errors.append(f"{aid}: has no evidence"); continue
         if pred in rules:
             status,_=compute(a,evs,rules[pred]); counts[status]=counts.get(status,0)+1
+
     if errors:
-        print(f"VALIDATION FAILED: {len(errors)} error(s)"); [print(f"- {x}") for x in errors]; return 1
+        print(f"VALIDATION FAILED: {len(errors)} error(s)")
+        for x in errors: print(f"- {x}")
+        return 1
     print(f"VALIDATION PASSED: {len(E)} entities, {len(A)} assertions, {len(evidence)} evidence links, {len(S)} sources")
-    print("Epistemic rule: source credibility is claim-specific; UNKNOWN dependency never counts as independent corroboration.")
+    print("Epistemic rule: independent corroboration is computed from known, disjoint effective claim roots; different repositories or source families do not establish independence.")
+    print("Migration rule: legacy dependency_status remains descriptive but does not control verification.")
     print("Image rule: historical web photographs are provenance-bearing sources only for facts visible in the image; catalog metadata and historical inference remain separately attributable.")
     print("Computed status counts: "+", ".join(f"{k}={v}" for k,v in sorted(counts.items())))
     return 0
