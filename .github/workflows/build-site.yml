@@ -7,24 +7,14 @@ on:
       - 'data/**'
       - 'transactions/**'
       - 'skills/**'
-      - 'scripts/build_database.py'
-      - 'scripts/build_site.py'
-      - 'scripts/build_artigas_public.py'
-      - 'scripts/inject_external_records.py'
-      - 'scripts/build_smithsonian_review.py'
-      - 'scripts/validate_data.py'
-      - 'scripts/validate_claim_modes.py'
+      - 'scripts/**'
       - '.github/workflows/build-site.yml'
   pull_request:
     paths:
       - 'data/**'
       - 'transactions/**'
       - 'skills/**'
-      - 'scripts/build_database.py'
-      - 'scripts/build_site.py'
-      - 'scripts/build_artigas_public.py'
-      - 'scripts/inject_external_records.py'
-      - 'scripts/validate_data.py'
+      - 'scripts/**'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
 
@@ -75,10 +65,15 @@ jobs:
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
         run: python scripts/build_smithsonian_review.py
+      - name: Stamp canonical computed statuses onto rendered pages
+        run: python scripts/stamp_publication_status.py
+      - name: Verify publication status consistency
+        run: python scripts/validate_publication_consistency.py
       - name: Verify required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
+          test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
@@ -92,6 +87,8 @@ jobs:
           grep -q 'Where this claim comes from' site/objects/jose-gervasio-artigas/index.html
           grep -q 'several publications repeating a statement may still represent one underlying evidence lineage' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'data-assertion-id="A-0004" data-computed-status="CONTESTED"' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'data-assertion-id="A-0005B" data-computed-status="SUPPORTED"' site/objects/jose-gervasio-artigas/index.html
           test -f site/review/artigas/index.html
           grep -q 'Where our record differs from the Smithsonian presentation' site/review/artigas/index.html
           grep -q 'Useful forms of reviewer response' site/review/artigas/index.html
