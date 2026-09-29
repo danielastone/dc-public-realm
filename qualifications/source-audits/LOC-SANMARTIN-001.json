@@ -1,0 +1,36 @@
+{
+  "audit_id":"LOC-SANMARTIN-001",
+  "source_forensics":{
+    "source_id_candidate":"SRC-AR-LOC-HALS-001",
+    "title":"General Jose de San Martin Memorial, Washington, District of Columbia — HALS survey record",
+    "repository":"Library of Congress, Prints and Photographs Division / Historic American Landscapes Survey",
+    "document_type":"GovernmentHeritageSurvey",
+    "retrieved_at":"2026-09-29",
+    "locator":"HALS DC-1 / LOC item dc1246; historical narrative chronology section",
+    "access_route":"https://www.loc.gov/pictures/collection/hh/item/dc1246/",
+    "original_reproduction_status":"repository survey record with historical narrative; not treated as a contemporaneous 1925 record",
+    "known_upstream_sources":["SRC-AR-003"]
+  },
+  "propositions":[
+    {"proposition_id":"P-LOC-SM-01","subject":"OBJ-0002","predicate_candidate":"DEDICATION_DATE","value":"1925-10-28","evidence_mode":"DOCUMENT_TEXT","locator":"HALS historical narrative chronology","temporal_scope":"1925"},
+    {"proposition_id":"P-LOC-SM-02","subject":"OBJ-0002","predicate_candidate":"DISASSEMBLED_FOR_RELOCATION","value":"1970","evidence_mode":"DOCUMENT_TEXT","locator":"HALS historical narrative chronology","temporal_scope":"1970"},
+    {"proposition_id":"P-LOC-SM-03","subject":"OBJ-0002","predicate_candidate":"RELOCATED","value":"1976","evidence_mode":"DOCUMENT_TEXT","locator":"HALS historical narrative chronology","temporal_scope":"1976"}
+  ],
+  "schema_fit":[
+    {"proposition_id":"P-LOC-SM-01","classification":"EXACT_FIT","note":"Date/event proposition is representable without schema extension."},
+    {"proposition_id":"P-LOC-SM-02","classification":"FIT_WITH_QUALIFIER","note":"Representable as event chronology with year qualifier."},
+    {"proposition_id":"P-LOC-SM-03","classification":"EXACT_FIT","note":"Relocation chronology is representable."}
+  ],
+  "inheritance":[
+    {"proposition_id":"P-LOC-SM-01","classification":"EXPLICITLY_DERIVED","upstream_source_ids":["SRC-AR-003"],"basis":"HALS historical narrative cites the National Register nomination for this chronology; institutional separation does not establish claim independence."},
+    {"proposition_id":"P-LOC-SM-02","classification":"EXPLICITLY_DERIVED","upstream_source_ids":["SRC-AR-003"],"basis":"Same cited National Register chronology."},
+    {"proposition_id":"P-LOC-SM-03","classification":"EXPLICITLY_DERIVED","upstream_source_ids":["SRC-AR-003"],"basis":"Same cited National Register chronology."}
+  ],
+  "evidence_candidates":[],
+  "conflicts":[],
+  "unresolved_questions":["Retrieve and inspect a specific historical HALS/LOC image frame before creating any IMAGE_OBSERVATION proposition.","Determine whether any HALS field documentation supplies independent administrative evidence for relocation distinct from the cited narrative."],
+  "recommended_actions":[
+    {"action":"REVEAL_SHARED_LINEAGE","proposition_ids":["P-LOC-SM-01","P-LOC-SM-02","P-LOC-SM-03"],"basis":"The LOC/HALS narrative is useful for access and source genealogy but must not be counted as independent corroboration of the cited National Register chronology."},
+    {"action":"NO_KNOWLEDGE_CHANGE","proposition_ids":["P-LOC-SM-01","P-LOC-SM-02","P-LOC-SM-03"],"basis":"No new independent historical evidence has yet been established."}
+  ]
+}
