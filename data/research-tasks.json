@@ -10,8 +10,30 @@
       "research_gap": "Underlying Argentine diplomatic records have not been examined. They may locate the origin of the Daumas/Dumont attribution and document what Argentina transmitted to Washington.",
       "repository": "Archivo Historico de Cancilleria, Argentina",
       "collection": "Embajada en Washington, Estados Unidos I (27.A)",
-      "priority_units": ["AH/0023/1", "AH/0035/1", "AH/0002/2", "AH/0030/1"],
-      "search_terms": ["Jose de San Martin", "monumento", "estatua", "monumento ecuestre", "copia", "reproduccion", "obsequio", "donacion", "Washington", "Club del Progreso", "Daumas", "Dumont", "escultor", "fundicion", "Arsenal Esteban de Luca", "American Legion"],
+      "priority_units": [
+        "AH/0023/1",
+        "AH/0035/1",
+        "AH/0002/2",
+        "AH/0030/1"
+      ],
+      "search_terms": [
+        "Jose de San Martin",
+        "monumento",
+        "estatua",
+        "monumento ecuestre",
+        "copia",
+        "reproduccion",
+        "obsequio",
+        "donacion",
+        "Washington",
+        "Club del Progreso",
+        "Daumas",
+        "Dumont",
+        "escultor",
+        "fundicion",
+        "Arsenal Esteban de Luca",
+        "American Legion"
+      ],
       "critical_rule": "Preserve Daumas, Dumont, or any other attribution exactly as written; do not normalize disputed names.",
       "high_value_result": "A dated Argentine-origin record identifying the sculptor, original work, fabrication or copy process, donor, or information formally transmitted to the U.S. government.",
       "instructions_path": "docs/collaboration.md"
@@ -25,8 +47,28 @@
       "research_gap": "Uruguay's diplomatic archive identifies a U.S. Embassy record series covering 1900-1990, but the underlying 1947-1951 correspondence has not been examined. It may establish the donor, fabrication and casting history, shipment, installation, dedication, and the precise relationship between the Washington statue and the Juan Luis Blanes Artigas model.",
       "repository": "Archivo Historico-Diplomatico, Ministerio de Relaciones Exteriores, Uruguay",
       "collection": "Sub Fondo Legaciones y Embajadas, 2.10 Embajada de la Republica en Estados Unidos (1900-1990)",
-      "priority_units": ["Request inventory/folder-level description for 1947-1951 before retrieval"],
-      "search_terms": ["Jose Gervasio Artigas", "Artigas", "Washington", "estatua", "monumento", "Juan Luis Blanes", "Juan Manuel Blanes", "San Jose de Mayo", "reproduccion", "copia", "fundicion", "bronce", "donacion", "obsequio", "embajada", "inauguracion", "1950"],
+      "priority_units": [
+        "Request inventory/folder-level description for 1947-1951 before retrieval"
+      ],
+      "search_terms": [
+        "Jose Gervasio Artigas",
+        "Artigas",
+        "Washington",
+        "estatua",
+        "monumento",
+        "Juan Luis Blanes",
+        "Juan Manuel Blanes",
+        "San Jose de Mayo",
+        "reproduccion",
+        "copia",
+        "fundicion",
+        "bronce",
+        "donacion",
+        "obsequio",
+        "embajada",
+        "inauguracion",
+        "1950"
+      ],
       "critical_rule": "Separate the Washington object's documented fabrication and casting from the authorship/model lineage. A later reproduction of the Juan Luis Blanes model does not make every fabricator or caster the sculptor.",
       "high_value_result": "A contemporaneous Uruguayan diplomatic or administrative record identifying who authorized, fabricated, cast, shipped, presented, or described the Washington Artigas statue and its relationship to the San Jose de Mayo model.",
       "instructions_path": "docs/collaboration.md"
@@ -41,8 +83,28 @@
       "archive_strategy": "ASYMMETRIC_TRIANGULATION",
       "repository": "National Archives and Records Administration, United States",
       "collection": "RG 59, General Records of the Department of State, 1910-29 Central Decimal File; USS Maine memorial in Cuba",
-      "priority_units": ["File 837.413M28/16 - Despatch No. 172, Noble Brandon Judah to Secretary of State, 10 Apr 1928", "National Archives Microfilm Publication M488, roll 55 - entire file 837.413M28", "Review surrounding 1926-1928 correspondence for fabrication, transfer, custody, ceremony and material-lineage statements"],
-      "search_terms": ["USS Maine", "Maine memorial", "Cuba", "Havana", "urn", "friendship urn", "Gerardo Machado", "Calvin Coolidge", "Noble Brandon Judah", "1926 hurricane", "marble", "fragment", "memorial", "presentation", "gift"],
+      "priority_units": [
+        "File 837.413M28/16 - Despatch No. 172, Noble Brandon Judah to Secretary of State, 10 Apr 1928",
+        "National Archives Microfilm Publication M488, roll 55 - entire file 837.413M28",
+        "Review surrounding 1926-1928 correspondence for fabrication, transfer, custody, ceremony and material-lineage statements"
+      ],
+      "search_terms": [
+        "USS Maine",
+        "Maine memorial",
+        "Cuba",
+        "Havana",
+        "urn",
+        "friendship urn",
+        "Gerardo Machado",
+        "Calvin Coolidge",
+        "Noble Brandon Judah",
+        "1926 hurricane",
+        "marble",
+        "fragment",
+        "memorial",
+        "presentation",
+        "gift"
+      ],
       "critical_rule": "Separate ceremony/presentation, object identity, and material provenance into distinct propositions. A diplomatic record directly establishes what officials reported or did; it establishes reuse of memorial material only when the record contains sufficiently direct evidence for that proposition. Missing or inaccessible Cuban-side records are ARCHIVAL_GAP, not negative evidence.",
       "high_value_result": "Contemporaneous records that separately establish the 1928 transfer, identify the object, and document or directly trace the claimed reuse of material from the damaged Havana Maine memorial.",
       "instructions_path": "docs/collaboration.md"
@@ -57,10 +119,60 @@
       "archive_strategy": "REMOTE_CUBAN_CONTEMPORARY_RECORD",
       "repository": "Multiple Cuban and international digitized repositories",
       "collection": "Contemporary Cuban newspapers, official publications, presidential or diplomatic texts, Sixth International Conference materials, and historical photographs, 1926-1928",
-      "priority_units": ["1926 hurricane and damage to the Havana Maine memorial", "April 1928 ceremonies and transfer", "Contemporary statements describing fabrication or material reuse", "Historical images capable of documenting the memorial, fragments, urn, inscription, or ceremony"],
-      "search_terms": ["urna", "Maine", "monumento al Maine", "Habana", "huracan 1926", "Machado", "Coolidge", "Conferencia Panamericana", "abril 1928", "marmol", "fragmentos", "obsequio", "Washington"],
+      "priority_units": [
+        "1926 hurricane and damage to the Havana Maine memorial",
+        "April 1928 ceremonies and transfer",
+        "Contemporary statements describing fabrication or material reuse",
+        "Historical images capable of documenting the memorial, fragments, urn, inscription, or ceremony"
+      ],
+      "search_terms": [
+        "urna",
+        "Maine",
+        "monumento al Maine",
+        "Habana",
+        "huracan 1926",
+        "Machado",
+        "Coolidge",
+        "Conferencia Panamericana",
+        "abril 1928",
+        "marmol",
+        "fragmentos",
+        "obsequio",
+        "Washington"
+      ],
       "critical_rule": "Classify newspaper and published records by origin where possible: original reporting, official-text reproduction, diplomatic release, wire copy, editorial, or unknown. Multiple reproductions of the same upstream statement remain one lineage. Do not infer absence of a Cuban record from failure to retrieve one online.",
       "high_value_result": "A Cuban-origin contemporary source independent of the U.S. State Department chain that confirms, contradicts, qualifies, or more precisely describes the urn's fabrication, material origin, presentation, or chain of custody.",
+      "instructions_path": "docs/collaboration.md"
+    },
+    {
+      "task_id": "URY-ART-002",
+      "object_entity_id": "OBJ-0001",
+      "title": "Retrieve the 21 Aug 1949 El Dia article on the Artigas monument",
+      "status": "OPEN",
+      "evidence_effect": "NONE_UNTIL_REVIEWED",
+      "research_gap": "Two independent indexes identify a pre-dedication article titled 'Monumento a Artigas en Washington' in the Suplemento Dominical de El Dia dated 21 August 1949, but the underlying article has not yet been retrieved. The article may preserve contemporary Uruguayan information on financing, fabrication, shipment, installation, or donor framing before the 1950 dedication.",
+      "archive_strategy": "DIGITIZED_PRESS_RETRIEVAL",
+      "repository": "Anaforas / Universidad de la Republica and Biblioteca Nacional de Uruguay ecosystem",
+      "collection": "Suplemento Dominical de El Dia, 21 Aug 1949",
+      "priority_units": [
+        "Article: 'Monumento a Artigas en Washington' — 21 Aug 1949",
+        "Retrieve the complete issue or all pages belonging to the article",
+        "Record issue number, page numbers, author/byline, captions, photographs and continuation pages"
+      ],
+      "search_terms": [
+        "Monumento a Artigas en Washington",
+        "21 agosto 1949",
+        "Suplemento Dominical El Dia",
+        "Artigas Washington",
+        "Genta",
+        "escolares",
+        "fundicion",
+        "embarque",
+        "estatua",
+        "monumento"
+      ],
+      "critical_rule": "The index entry proves only that an item with this title/date existed. Do not attribute any claim to the article until the underlying pages are retrieved. Once retrieved, distinguish original reporting from official/diplomatic publicity and identify any reused source language.",
+      "high_value_result": "A complete scan of the 21 Aug 1949 article with bibliographic metadata and any text or images bearing on the Washington statue's production, financing, shipment, installation, or donor narrative.",
       "instructions_path": "docs/collaboration.md"
     }
   ]
