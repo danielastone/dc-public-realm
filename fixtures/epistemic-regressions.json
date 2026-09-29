@@ -1,0 +1,58 @@
+{
+  "schema_version": "0.1",
+  "purpose": "Permanent adversarial cases derived from project history. These fixtures specify distinctions future rules and migrations must preserve; they are not new historical evidence.",
+  "fixtures": [
+    {
+      "fixture_id": "FIX-ARTIGAS-001",
+      "object_entity_id": "OBJ-0001",
+      "name": "Artigas provenance and fabrication separation",
+      "must_preserve": [
+        "San Jose de Mayo predecessor history and Montevideo exact-object fabrication statements must not be silently reconciled.",
+        "A later Smithsonian inventory statement does not become an independent contemporary root merely because Smithsonian is institutionally authoritative.",
+        "Commission/authorship, model execution, fabrication and bronze casting are distinct propositions when evidence distinguishes them.",
+        "Unknown caster or foundry remains unknown rather than being inferred from sculptor/model attribution.",
+        "Source-root uncertainty must remain visible until upstream records are retrieved."
+      ],
+      "failure_signals": [
+        "conflicting place/fabrication claims collapse into one normalized fact",
+        "institution count substitutes for claim-level independence",
+        "CREATED_BY absorbs casting/fabrication roles without evidence"
+      ]
+    },
+    {
+      "fixture_id": "FIX-SANMARTIN-001",
+      "object_entity_id": "OBJ-0002",
+      "name": "San Martin attribution and inheritance",
+      "must_preserve": [
+        "Daumas and Dumont attributions remain a documented conflict until source genealogy/evidence resolves it.",
+        "U.S. statutory text is direct evidence for legal acceptance or statutory description, not automatically expert art-historical proof of authorship.",
+        "An Argentine government republication and Revista Legado do not receive independent-lineage credit when one explicitly derives from the other.",
+        "The underlying Revista Legado citations remain a research target rather than being inferred from the downstream republication."
+      ],
+      "failure_signals": [
+        "one disputed name is normalized away",
+        "government authority is treated as universal authority fit",
+        "downstream republication is counted as independent corroboration"
+      ]
+    },
+    {
+      "fixture_id": "FIX-CUBA-001",
+      "object_entity_id": "OBJ-0003",
+      "name": "Cuban Friendship Urn asymmetric provenance",
+      "must_preserve": [
+        "Government/Republic of Cuba and citizens-of-Cuba donor formulations remain source-specific until their origins are traced.",
+        "Legal acceptance, financing/donation, presentation, receipt, installation and custody are distinct propositions.",
+        "An inscription on the physical object is distinct from an NPS transcription of that inscription; the latter is an access/transcription witness unless independently probative.",
+        "Material-from-Maine provenance requires evidence addressing material lineage, not merely ceremony or object identity.",
+        "Unequal survival/accessibility of U.S. and Cuban records does not itself establish greater historical truthfulness of the surviving U.S. lane.",
+        "A bounded unsuccessful Cuban archive search is an archival gap, not negative historical evidence."
+      ],
+      "failure_signals": [
+        "donor conflict is normalized",
+        "legal acceptance is used as proof of donor identity or financing",
+        "transcription and physical inscription are counted as independent sources",
+        "missing Cuban records are treated as disconfirmation"
+      ]
+    }
+  ]
+}
