@@ -30,9 +30,9 @@
     {
       "table": "assertion_evidence",
       "action": "add",
-      "id": "AE-0108",
+      "id": "AE-0110",
       "value": {
-        "assertion_evidence_id": "AE-0108",
+        "assertion_evidence_id": "AE-0110",
         "assertion_id": "A-0101",
         "source_id": "SRC-AR-LOC-001",
         "evidence_role": "CORROBORATION",
