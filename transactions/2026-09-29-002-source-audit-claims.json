@@ -1,0 +1,270 @@
+{
+  "transaction_id": "TX-20260929-002",
+  "recorded_at": "2026-09-29",
+  "actor": "source-first-audit",
+  "purpose": "Re-audit baseline Artigas and San Martin claim edges against the underlying source documents and correct claim-specific authority, exact-object support, and source inheritance without inferring independence from institutional identity.",
+  "evidence_decision": "The audit starts from the source text rather than inherited claim labels. Exact physical-object relations require sources that identify the same predecessor object; broad copy/recast language is not silently promoted. Later syntheses remain usable but receive no independent-lineage credit until their upstream sources are traced. Cuba historical claims are documented in the audit but deferred from mutation until the cited 1928-1929 primary records are retrieved.",
+  "supersedes": "TX-20260929-001",
+  "operations": [
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0009",
+      "before_sha256": "6c12fbdaa7518fe15bb3b6be056a8137c703df02acd2c0af54ddf5d37c3ad9af",
+      "value": {
+        "assertion_evidence_id": "AE-0009",
+        "assertion_id": "A-0004",
+        "source_id": "SRC-US-004",
+        "evidence_role": "CONTRADICTS",
+        "source_language": "en",
+        "locator": "remarks and date fields",
+        "evidence_note": "Smithsonian calls the Washington sculpture a recast of a Blanes Artigas sculpture cast in Florence in 1898, but its remarks locate that predecessor in Montevideo. The canonical assertion identifies the predecessor as the 1898 San José de Mayo monument, so this record does not support that exact physical-object relation and is retained as a material conflict/normalization problem.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Smithsonian lists NPS (1985), a 1991 Smithsonian research project, James Goode (1974), and internal curatorial material among its references. The claim-level lineage has not been resolved, so this record cannot count as an independent root."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0010",
+      "before_sha256": "4341efea910659188b6c09c6b08a92aee73a8f14743669744b233fe773f60a42",
+      "value": {
+        "assertion_evidence_id": "AE-0010",
+        "assertion_id": "A-0004",
+        "source_id": "SRC-UY-003",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "es",
+        "locator": "Resultando VII",
+        "evidence_note": "Uruguay's heritage resolution states that foreign commemorations, including the statue in Washington, D.C., use bronzes that copy the monument erected in San José de Mayo.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The 2004 resolution is authoritative heritage documentation for the San José monument and explicitly names Washington among its copies, but the historical sources underlying Resultando VII are not identified in the record. It therefore supports the exact relation without establishing an independent historical root."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0008",
+      "before_sha256": "e3565596abbf716523408b60d2a9a4db5af24d1f908631ab71d3091e7e6b7e3d",
+      "value": {
+        "assertion_evidence_id": "AE-0008",
+        "assertion_id": "A-0007A",
+        "source_id": "SRC-UY-002",
+        "evidence_role": "CORROBORATION",
+        "source_language": "es",
+        "locator": "artist record",
+        "evidence_note": "MNAV material places Juan Luis Blanes in the San José Artigas project and says he was preparing to supervise casting when he died; it does not itself establish the exact 14 November 1894 commission act.",
+        "authority_fit": "LIMITED",
+        "proximity": "LATER_MUSEUM_RECORD",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "This museum record is useful for role/context but does not independently prove the formal commissioning proposition. Its own upstream documentation for this point has not yet been traced."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0102",
+      "before_sha256": "9741fe0646a10c2e156cbb7d0a718f4d9c3e7ce5489db9aff8b0486728798d84",
+      "value": {
+        "assertion_evidence_id": "AE-0102",
+        "assertion_id": "A-0102",
+        "source_id": "SRC-AR-001",
+        "evidence_role": "CORROBORATION",
+        "source_language": "en",
+        "locator": "joint-resolution text embedded in congressional report",
+        "evidence_note": "The 1924 congressional material establishes that the Washington work was authorized as a copy of a San Martín statue described as 'by Dumont,' but this text alone does not identify the exact physical predecessor as the Buenos Aires monument represented by OBJ-PRE-0101.",
+        "authority_fit": "SUPPORTING",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The report contains a presidential transmission, a Department of State letter, and proposed legislative text. The exact genealogy of the copy/attribution wording across those embedded records has not yet been separated."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0103",
+      "before_sha256": "d645559ab2671277be6240cfadfdcb5f0c63370d7f194a003e5695380be9d480",
+      "value": {
+        "assertion_evidence_id": "AE-0103",
+        "assertion_id": "A-0102",
+        "source_id": "SRC-AR-003",
+        "evidence_role": "CORROBORATION",
+        "source_language": "en",
+        "locator": "Section 7, page 2",
+        "evidence_note": "National Register documentation identifies the Washington bronze as a copy of a work located in Buenos Aires.",
+        "authority_fit": "SUPPORTING",
+        "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The nomination's bibliography for the historical narrative is secondary, including James Goode's 1974 Washington sculpture guide and a web reference. Until the exact upstream source for the copy statement is identified, this record is not an independent historical root."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0109",
+      "before_sha256": "2922bd3009335de40bf24b8a3be23e728cff4fde9764c6bf3ecafeb58b1eefea",
+      "value": {
+        "assertion_evidence_id": "AE-0109",
+        "assertion_id": "A-0106",
+        "source_id": "SRC-AR-003",
+        "evidence_role": "CONTRADICTS",
+        "source_language": "en",
+        "locator": "Section 7, page 2; Architect/Builder field",
+        "evidence_note": "U.S. National Register documentation attributes the copied work to Augustin-Alexandre Dumont rather than Louis-Joseph Daumas.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_HERITAGE_RECORD",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The nomination is a later federal heritage synthesis and its bibliography for the historical narrative is secondary. The Dumont attribution remains material contradictory evidence, but it does not receive independent-lineage credit until its upstream source is identified."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0107",
+      "before_sha256": "340fbf9decf32d1678506e99289aff79649fcd6ab399d48e8642ae77a2ca92c6",
+      "value": {
+        "assertion_evidence_id": "AE-0107",
+        "assertion_id": "A-0105",
+        "source_id": "SRC-AR-005",
+        "evidence_role": "CORROBORATION",
+        "source_language": "es",
+        "locator": "commission history and footnotes",
+        "evidence_note": "The Blanco/Colimodio article hosted by the Instituto Nacional Sanmartiniano states that the sculpture was commissioned to Louis-Joseph Daumas and cites Buenos Aires municipal reports among its underlying records.",
+        "authority_fit": "SUPPORTING",
+        "proximity": "LATER_OFFICIAL_RESEARCH",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "EXPLICIT_CITATION",
+        "inheritance_note": "This is a 2022 official-hosted republication of a 2019 authored chapter, not an original institutional finding. It explicitly relies on nineteenth-century municipal reports and other historical sources. Those root documents are not yet represented as source records, so independence cannot be computed from this edge."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "update",
+      "id": "AE-0108",
+      "before_sha256": "a1a2e697b9b0775dd9288ea5e1c20f55a0a6df5863084af898009974149509c5",
+      "value": {
+        "assertion_evidence_id": "AE-0108",
+        "assertion_id": "A-0106",
+        "source_id": "SRC-AR-006",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "es",
+        "locator": "international-copy list and source line",
+        "evidence_note": "The Instituto Nacional Sanmartiniano page explicitly lists Washington, D.C. (1925) among foreign copies of Louis-Joseph Daumas's Buenos Aires equestrian statue.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_RESEARCH",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "EXPLICIT_CITATION",
+        "inheritance_note": "The page identifies Revista Legado, Archivo General de la Nación, Publicación Digital Nº3 (August 2016) as its source. Until that underlying publication and its roots are represented, this evidence does not count as an independent claim root."
+      }
+    },
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-AR-007",
+      "value": {
+        "source_id": "SRC-AR-007",
+        "title": "43 Stat. 667, Pub. Res. 31 — Joint Resolution authorizing erection of the San Martín statue",
+        "publisher_or_creator": "United States Congress / Government Printing Office; accessed through GovInfo",
+        "language": "en",
+        "source_type": "JointResolution",
+        "url": "https://www.govinfo.gov/content/pkg/STATUTE-43/pdf/STATUTE-43-Pg667-2.pdf",
+        "authority_scope": "Enacted 1924 legal authorization; donor wording 'people of Argentina'; authorization of a copy described in the statute as 'by Dumont'",
+        "retrieved_at": "2026-09-29",
+        "archived_url": null,
+        "source_family_id": "US_STATUTES_AT_LARGE",
+        "derived_from_source_ids": [],
+        "independence_note": "This is constitutive legal text for what Congress authorized. It does not by itself establish independent historical provenance for the sculptor attribution or source-object identity; those wordings may inherit earlier diplomatic or legislative drafting.",
+        "source_role": "OFFICIAL_LEGAL_RECORD",
+        "credibility_note": "Primary enacted legal text. Claim authority is direct for the legal authorization and statutory wording, but historical/art-historical assertions embedded in the statute require separate provenance analysis."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0111",
+      "value": {
+        "assertion_evidence_id": "AE-0111",
+        "assertion_id": "A-0102",
+        "source_id": "SRC-AR-006",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "es",
+        "locator": "international-copy list and opening description",
+        "evidence_note": "The Argentine national institute explicitly describes the Daumas work in Plaza San Martín, Buenos Aires, and lists Washington, D.C. (1925) among copies of that work.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_RESEARCH",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "EXPLICIT_CITATION",
+        "inheritance_note": "The page identifies Revista Legado / Archivo General de la Nación (2016) as its source. That underlying source has not yet been ingested, so this edge supports the exact physical lineage but does not establish an independent root."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0112",
+      "value": {
+        "assertion_evidence_id": "AE-0112",
+        "assertion_id": "A-0106",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "CONTRADICTS",
+        "source_language": "en",
+        "locator": "Pub. Res. 31, approved June 7, 1924",
+        "evidence_note": "The enacted joint resolution authorizes erection of a copy of the statue of General San Martín and describes it as 'by Dumont,' contradicting the canonical Daumas attribution for the Washington copy.",
+        "authority_fit": "DIRECT",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The legal text is primary for Congress's wording and action, but the art-historical attribution may have entered the statute through earlier diplomatic or legislative drafting. It therefore remains a strong contemporaneous contradiction without being presumed an independent attribution root."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0113",
+      "value": {
+        "assertion_evidence_id": "AE-0113",
+        "assertion_id": "A-0101",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "joint-resolution title, approved June 7, 1924",
+        "evidence_note": "The enacted resolution's title states that the equestrian statue was presented to the United States by the people of Argentina.",
+        "authority_fit": "DIRECT",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "This is primary legal evidence for Congress's contemporaneous donor wording. The phrase may derive from the same diplomatic/State Department chain reflected in the congressional report, so it is not presumed independent corroboration."
+      }
+    }
+  ]
+}
