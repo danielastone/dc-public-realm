@@ -65,6 +65,8 @@ jobs:
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
         run: python scripts/build_smithsonian_review.py
+      - name: Update public project front door
+        run: python scripts/inject_project_frontdoor.py
       - name: Stamp canonical computed statuses onto rendered pages
         run: python scripts/stamp_publication_status.py
       - name: Verify publication status consistency
@@ -73,6 +75,11 @@ jobs:
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
+          grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
+          grep -q 'Knowledge history' site/index.html
+          test -f site/collaborate/artigas/index.html
+          grep -q 'Help trace the Artigas memorial record' site/collaborate/artigas/index.html
+          grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
