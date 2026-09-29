@@ -13,6 +13,7 @@ DEPENDENCY={"INDEPENDENT","DERIVED","POSSIBLY_DERIVED","UNKNOWN"}
 CLAIM_ORIGIN={"ORIGINAL_TO_SOURCE","INHERITED","MIXED","UNKNOWN"}
 INHERITANCE_BASIS={"EXPLICIT_CITATION","REPRODUCED_TEXT","CREATOR_REPOSITORY_RELATION","WIRE_SERVICE","CATALOG_DERIVATION","TEXTUAL_MATCH","SCHOLARLY_INFERENCE","UNKNOWN"}
 IMAGE_SCOPE={"OBJECT_IDENTITY","INSCRIPTION_TEXT","MAKER_MARK","HISTORICAL_LOCATION","HISTORICAL_APPEARANCE","VISIBLE_MATERIAL","VISIBLE_CONDITION","CONTEXT","OTHER_OBSERVABLE"}
+TASK_STATUS={"OPEN","CLAIMED","SUBMITTED","REVIEWED","INCORPORATED","REJECTED","CLOSED-NO-EVIDENCE"}
 POS={"PRIMARY_SUPPORT","IMAGE_EVIDENCE","CORROBORATION"}; DIRECT_ROLES={"PRIMARY_SUPPORT","IMAGE_EVIDENCE"}
 
 def load(name,key):
@@ -80,6 +81,8 @@ def main():
  errors=[]
  try:
   _,entities=load("entities.json","entities"); _,assertions=load("assertions.json","assertions"); _,evidence=load("assertion-evidence.json","assertion_evidence"); _,sources=load("sources.json","sources")
+  task_payload=json.loads((DATA/"research-tasks.json").read_text(encoding="utf-8")); tasks=task_payload.get("tasks",[])
+  if task_payload.get("schema_version")!="0.2" or not isinstance(tasks,list): raise ValueError("research-tasks.json: schema_version must be 0.2 and tasks must be a list")
   rules_payload=json.loads((DATA/"predicate-rules.json").read_text(encoding="utf-8")); rules=rules_payload.get("predicate_rules",{})
   if rules_payload.get("schema_version")!=SCHEMA: raise ValueError("predicate-rules.json: schema_version must be 0.5")
  except Exception as exc: print(f"VALIDATION FAILED\n- {exc}"); return 1
@@ -95,6 +98,15 @@ def main():
    for k in ("repository_or_host","record_url","image_date","rights_statement","object_entity_id"):
     if not s.get(k): errors.append(f"{sid}: historical photograph missing {k}")
    if s.get("object_entity_id") not in E: errors.append(f"{sid}: historical photograph references missing object entity")
+ T=index(tasks,"task_id","research_tasks",errors)
+ for tid,t in T.items():
+  for k in ("object_entity_id","title","status","evidence_effect","research_gap","repository","collection","priority_units","critical_rule","high_value_result","instructions_path"):
+   if not t.get(k): errors.append(f"{tid}: missing {k}")
+  if t.get("object_entity_id") not in E: errors.append(f"{tid}: references missing object entity")
+  if t.get("status") not in TASK_STATUS: errors.append(f"{tid}: invalid collaboration status {t.get('status')}")
+  if t.get("evidence_effect")!="NONE_UNTIL_REVIEWED" and t.get("status") in {"OPEN","CLAIMED","SUBMITTED"}:
+   errors.append(f"{tid}: pre-review collaboration task may not claim evidentiary effect")
+  if not isinstance(t.get("priority_units"),list) or not t.get("priority_units"): errors.append(f"{tid}: priority_units must be a non-empty list")
  by={}
  for ev in evidence:
   eid=ev.get("assertion_evidence_id","<missing>"); aid=ev.get("assertion_id"); sid=ev.get("source_id")
@@ -142,7 +154,7 @@ def main():
   print(f"VALIDATION FAILED: {len(errors)} error(s)")
   for x in errors: print(f"- {x}")
   return 1
- print(f"VALIDATION PASSED [{DATA}]: {len(E)} entities, {len(A)} assertions, {len(evidence)} evidence links, {len(S)} sources")
+ print(f"VALIDATION PASSED [{DATA}]: {len(E)} entities, {len(A)} assertions, {len(evidence)} evidence links, {len(S)} sources, {len(T)} collaboration tasks")
  print("Epistemic rule: independent corroboration is computed from known, disjoint effective claim roots; different repositories or source families do not establish independence.")
  print("Computed status counts: "+", ".join(f"{k}={v}" for k,v in sorted(counts.items())))
  return 0
