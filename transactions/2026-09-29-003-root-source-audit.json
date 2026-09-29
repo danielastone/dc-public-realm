@@ -1,0 +1,51 @@
+{
+  "transaction_id": "TX-20260929-003",
+  "recorded_at": "2026-09-29",
+  "actor": "root-source-audit-2",
+  "purpose": "Continue the source-first audit upstream and add only a newly recovered constitutive primary source whose wording changes claim support.",
+  "evidence_decision": "Public Resolution 49, 70th Congress, approved May 22, 1928, directly authorizes acceptance of the monumental urn as a gift from the Republic of Cuba. This is stronger and more contemporaneous for the legal donor proposition than later NCPC/NRHP labels. It does not establish who privately financed the urn, who physically delivered it, its material provenance, or its sculptor. Those remain separate claims.",
+  "operations": [
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-CU-004",
+      "value": {
+        "source_id": "SRC-CU-004",
+        "title": "45 Stat. 713, Pub. Res. 49 — acceptance of monumental urn from Republic of Cuba",
+        "publisher_or_creator": "United States Congress / Government Printing Office; accessed through GovInfo",
+        "language": "en",
+        "source_type": "JointResolution",
+        "url": "https://www.govinfo.gov/content/pkg/STATUTE-45/pdf/STATUTE-45-Pg712-2.pdf",
+        "authority_scope": "Enacted May 22, 1928 authorization for the President to accept the monumental urn as a gift from the Republic of Cuba and provide for its erection in Washington",
+        "retrieved_at": "2026-09-29",
+        "archived_url": null,
+        "source_family_id": "US_STATUTES_AT_LARGE",
+        "derived_from_source_ids": [],
+        "independence_note": "Constitutive primary legal record for federal authorization and the donor wording Congress enacted. It is not by itself proof of the object's private financing, physical presentation event, material provenance, or artistic authorship.",
+        "source_role": "OFFICIAL_LEGAL_RECORD",
+        "credibility_note": "Direct primary authority for what Congress authorized and how the donor was legally described: Republic of Cuba."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0209",
+      "value": {
+        "assertion_evidence_id": "AE-0209",
+        "assertion_id": "A-0201",
+        "source_id": "SRC-CU-004",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "Pub. Res. 49, 45 Stat. 713, approved May 22, 1928",
+        "evidence_note": "The enacted joint resolution authorizes the President to accept the monumental urn 'as a gift from the Republic of Cuba.' This directly supports a state-level Cuban donor attribution for the legal acceptance transaction, while not resolving narrower questions of financing or the identity of individual Cuban contributors.",
+        "authority_fit": "DIRECT",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "ORIGINAL_TO_SOURCE",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "The enacted resolution is constitutive for U.S. legal acceptance. Earlier diplomatic or legislative drafting may explain the wording, but no upstream source is required to establish what Congress legally authorized."
+      }
+    }
+  ]
+}
