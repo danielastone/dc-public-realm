@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1",
+  "schema_version": "0.2",
   "tasks": [
     {
       "task_id": "ARG-SM-001",
@@ -34,16 +34,33 @@
     {
       "task_id": "CUB-URN-001",
       "object_entity_id": "OBJ-0003",
-      "title": "Reconstruct the Cuban Friendship Urn's 1926-1928 diplomatic and material provenance",
+      "title": "Retrieve the U.S. diplomatic spine for the Cuban Friendship Urn, 1926-1928",
       "status": "OPEN",
       "evidence_effect": "NONE_UNTIL_REVIEWED",
-      "research_gap": "Later NPS narratives state that material from the Havana USS Maine memorial was fashioned into the urn and presented in 1928. Contemporary State Department records can test the ceremony and material-lineage narrative, but the relevant underlying file has not yet been ingested into the evidence graph.",
+      "research_gap": "The Cuban-side archival lineage is not assumed to be symmetrically recoverable. The immediate task is to reconstruct the preserved U.S. diplomatic spine and then test it against independently recoverable Cuban contemporary records. Unequal archival survival or access must not be treated as evidence that the better-preserved U.S. account is more truthful.",
+      "archive_strategy": "ASYMMETRIC_TRIANGULATION",
       "repository": "National Archives and Records Administration, United States",
       "collection": "RG 59, General Records of the Department of State, 1910-29 Central Decimal File; USS Maine memorial in Cuba",
-      "priority_units": ["File 837.413M28/16 - Despatch No. 172, Noble Brandon Judah to Secretary of State, 10 Apr 1928", "National Archives Microfilm Publication M488, roll 55", "Review surrounding file 837.413M28 for 1926-1928 context"],
+      "priority_units": ["File 837.413M28/16 - Despatch No. 172, Noble Brandon Judah to Secretary of State, 10 Apr 1928", "National Archives Microfilm Publication M488, roll 55 - entire file 837.413M28", "Review surrounding 1926-1928 correspondence for fabrication, transfer, custody, ceremony and material-lineage statements"],
       "search_terms": ["USS Maine", "Maine memorial", "Cuba", "Havana", "urn", "friendship urn", "Gerardo Machado", "Calvin Coolidge", "Noble Brandon Judah", "1926 hurricane", "marble", "fragment", "memorial", "presentation", "gift"],
-      "critical_rule": "Keep ceremony evidence separate from material-lineage evidence. A 1928 diplomatic despatch can directly document what officials said or did; it verifies reuse of Maine memorial material only if the record itself supplies sufficiently direct evidence for that proposition.",
-      "high_value_result": "Contemporaneous U.S. or Cuban government documentation establishing the urn's fabrication from the damaged Havana memorial, its chain of custody, and the circumstances and parties of the 1928 transfer.",
+      "critical_rule": "Separate ceremony/presentation, object identity, and material provenance into distinct propositions. A diplomatic record directly establishes what officials reported or did; it establishes reuse of memorial material only when the record contains sufficiently direct evidence for that proposition. Missing or inaccessible Cuban-side records are ARCHIVAL_GAP, not negative evidence.",
+      "high_value_result": "Contemporaneous records that separately establish the 1928 transfer, identify the object, and document or directly trace the claimed reuse of material from the damaged Havana Maine memorial.",
+      "instructions_path": "docs/collaboration.md"
+    },
+    {
+      "task_id": "CUB-URN-002",
+      "object_entity_id": "OBJ-0003",
+      "title": "Recover an independent Cuban contemporary record lane for the Friendship Urn",
+      "status": "OPEN",
+      "evidence_effect": "NONE_UNTIL_REVIEWED",
+      "research_gap": "A Cuban contemporary evidentiary lane is needed to test the U.S. diplomatic account without assuming that a present-day Cuban diplomatic archive can provide a complete mirror collection. Remotely accessible newspapers, official publications, speeches, conference material, photographs, and digitized Cuban records should be sought as distinct source lineages.",
+      "archive_strategy": "REMOTE_CUBAN_CONTEMPORARY_RECORD",
+      "repository": "Multiple Cuban and international digitized repositories",
+      "collection": "Contemporary Cuban newspapers, official publications, presidential or diplomatic texts, Sixth International Conference materials, and historical photographs, 1926-1928",
+      "priority_units": ["1926 hurricane and damage to the Havana Maine memorial", "April 1928 ceremonies and transfer", "Contemporary statements describing fabrication or material reuse", "Historical images capable of documenting the memorial, fragments, urn, inscription, or ceremony"],
+      "search_terms": ["urna", "Maine", "monumento al Maine", "Habana", "huracan 1926", "Machado", "Coolidge", "Conferencia Panamericana", "abril 1928", "marmol", "fragmentos", "obsequio", "Washington"],
+      "critical_rule": "Classify newspaper and published records by origin where possible: original reporting, official-text reproduction, diplomatic release, wire copy, editorial, or unknown. Multiple reproductions of the same upstream statement remain one lineage. Do not infer absence of a Cuban record from failure to retrieve one online.",
+      "high_value_result": "A Cuban-origin contemporary source independent of the U.S. State Department chain that confirms, contradicts, qualifies, or more precisely describes the urn's fabrication, material origin, presentation, or chain of custody.",
       "instructions_path": "docs/collaboration.md"
     }
   ]
