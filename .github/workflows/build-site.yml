@@ -9,6 +9,7 @@ on:
       - 'skills/**'
       - 'scripts/build_database.py'
       - 'scripts/build_site.py'
+      - 'scripts/build_artigas_public.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
   pull_request:
@@ -18,6 +19,7 @@ on:
       - 'skills/**'
       - 'scripts/build_database.py'
       - 'scripts/build_site.py'
+      - 'scripts/build_artigas_public.py'
       - 'scripts/validate_data.py'
       - '.github/workflows/build-site.yml'
   workflow_dispatch:
@@ -53,11 +55,16 @@ jobs:
           cp -R build/data data
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
+      - name: Build Artigas public vertical slice
+        run: python scripts/build_artigas_public.py
       - name: Verify required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
           test -f site/objects/jose-gervasio-artigas/index.html
+          grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
           test -f site/countries/uruguay/index.html
