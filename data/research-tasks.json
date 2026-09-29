@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "tasks": [
+    {
+      "task_id": "ARG-SM-001",
+      "object_entity_id": "OBJ-0002",
+      "title": "Retrieve Argentina-Washington correspondence, 1921-1925",
+      "status": "OPEN",
+      "evidence_effect": "NONE_UNTIL_REVIEWED",
+      "research_gap": "Underlying Argentine diplomatic records have not been examined. They may locate the origin of the Daumas/Dumont attribution and document what Argentina transmitted to Washington.",
+      "repository": "Archivo Historico de Cancilleria, Argentina",
+      "collection": "Embajada en Washington, Estados Unidos I (27.A)",
+      "priority_units": ["AH/0023/1", "AH/0035/1", "AH/0002/2", "AH/0030/1"],
+      "search_terms": ["Jose de San Martin", "monumento", "estatua", "monumento ecuestre", "copia", "reproduccion", "obsequio", "donacion", "Washington", "Club del Progreso", "Daumas", "Dumont", "escultor", "fundicion", "Arsenal Esteban de Luca", "American Legion"],
+      "critical_rule": "Preserve Daumas, Dumont, or any other attribution exactly as written; do not normalize disputed names.",
+      "high_value_result": "A dated Argentine-origin record identifying the sculptor, original work, fabrication or copy process, donor, or information formally transmitted to the U.S. government.",
+      "instructions_path": "docs/collaboration.md"
+    }
+  ]
+}
