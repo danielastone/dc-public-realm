@@ -5,6 +5,7 @@ on:
     paths:
       - 'data/**'
       - 'transactions/**'
+      - 'migrations/**'
       - 'skills/**'
       - 'fixtures/**'
       - 'scripts/build_database.py'
@@ -16,6 +17,7 @@ on:
     paths:
       - 'data/**'
       - 'transactions/**'
+      - 'migrations/**'
       - 'skills/**'
       - 'fixtures/**'
       - 'scripts/build_database.py'
@@ -50,7 +52,12 @@ jobs:
         env:
           KNOWLEDGE_DATA_DIR: build/data
         run: python scripts/validate_data.py
-      - name: Verify audit manifest exists
-        run: test -s build/audit/manifest.json
-      - name: Show transaction audit manifest
-        run: cat build/audit/manifest.json
+      - name: Verify audit manifests exist
+        run: test -s build/audit/manifest.json && test -s build/audit/semantic-manifest.json
+      - name: Verify deterministic semantic rebuild
+        run: |
+          cp build/audit/semantic-manifest.json /tmp/semantic-first.json
+          python scripts/build_database.py
+          cmp /tmp/semantic-first.json build/audit/semantic-manifest.json
+      - name: Show semantic audit manifest
+        run: cat build/audit/semantic-manifest.json
