@@ -1,0 +1,72 @@
+{
+  "transaction_id": "TX-20260929-004",
+  "recorded_at": "2026-09-29",
+  "actor": "root-source-audit-3",
+  "purpose": "Represent the Cuban Friendship Urn's contemporaneous inscriptions as web-accessed object evidence, distinct from the later National Register narrative that transcribes them.",
+  "evidence_decision": "The physical inscription is the primary evidentiary object. The NPS National Register nomination is used as the web retrieval/transcription witness, not treated as the origin of the inscription's claim. The material-provenance inscription directly supports reuse of a marble column fragment from the Havana Maine Monument. The Machado inscription only corroborates presentation by Machado and does not prove financing, private contributors, sculptor, or the mechanics of delivery.",
+  "operations": [
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-CU-005",
+      "value": {
+        "source_id": "SRC-CU-005",
+        "title": "Cuban Friendship Urn contemporaneous inscriptions — material provenance and Machado presentation text",
+        "publisher_or_creator": "Inscription on Cuban Friendship Urn; web transcription/documentation via National Park Service National Register nomination",
+        "language": "es",
+        "source_type": "ObjectInscription",
+        "url": "https://npgallery.nps.gov/GetAsset/a64ed8ed-b4b9-4b4f-bda8-17ef5726a6e7",
+        "authority_scope": "Contemporaneous text physically attached to the object concerning the marble source monument and Gerardo Machado presentation/friendship wording",
+        "retrieved_at": "2026-09-29",
+        "archived_url": null,
+        "source_family_id": "CUBAN_FRIENDSHIP_URN_OBJECT",
+        "derived_from_source_ids": [],
+        "independence_note": "The inscription is primary object evidence for what the object itself records. The NPS nomination is the transcription/retrieval witness and must not be counted as a second independent root for the same inscription text.",
+        "source_role": "PRIMARY_OBJECT_RECORD",
+        "credibility_note": "High authority for the inscription's own wording and for the physical material-provenance statement memorialized on the object. More limited for reconstructing the full presentation event or identifying financing, authorship, or contributors."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0210",
+      "value": {
+        "assertion_evidence_id": "AE-0210",
+        "assertion_id": "A-0205",
+        "source_id": "SRC-CU-005",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "es",
+        "locator": "base inscription transcribed/described in National Register nomination, Section 7 page 2",
+        "evidence_note": "The urn's base inscription states that the urn was sculpted from a fragment of the marble column of the Monument to the Victims of the Maine in Havana and identifies the 20 October 1926 hurricane as the event that toppled the column.",
+        "authority_fit": "DIRECT",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "INDEPENDENT_OBJECT_EVIDENCE",
+        "claim_origin": "ORIGINAL_TO_SOURCE",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "OBJECT_INSCRIPTION",
+        "inheritance_note": "The claim is recorded on the object itself. The NPS nomination supplies web access and transcription but is not the upstream origin of the inscription claim."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0211",
+      "value": {
+        "assertion_evidence_id": "AE-0211",
+        "assertion_id": "A-0203",
+        "source_id": "SRC-CU-005",
+        "evidence_role": "CORROBORATION",
+        "source_language": "es",
+        "locator": "front inscription/plaque described in National Register nomination, Section 7 page 2",
+        "evidence_note": "The object's inscription is attributed to Gerardo Machado and records the Cuba–United States friendship/presentation context. It corroborates Machado's role but does not by itself reconstruct the mechanics of the January 1928 presentation event.",
+        "authority_fit": "SUPPORTING",
+        "proximity": "CONTEMPORANEOUS_PRIMARY",
+        "dependency_status": "INDEPENDENT_OBJECT_EVIDENCE",
+        "claim_origin": "ORIGINAL_TO_SOURCE",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "OBJECT_INSCRIPTION",
+        "inheritance_note": "The inscription is contemporaneous object evidence. Its commemorative wording is treated more cautiously than the material-provenance inscription for event reconstruction."
+      }
+    }
+  ]
+}
