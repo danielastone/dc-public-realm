@@ -6,21 +6,46 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 DATA = ROOT / "data"
-SLUGS = {"OBJ-0001": "jose-gervasio-artigas"}
+SLUGS = {
+    "OBJ-0001": "jose-gervasio-artigas",
+    "OBJ-0002": "jose-de-san-martin",
+    "OBJ-0003": "cuban-american-friendship-urn",
+}
 
 def esc(x): return html.escape(str(x), quote=True)
 
+def fact(label, value, source_url):
+    return f'''<div><dt>{esc(label)}</dt><dd>{esc(value)} <a class="overview-source" href="{esc(source_url)}" aria-label="Source for {esc(label)}">Source</a></dd></div>'''
+
 payload = json.loads((DATA / "object-overviews.json").read_text(encoding="utf-8"))
 for o in payload["object_overviews"]:
-    slug = SLUGS.get(o["object_entity_id"])
-    if not slug:
-        continue
+    slug = SLUGS[o["object_entity_id"]]
     path = SITE / "objects" / slug / "index.html"
     text = path.read_text(encoding="utf-8")
     if 'class="record-overview"' in text:
         continue
-    figure = f'''<figure class="record-photo"><img src="{esc(o['image_url'])}" alt="{esc(o['image_alt'])}" loading="eager"><figcaption>{esc(o['image_credit'])} · {esc(o['image_rights'])} · <a href="{esc(o['image_source_url'])}">Image record</a></figcaption></figure>'''
-    overview = f'''<section class="record-overview" aria-label="Object overview">{figure}<div class="record-facts"><dl><div><dt>Location</dt><dd>{esc(o['location'])} <a class="overview-source" href="{esc(o['location_source_url'])}" aria-label="Source for location">Source</a></dd></div><div><dt>{esc(o['event_label'])}</dt><dd>{esc(o['event_date'])} <a class="overview-source" href="{esc(o['event_source_url'])}" aria-label="Source for {esc(o['event_label'])} date">Source</a></dd></div><div><dt>Subject</dt><dd><strong>{esc(o['subject_name'])}</strong> ({esc(o['subject_dates'])})</dd></div></dl><p class="subject-bio">{esc(o['subject_bio'])} <a class="overview-source" href="{esc(o['subject_source_url'])}">Subject source</a></p></div></section>'''
+
+    if not all(o.get(k) for k in ("image_url", "image_alt", "image_credit", "image_rights", "image_source_url")):
+        raise SystemExit(f"{o['object_entity_id']}: incomplete image rights metadata")
+    rights = esc(o['image_rights'])
+    if o.get('image_license_url'):
+        rights = f'<a href="{esc(o["image_license_url"])}">{rights}</a>'
+    figure = f'''<figure class="record-photo"><img src="{esc(o['image_url'])}" alt="{esc(o['image_alt'])}" loading="eager"><figcaption>{esc(o['image_credit'])} · {rights} · <a href="{esc(o['image_source_url'])}">Image record</a></figcaption></figure>'''
+
+    facts = fact("Location", o["location"], o["location_source_url"])
+    facts += fact(o["event_label"], o["event_date"], o["event_source_url"])
+    if o.get("secondary_event_label"):
+        facts += fact(o["secondary_event_label"], o["secondary_event_date"], o["secondary_event_source_url"])
+
+    if o["record_type"] == "person_memorial":
+        facts += f'''<div><dt>Subject</dt><dd><strong>{esc(o['subject_name'])}</strong> ({esc(o['subject_dates'])})</dd></div>'''
+        context = f'''<p class="subject-bio">{esc(o['subject_bio'])} <a class="overview-source" href="{esc(o['subject_source_url'])}">Subject source</a></p>'''
+    elif o["record_type"] == "historical_object":
+        context = f'''<p class="subject-bio">{esc(o['object_context'])} <a class="overview-source" href="{esc(o['object_context_source_url'])}">Context source</a></p>'''
+    else:
+        raise SystemExit(f"{o['object_entity_id']}: unknown record_type {o['record_type']}")
+
+    overview = f'''<section class="record-overview" aria-label="Object overview">{figure}<div class="record-facts"><dl>{facts}</dl>{context}</div></section>'''
     h1end = text.find('</h1>')
     if h1end < 0:
         raise SystemExit(f"{path}: h1 not found")
