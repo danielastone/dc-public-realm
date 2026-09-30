@@ -76,11 +76,15 @@ jobs:
           test -f build/audit/manifest.json
           test -f site/index.html
           grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
-          grep -q 'How to use this site' site/index.html
+          grep -q 'Take part in the research' site/index.html
+          grep -q 'Browse research missions' site/index.html
           grep -q 'Records may change when additional sources are reviewed' site/index.html
           test -f site/collaborate/artigas/index.html
-          grep -q 'Open Research Tasks' site/collaborate/artigas/index.html
-          grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
+          grep -q 'Help Research the Artigas Memorial' site/collaborate/artigas/index.html
+          grep -q 'Research missions' site/collaborate/artigas/index.html
+          grep -q 'What happens to your contribution' site/collaborate/artigas/index.html
+          grep -q 'No specialized training is required' site/collaborate/artigas/index.html
+          grep -q 'Goode (1974)' site/collaborate/artigas/index.html
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'OBJ-0001 · URUGUAY' site/objects/jose-gervasio-artigas/index.html
