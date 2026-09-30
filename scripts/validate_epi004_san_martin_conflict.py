@@ -29,9 +29,25 @@ for r in support+contradict:
  block=m.group(1)
  if r['source_id'] not in m.group(0): raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} source identity lost')
  if r.get('locator') and r['locator'] not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} locator lost')
-# The rendered assertion itself must retain both names; a provenance drawer alone cannot repair a normalized display that erased the disagreement.
-container=re.search(r'<(?:article|li)[^>]*data-assertion-id="A-0106"[^>]*>(.*?)</(?:article|li)>',text,re.S)
-if not container: raise SystemExit('EPI-004 SAN MARTIN FAIL: rendered A-0106 container missing')
+ if r.get('evidence_note') and r['evidence_note'] not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} evidence note lost')
+# Find the complete outer assertion container. The lineage trace contains nested <li> elements,
+# so a non-greedy generic </li> regex would stop at the first evidence row rather than the assertion close.
+start=re.search(r'<(?:article|li)[^>]*data-assertion-id="A-0106"[^>]*>',text)
+if not start: raise SystemExit('EPI-004 SAN MARTIN FAIL: rendered A-0106 container missing')
+tag='article' if start.group(0).startswith('<article') else 'li'
+if tag=='article':
+ end=text.find('</article>',start.end())
+else:
+ # For list assertions, use the next assertion opening (or enclosing list end) as the boundary,
+ # because claim-lineage itself contains nested list items.
+ nxt=re.search(r'<li[^>]*data-assertion-id="',text[start.end():])
+ list_end=text.find('</ul>',start.end())
+ candidates=[]
+ if nxt: candidates.append(start.end()+nxt.start())
+ if list_end>=0: candidates.append(list_end)
+ end=min(candidates) if candidates else -1
+if end<0: raise SystemExit('EPI-004 SAN MARTIN FAIL: rendered A-0106 close boundary missing')
+container=text[start.end():end]
 for term in ('Daumas','Dumont'):
- if term not in container.group(1): raise SystemExit(f'EPI-004 SAN MARTIN FAIL: rendered assertion lost {term} side of conflict')
+ if term not in container: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: rendered assertion lost {term} side of conflict')
 print(f'EPI-004 San Martín PASS: A-0106 preserves Daumas support ({len(support)}) and Dumont contradiction ({len(contradict)}) with public traceability.')
