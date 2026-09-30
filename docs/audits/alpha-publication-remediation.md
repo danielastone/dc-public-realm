@@ -39,7 +39,7 @@ A code change by itself does not close a finding.
 | PUB-001 | P0 | `/data/` canonical-data destination returns 404 or otherwise fails to provide the promised data surface. | Every published canonical-data link resolves to a usable data index or the object's canonical data file. | #45 | `scripts/validate_pub001_routes.py` | PRs #48/#49; merge `d447222`; Actions run #118 build + deploy succeeded | CLOSED |
 | PUB-002 | P0 | Primary navigation and alpha-state presentation are inconsistent across audited pages. | Home, Methodology, Collaborate, Data, and all audited object pages use the same defined primary navigation and alpha-state treatment. | #46 | `scripts/validate_pub002_navigation.py` | PR #50; merge `088f46e`; Actions run #120 build + deploy succeeded | CLOSED |
 | PUB-003 | P0 | Open research tasks summarized elsewhere are not exposed on the corresponding object pages. | Published task counts reconcile exactly to visible/linkable open tasks on each audited object page. | #47 | `scripts/validate_pub003_tasks.py` | PR #51; merge `01575c29`; Actions run #123 build + deploy succeeded | CLOSED |
-| EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | TBD | TBD | TBD | OPEN |
+| EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | #52 | `scripts/validate_epi001_status_rules.py` | PR #53; merge `2b0c0aff`; Actions run #129 build + deploy succeeded | CLOSED |
 | EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | TBD | TBD | TBD | OPEN |
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | TBD | TBD | TBD | OPEN |
 | EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | TBD | TBD | TBD | OPEN |
@@ -55,9 +55,9 @@ The alpha remediation is not complete until the three reference objects pass the
 
 | Control | Artigas | San Martín | Cuban Urn |
 |---|---|---|---|
-| Rendered assertion maps to stable assertion ID | NOT TESTED | NOT TESTED | NOT TESTED |
-| Displayed status equals computed canonical status | NOT TESTED | NOT TESTED | NOT TESTED |
-| Status rule is identifiable | NOT TESTED | NOT TESTED | NOT TESTED |
+| Rendered assertion maps to stable assertion ID | PASS | PASS | PASS |
+| Displayed status equals computed canonical status | PASS | PASS | PASS |
+| Status rule is identifiable | PASS | PASS | PASS |
 | Displayed evidence maps to evidence records | NOT TESTED | NOT TESTED | NOT TESTED |
 | Source independence/dependence is represented accurately | NOT TESTED | NOT TESTED | NOT TESTED |
 | Unknown ancestry remains visible | NOT TESTED | NOT TESTED | NOT TESTED |
@@ -85,7 +85,7 @@ Required findings: `EPI-001`, `EPI-002`, `EPI-003`.
 
 **Exit criterion:** a reader can determine why a status was assigned and cannot mistake dependent or unknown source ancestry for independent corroboration.
 
-**Status:** BLOCKED
+**Status:** BLOCKED (`EPI-001` closed; `EPI-002` and `EPI-003` remain open)
 
 ### Gate 3 — Provenance publication
 
@@ -145,6 +145,17 @@ Production verification: GitHub Actions run #123 (`36746451361`), build and depl
 Three-object regression: canonical OPEN task counts and linkable task sets passed for Artigas (3), San Martín (2), and Cuban Urn (3)  
 Closed: 2026-09-30  
 Disposition: public research-task counts now derive from the canonical `OPEN` task set. The final publication transform restores missing canonical task links and materializes a research section when downstream rendering would otherwise omit it; generated task-detail routes and published counts are mechanically reconciled.
+
+### EPI-001
+
+Issue: #52  
+Implementation: PR #53  
+Merged production fix: `2b0c0afff06ba401b4bc326ad1bd2fb115535988`  
+Automated acceptance test: `scripts/validate_epi001_status_rules.py`  
+Production verification: GitHub Actions run #129 (`36749859889`), build and deploy jobs both succeeded  
+Three-object regression: rendered assertion identity, canonical computed status, and stable published status-rule identifiers passed for Artigas, San Martín, and Cuban Urn  
+Closed: 2026-09-30  
+Disposition: canonical epistemic statuses now map through one versioned publication status-rule contract. Rendered claims expose stable rule identifiers and link to human-readable methodology definitions, while CI verifies that the displayed status remains equal to canonical `computed_status` and that every published rule identifier resolves.
 
 ## Closure evidence format
 
