@@ -18,16 +18,29 @@ def card(r):
             f'<br><span class="small">{esc(r["note"])}</span></li>')
 
 section = f'''<section id="external-records"><h2>External records</h2>
-<p>These links identify this monument, its subject, or related media in other institutional and public knowledge systems. <strong>They are not automatically evidence for claims on this page.</strong> A record affects a historical claim only when the relevant statement is reviewed and explicitly connected in the evidence graph.</p>
-<h3>Records for this monument</h3><ul class="sources">{''.join(card(r) for r in object_records)}</ul>
-<h3>Authority records for José Gervasio Artigas</h3><ul class="sources">{''.join(card(r) for r in subject_records)}</ul>
-<p class="small"><strong>Interoperability rule:</strong> identity/discovery links never change claim status by themselves. This prevents institutional authority, Wikidata repetition, or media aggregation from being mistaken for independent corroboration.</p></section>'''
+<p>Links to records for this monument, its subject, and related media in other systems. These records do not change assertion status unless a specific statement is reviewed and added to the evidence record.</p>
+<h3>Monument records</h3><ul class="sources">{''.join(card(r) for r in object_records)}</ul>
+<h3>José Gervasio Artigas authority records</h3><ul class="sources">{''.join(card(r) for r in subject_records)}</ul>
+</section>'''
 
 text = PAGE.read_text(encoding="utf-8")
-needle = '<section id="questions"><h2>Open questions</h2>'
-if needle not in text:
+candidates = [
+    '<section id="research"><h2>Research notes</h2>',
+    '<section id="questions"><h2>Open questions</h2>',
+]
+needle = next((x for x in candidates if x in text), None)
+if needle is None:
     raise SystemExit("Artigas publication insertion point not found")
 text = text.replace(needle, section + needle, 1)
-text = text.replace('<a href="#sources">Sources</a><a href="#questions">', '<a href="#sources">Sources</a><a href="#external-records">External records</a><a href="#questions">', 1)
+
+nav_candidates = [
+    ('<a href="#sources">References</a><a href="#research">', '<a href="#sources">References</a><a href="#external-records">External records</a><a href="#research">'),
+    ('<a href="#sources">Sources</a><a href="#questions">', '<a href="#sources">Sources</a><a href="#external-records">External records</a><a href="#questions">'),
+]
+for old, new in nav_candidates:
+    if old in text:
+        text = text.replace(old, new, 1)
+        break
+
 PAGE.write_text(text, encoding="utf-8")
 print("Injected external interoperability records into", PAGE)

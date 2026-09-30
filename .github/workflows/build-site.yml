@@ -83,8 +83,8 @@ jobs:
           grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
-          grep -q 'PUBLICATION PROTOTYPE' site/objects/jose-gervasio-artigas/index.html
-          grep -q 'Open questions' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'OBJ-0001 · URUGUAY' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Research notes' site/objects/jose-gervasio-artigas/index.html
           grep -q 'External records' site/objects/jose-gervasio-artigas/index.html
           grep -q 'not automatically evidence' site/objects/jose-gervasio-artigas/index.html
           grep -q 'siris_ari_325679' site/objects/jose-gervasio-artigas/index.html
@@ -92,9 +92,9 @@ jobs:
           grep -q 'n50001870' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Historical record' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Attribution' site/objects/jose-gervasio-artigas/index.html
-          grep -q 'Where this claim comes from' site/objects/jose-gervasio-artigas/index.html
-          grep -q 'several publications repeating a statement may still represent one underlying evidence lineage' site/objects/jose-gervasio-artigas/index.html
-          grep -q 'Technical provenance' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Source history' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'The source for this statement has not been established' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Record data' site/objects/jose-gervasio-artigas/index.html
           grep -q 'data-assertion-id="A-0004" data-computed-status="CONTESTED"' site/objects/jose-gervasio-artigas/index.html
           grep -q 'data-assertion-id="A-0005B" data-computed-status="SUPPORTED"' site/objects/jose-gervasio-artigas/index.html
           test -f site/review/artigas/index.html
