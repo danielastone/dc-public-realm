@@ -38,7 +38,7 @@ A code change by itself does not close a finding.
 |---|---|---|---|---|---|---|---|
 | PUB-001 | P0 | `/data/` canonical-data destination returns 404 or otherwise fails to provide the promised data surface. | Every published canonical-data link resolves to a usable data index or the object's canonical data file. | #45 | `scripts/validate_pub001_routes.py` | PRs #48/#49; merge `d447222`; Actions run #118 build + deploy succeeded | CLOSED |
 | PUB-002 | P0 | Primary navigation and alpha-state presentation are inconsistent across audited pages. | Home, Methodology, Collaborate, Data, and all audited object pages use the same defined primary navigation and alpha-state treatment. | #46 | `scripts/validate_pub002_navigation.py` | PR #50; merge `088f46e`; Actions run #120 build + deploy succeeded | CLOSED |
-| PUB-003 | P0 | Open research tasks summarized elsewhere are not exposed on the corresponding object pages. | Published task counts reconcile exactly to visible/linkable open tasks on each audited object page. | #47 | TBD | TBD | OPEN |
+| PUB-003 | P0 | Open research tasks summarized elsewhere are not exposed on the corresponding object pages. | Published task counts reconcile exactly to visible/linkable open tasks on each audited object page. | #47 | `scripts/validate_pub003_tasks.py` | PR #51; merge `01575c29`; Actions run #123 build + deploy succeeded | CLOSED |
 | EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | TBD | TBD | TBD | OPEN |
 | EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | TBD | TBD | TBD | OPEN |
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | TBD | TBD | TBD | OPEN |
@@ -62,7 +62,7 @@ The alpha remediation is not complete until the three reference objects pass the
 | Source independence/dependence is represented accurately | NOT TESTED | NOT TESTED | NOT TESTED |
 | Unknown ancestry remains visible | NOT TESTED | NOT TESTED | NOT TESTED |
 | Material conflicts remain visible | NOT TESTED | NOT TESTED | NOT TESTED |
-| Open research tasks reconcile | NOT TESTED | NOT TESTED | NOT TESTED |
+| Open research tasks reconcile | PASS | PASS | PASS |
 | Canonical-data links resolve | PASS | PASS | PASS |
 
 ### San Martín regression control
@@ -77,7 +77,7 @@ Required findings: `PUB-001`, `PUB-002`, `PUB-003`.
 
 **Exit criterion:** canonical-data navigation works, the site uses the defined shared navigation, and research tasks reconcile to object pages.
 
-**Status:** BLOCKED (`PUB-001` and `PUB-002` closed; `PUB-003` open)
+**Status:** PASS (`PUB-001`, `PUB-002`, and `PUB-003` closed)
 
 ### Gate 2 — Public epistemic contract
 
@@ -134,6 +134,17 @@ Production verification: GitHub Actions run #120 (`36745407781`), build and depl
 Audited surfaces: Home, Methodology, Collaborate, Data, Artigas, San Martín, and Cuban Urn passed the shared primary-navigation and alpha-state contract  
 Closed: 2026-09-30  
 Disposition: a final publication transform now enforces one primary navigation—Explore, Research missions, About the research, Data—and one site-level Alpha state after the repository's page-specific generators have run. The final-output validator prevents generator drift from silently reintroducing inconsistent navigation.
+
+### PUB-003
+
+Issue: #47  
+Implementation: PR #51  
+Merged production fix: `01575c29e16f243470d4c89ae508f6e070a93a32`  
+Automated acceptance test: `scripts/validate_pub003_tasks.py`  
+Production verification: GitHub Actions run #123 (`36746451361`), build and deploy jobs both succeeded  
+Three-object regression: canonical OPEN task counts and linkable task sets passed for Artigas (3), San Martín (2), and Cuban Urn (3)  
+Closed: 2026-09-30  
+Disposition: public research-task counts now derive from the canonical `OPEN` task set. The final publication transform restores missing canonical task links and materializes a research section when downstream rendering would otherwise omit it; generated task-detail routes and published counts are mechanically reconciled.
 
 ## Closure evidence format
 
