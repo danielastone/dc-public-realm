@@ -1,0 +1,24 @@
+name: Validate image rights
+
+on:
+  pull_request:
+    paths:
+      - 'data/object-overviews.json'
+      - 'scripts/validate_image_rights.py'
+      - '.github/workflows/image-rights.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/object-overviews.json'
+      - 'scripts/validate_image_rights.py'
+
+jobs:
+  validate-image-rights:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate public overview image rights
+        run: python scripts/validate_image_rights.py
