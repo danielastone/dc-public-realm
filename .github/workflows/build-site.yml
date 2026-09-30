@@ -103,7 +103,7 @@ jobs:
             grep -q 'href="/dc-public-realm/data/"' "$page"
             grep -q '>Canonical data</a>' "$page"
           done
-          grep -q 'OBJ-0001 · URUGUAY' site/objects/jose-gervasio-artigas/index.html
+          grep -q '<h1>José Gervasio Artigas</h1>' site/objects/jose-gervasio-artigas/index.html
           grep -q 'class="record-overview"' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Constitution Avenue &amp; 18th Street NW' site/objects/jose-gervasio-artigas/index.html
       - uses: actions/upload-artifact@v4
