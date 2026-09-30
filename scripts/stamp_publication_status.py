@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stamp canonical computed status onto rendered object pages."""
+"""Stamp canonical computed status and its published rule onto rendered object pages."""
 from __future__ import annotations
 import html, json
 from pathlib import Path
@@ -7,12 +7,19 @@ ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'
 SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
 payload=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))
 assertions=payload.get('assertions',payload if isinstance(payload,list) else [])
+rules_payload=json.loads((ROOT/'data'/'publication_status_rules.json').read_text(encoding='utf-8'))
+rules=rules_payload['rules']
 
-def attrs(a): return f'data-assertion-id="{html.escape(a["assertion_id"])}" data-computed-status="{html.escape(a["computed_status"])}"'
+def rule(a):
+ status=a['computed_status']
+ if status not in rules: raise SystemExit(f'{a["assertion_id"]}: no publication status rule for {status}')
+ return rules[status]
+def attrs(a):
+ r=rule(a)
+ return f'data-assertion-id="{html.escape(a["assertion_id"])}" data-computed-status="{html.escape(a["computed_status"])}" data-status-rule="{html.escape(r["rule_id"])}"'
 def badge(a):
- reason=html.escape(a.get('status_reason',''))
- label={'VERIFIED':'Verified','SUPPORTED':'Supported','CONTESTED':'Sources differ','UNRESOLVED':'Unresolved','UNSUPPORTED':'Not established'}.get(a['computed_status'],a['computed_status'].title())
- return f'<div class="canonical-status status {html.escape(a["computed_status"])}"><span class="status-label">{html.escape(label)}</span><span class="status-reason">{reason}</span></div>'
+ r=rule(a); reason=html.escape(a.get('status_reason','')); rid=html.escape(r['rule_id']); label=html.escape(r['public_label'])
+ return f'<div class="canonical-status status {html.escape(a["computed_status"])}"><span class="status-label">{label}</span><span class="status-reason">{reason}</span><a class="status-rule" href="/methodology/#rule-{rid}">Why this status? <span class="rule-id">{rid}</span></a></div>'
 def fallback(a):
  aid=html.escape(a['assertion_id']); title=html.escape(a.get('predicate','Research assertion').replace('_',' ').title())
  statement='The current published evidence does not establish a value for this assertion.' if a.get('value') in (None,'',[]) else f'Canonical value: {html.escape(str(a.get("value")))}.'
@@ -23,7 +30,11 @@ def stamp_generic(text,oid):
  for a in [x for x in assertions if x.get('subject_id')==oid]:
   start=text.find('<article class="assertion">',pos)
   if start<0: raise SystemExit(f'{oid}/{a["assertion_id"]}: generic assertion block not found')
-  repl=f'<article class="assertion" {attrs(a)}>'; text=text[:start]+repl+text[start+len('<article class="assertion">'):]; pos=start+len(repl)
+  repl=f'<article class="assertion" {attrs(a)}>'; text=text[:start]+repl+text[start+len('<article class="assertion">'):]
+  heading=text.find('</h3>',start)
+  if heading<0: heading=text.find('</h2>',start)
+  if heading<0: raise SystemExit(f'{oid}/{a["assertion_id"]}: assertion heading not found')
+  heading+=5; text=text[:heading]+badge(a)+text[heading:]; pos=heading+len(badge(a))
  return text
 def stamp_artigas(text):
  relevant=[a for a in assertions if a.get('subject_id')=='OBJ-0001']
@@ -40,8 +51,7 @@ def stamp_artigas(text):
   start=text.rfind('<article class="claim">',0,p)
   if start>=0:
    repl=f'<article class="claim" {attrs(a)}>'; text=text[:start]+repl+text[start+len('<article class="claim">'):]
-   p=text.find(f'href="#provenance-{aid}"',start)
-   h3end=text.find('</h3>',start,p)
+   p=text.find(f'href="#provenance-{aid}"',start); h3end=text.find('</h3>',start,p)
    if h3end<0: raise SystemExit(f'{aid}: claim heading not found')
    h3end+=5; text=text[:h3end]+badge(a)+text[h3end:]; continue
   li=text.rfind('<li>',0,p)
