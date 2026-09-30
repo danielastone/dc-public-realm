@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """EPI-004 regression: San Martín Daumas/Dumont disagreement must remain recoverable."""
 from __future__ import annotations
-import json,re
+import html,json,re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'
 assertions=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))['assertions']
@@ -27,9 +27,9 @@ for r in support+contradict:
  m=re.search(rf'<li class="claim-lineage-evidence"[^>]*data-assertion-evidence-id="{re.escape(eid)}"[^>]*>(.*?)</li>',text,re.S)
  if not m: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} missing from public trace')
  block=m.group(1)
- if r['source_id'] not in m.group(0): raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} source identity lost')
- if r.get('locator') and r['locator'] not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} locator lost')
- if r.get('evidence_note') and r['evidence_note'] not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} evidence note lost')
+ if html.escape(r['source_id']) not in m.group(0): raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} source identity lost')
+ if r.get('locator') and html.escape(r['locator']) not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} locator lost')
+ if r.get('evidence_note') and html.escape(r['evidence_note']) not in block: raise SystemExit(f'EPI-004 SAN MARTIN FAIL: {eid} evidence note lost')
 # Find the complete outer assertion container. The lineage trace contains nested <li> elements,
 # so a non-greedy generic </li> regex would stop at the first evidence row rather than the assertion close.
 start=re.search(r'<(?:article|li)[^>]*data-assertion-id="A-0106"[^>]*>',text)
