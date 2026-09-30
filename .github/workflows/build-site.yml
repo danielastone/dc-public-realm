@@ -85,8 +85,22 @@ jobs:
           grep -q 'What happens to your contribution' site/collaborate/artigas/index.html
           grep -q 'No specialized training is required' site/collaborate/artigas/index.html
           grep -q 'Goode (1974)' site/collaborate/artigas/index.html
+          test -f site/data/index.html
+          grep -q '<h1>Canonical data</h1>' site/data/index.html
+          for f in assertions.json entities.json assertion-evidence.json research-tasks.json claim-modes.json external-records.json; do
+            test -f "site/data/$f"
+            grep -q "/dc-public-realm/data/$f" site/data/index.html
+          done
+          grep -q 'href="/dc-public-realm/data/"' site/index.html
           test -f site/data/assertions.json
-          test -f site/objects/jose-gervasio-artigas/index.html
+          for page in \
+            site/objects/jose-gervasio-artigas/index.html \
+            site/objects/jose-de-san-martin/index.html \
+            site/objects/cuban-american-friendship-urn/index.html; do
+            test -f "$page"
+            grep -q 'href="/dc-public-realm/data/"' "$page"
+            grep -q '>Canonical data</a>' "$page"
+          done
           grep -q 'OBJ-0001 · URUGUAY' site/objects/jose-gervasio-artigas/index.html
           grep -q 'class="record-overview"' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Constitution Avenue &amp; 18th Street NW' site/objects/jose-gervasio-artigas/index.html
