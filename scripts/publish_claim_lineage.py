@@ -42,7 +42,8 @@ def evidence_item(row):
   raise SystemExit(f"{row['assertion_evidence_id']}: source {row['source_id']} missing from sources.json")
  t=trace_row(row,index); parents=row.get('inherits_claim_from_source_ids') or []
  parent_text=', '.join(parents) if parents else 'none recorded'
- note=row.get('inheritance_note') or 'No inheritance note recorded.'
+ evidence_note=row.get('evidence_note') or 'No evidence note recorded.'
+ inheritance_note=row.get('inheritance_note') or 'No inheritance note recorded.'
  locator=row.get('locator') or 'no locator recorded'
  role=row.get('evidence_role') or 'UNSPECIFIED'
  url=s.get('url')
@@ -54,9 +55,10 @@ def evidence_item(row):
   f'<div><strong>{html.escape(row["assertion_evidence_id"])}</strong> · {html.escape(role)}</div>'
   f'<div>Source: {source_html}</div>'
   f'<div>Locator: {html.escape(locator)}</div>'
+  f'<div>Evidence note: {html.escape(evidence_note)}</div>'
   f'<div>Direct inherited claim source(s): {html.escape(parent_text)}</div>'
   f'<div>Lineage terminus: <strong>{html.escape(trace_summary(t))}</strong></div>'
-  f'<div class="small">{html.escape(note)}</div>'
+  f'<div class="small">Inheritance note: {html.escape(inheritance_note)}</div>'
   f'</li>'
  )
 
