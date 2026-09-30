@@ -9,7 +9,7 @@ ROOTDIR=Path(__file__).resolve().parents[1]; SITE=ROOTDIR/'site'
 SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
 assertions=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))['assertions']
 evidence=json.loads((SITE/'data'/'assertion-evidence.json').read_text(encoding='utf-8'))['assertion_evidence']
-sources=json.loads((SITE/'data'/'sources.json').read_text(encoding='utf-8'))['sources']
+sources=json.loads((ROOTDIR/'data'/'sources.json').read_text(encoding='utf-8'))['sources']
 source_by_id={s['source_id']:s for s in sources}; index=build_index(evidence)
 by_assertion={}
 for row in evidence: by_assertion.setdefault(row['assertion_id'],[]).append(row)
