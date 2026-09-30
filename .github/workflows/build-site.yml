@@ -3,38 +3,24 @@ name: Build and deploy alpha site
 on:
   push:
     branches: [main]
-    paths:
-      - 'data/**'
-      - 'transactions/**'
-      - 'skills/**'
-      - 'scripts/**'
-      - '.github/workflows/build-site.yml'
+    paths: ['data/**','transactions/**','skills/**','scripts/**','.github/workflows/build-site.yml']
   pull_request:
-    paths:
-      - 'data/**'
-      - 'transactions/**'
-      - 'skills/**'
-      - 'scripts/**'
-      - '.github/workflows/build-site.yml'
+    paths: ['data/**','transactions/**','skills/**','scripts/**','.github/workflows/build-site.yml']
   workflow_dispatch:
-
 permissions:
   contents: read
   pages: write
   id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+        with: {python-version: '3.12'}
       - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
       - name: Validate scholarly claim modes
@@ -42,27 +28,29 @@ jobs:
       - name: Materialize transaction database
         run: python scripts/build_database.py
       - name: Validate materialized database
-        env:
-          KNOWLEDGE_DATA_DIR: build/data
+        env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_data.py
       - name: Validate materialized scholarly claim modes
-        env:
-          KNOWLEDGE_DATA_DIR: build/data
+        env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_claim_modes.py
       - name: Stage materialized database for publication
         run: |
           cp data/external-records.json /tmp/external-records.json
           cp data/claim-modes.json /tmp/claim-modes.json
+          cp data/object-overviews.json /tmp/object-overviews.json
           rm -rf data
           cp -R build/data data
           cp /tmp/external-records.json data/external-records.json
           cp /tmp/claim-modes.json data/claim-modes.json
+          cp /tmp/object-overviews.json data/object-overviews.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
       - name: Build country research indexes
         run: python scripts/build_country_pages.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
+      - name: Add sourced object overview
+        run: python scripts/inject_object_overviews.py
       - name: Add Artigas external interoperability records
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
@@ -90,6 +78,10 @@ jobs:
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
           grep -q 'OBJ-0001 · URUGUAY' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'class="record-overview"' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'Constitution Avenue &amp; 18th Street NW' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'June 19, 1950' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'NPS Photo' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Research notes' site/objects/jose-gervasio-artigas/index.html
           grep -q 'External records' site/objects/jose-gervasio-artigas/index.html
           grep -q 'not automatically evidence' site/objects/jose-gervasio-artigas/index.html
@@ -128,9 +120,7 @@ jobs:
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: site/
-
+        with: {path: site/}
   deploy:
     if: github.event_name != 'pull_request'
     environment:
