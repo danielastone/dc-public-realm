@@ -1,0 +1,28 @@
+{
+  "schema_version": "alpha-0.1",
+  "description": "Localized public prose keyed to canonical object IDs. Canonical facts, sources, images, assertion statuses, and evidence relationships remain outside this layer.",
+  "supported_languages": ["en", "es"],
+  "translation_statuses": ["DRAFT", "REVIEWED", "PUBLISHED"],
+  "required_record_fields": [
+    "object_entity_id",
+    "language",
+    "translation_status",
+    "source_language",
+    "canonical_fields"
+  ],
+  "allowed_canonical_fields": [
+    "title",
+    "subject_bio",
+    "object_context",
+    "event_label",
+    "secondary_event_label"
+  ],
+  "rules": {
+    "canonical_object_id_required": true,
+    "localized_dates_forbidden": true,
+    "localized_source_urls_forbidden": true,
+    "localized_assertion_status_forbidden": true,
+    "localized_image_rights_forbidden": true,
+    "published_requires_review_metadata": true
+  }
+}
