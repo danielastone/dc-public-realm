@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "scope": "claim-evidence relationship",
+  "rules": {
+    "DEPENDENT": {
+      "public_label": "Dependent / inherited",
+      "explanation": "Canonical lineage identifies an upstream source from which this evidence inherits the claim. This evidence must not be counted as independent corroboration of that upstream claim."
+    },
+    "INDEPENDENCE_NOT_ESTABLISHED": {
+      "public_label": "Independence not established",
+      "explanation": "The project has not established this evidence as an independent claim root. An empty dependency list, a different institution, or a different source family is not proof of independence."
+    },
+    "INDEPENDENT": {
+      "public_label": "Independent claim root established",
+      "explanation": "Canonical claim-lineage evidence affirmatively establishes a distinct effective claim root for this proposition. This state cannot be inferred merely from source-family difference or absence of a known dependency."
+    }
+  },
+  "derivation": {
+    "DEPENDENT": "dependency_status is DEPENDENT or inherits_claim_from_source_ids is non-empty",
+    "INDEPENDENT": "dependency_status is INDEPENDENT and claim_origin affirmatively establishes an independent claim root",
+    "INDEPENDENCE_NOT_ESTABLISHED": "all other cases, including UNKNOWN dependency status and empty inheritance lists"
+  }
+}
