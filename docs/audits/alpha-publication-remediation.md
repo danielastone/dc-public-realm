@@ -42,7 +42,7 @@ A code change by itself does not close a finding.
 | EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | #52 | `scripts/validate_epi001_status_rules.py` | PR #53; merge `2b0c0aff`; Actions run #129 build + deploy succeeded | CLOSED |
 | EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | #54 | `scripts/validate_epi002_dependency_derivation.py`; `scripts/validate_epi002_dependency_rendering.py` | PR #55; merge `c1ddff79`; Actions run #133 build + deploy succeeded | CLOSED |
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | #56 | `scripts/validate_epi003_ancestry_rendering.py` | PR #57; merge `6e2185e8`; Actions run #135 build + deploy succeeded | CLOSED |
-| EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | TBD | TBD | TBD | OPEN |
+| EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | #58 | `scripts/validate_epi004_lineage_traversal.py`; `scripts/validate_epi004_corpus_lineage.py`; `scripts/validate_epi004_rendered_lineage.py`; `scripts/validate_epi004_san_martin_conflict.py` | PR #59; merge `fbad3c3f`; Actions run #144 build + deploy succeeded | CLOSED |
 | EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | TBD | TBD | TBD | OPEN |
 | DATA-001 | P1 | HTML-to-canonical-data reconciliation is not mechanically demonstrated. | Every rendered factual assertion has a stable assertion identifier that maps unambiguously to canonical data. | TBD | TBD | TBD | OPEN |
 | DATA-002 | P1 | Homepage/object summaries can drift from underlying canonical state if maintained separately. | Status badges, research-task counts, and other derived summaries reconcile to or are generated from canonical state. | TBD | TBD | TBD | OPEN |
@@ -58,10 +58,10 @@ The alpha remediation is not complete until the three reference objects pass the
 | Rendered assertion maps to stable assertion ID | PASS | PASS | PASS |
 | Displayed status equals computed canonical status | PASS | PASS | PASS |
 | Status rule is identifiable | PASS | PASS | PASS |
-| Displayed evidence maps to evidence records | NOT TESTED | NOT TESTED | NOT TESTED |
+| Displayed evidence maps to evidence records | PASS | PASS | PASS |
 | Source independence/dependence is represented accurately | PASS | PASS | PASS |
 | Unknown ancestry remains visible | PASS | PASS | PASS |
-| Material conflicts remain visible | NOT TESTED | NOT TESTED | NOT TESTED |
+| Material conflicts remain visible | NOT TESTED | PASS (Daumas/Dumont regression) | NOT TESTED |
 | Open research tasks reconcile | PASS | PASS | PASS |
 | Canonical-data links resolve | PASS | PASS | PASS |
 
@@ -93,7 +93,7 @@ Required findings: `EPI-004`, `EPI-005`, `DATA-001`.
 
 **Exit criterion:** important published assertions are traceable to canonical evidence/lineage and material conflicts survive rendering.
 
-**Status:** BLOCKED
+**Status:** BLOCKED (`EPI-004` closed; `EPI-005` and `DATA-001` remain open)
 
 ### Gate 4 — Three-object reconciliation
 
@@ -178,6 +178,17 @@ Production verification: GitHub Actions run #135 (`36764404597`), build and depl
 Three-object regression: canonical `claim_origin`, canonical `dependency_status`, inherited-source counts/identifiers, and explicit UNKNOWN ancestry remain visible for multi-source evidence relationships across Artigas, San Martín, and Cuban Urn; empty inheritance lists retain the qualification that absence of a recorded parent does not establish independence  
 Closed: 2026-09-30  
 Disposition: publication now preserves the canonical ancestry facts behind the EPI-002 derived dependency label. UNKNOWN claim origin or dependency status remains a first-class visible state, and an empty inheritance list cannot silently collapse unresolved ancestry into independence.
+
+### EPI-004
+
+Issue: #58  
+Implementation: PR #59  
+Merged production fix: `fbad3c3f7a143324d54e10dfc6403a0131afbcd6`  
+Automated acceptance tests: `scripts/validate_epi004_lineage_traversal.py`; `scripts/validate_epi004_corpus_lineage.py`; `scripts/validate_epi004_rendered_lineage.py`; `scripts/validate_epi004_san_martin_conflict.py`  
+Production verification: GitHub Actions run #144 (`36789962639`), build and deploy jobs both succeeded  
+Three-object regression: rendered provenance reconciles stable assertion identity, assertion-evidence identity, source identity, locator, direct inherited claim sources, and explicit lineage terminus across Artigas, San Martín, and Cuban Urn; the San Martín Daumas/Dumont regression preserves both supporting and contradictory evidence notes rather than normalizing away the disagreement  
+Closed: 2026-09-30  
+Disposition: public assertions now provide a claim-level provenance trace from stable assertion identity through canonical evidence and source records to an explicit lineage terminus. Traversal distinguishes established roots, unresolved ancestry, broken references, and cycles; an empty parent list cannot manufacture a root. The current reference corpus honestly terminates in unresolved ancestry where no upstream claim root has been established.
 
 ## Closure evidence format
 
