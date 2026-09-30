@@ -71,10 +71,14 @@ jobs:
         run: python scripts/stamp_publication_status.py
       - name: Preserve canonical-data links after page transforms
         run: python scripts/ensure_canonical_data_links.py
+      - name: Enforce shared navigation and alpha state
+        run: python scripts/enforce_navigation_contract.py
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify PUB-001 canonical-data routes
         run: python scripts/validate_pub001_routes.py
+      - name: Verify PUB-002 navigation contract
+        run: python scripts/validate_pub002_navigation.py
       - name: Verify legacy required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
