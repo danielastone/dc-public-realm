@@ -39,19 +39,19 @@ for o in payload["object_overviews"]:
 
     if o["record_type"] == "person_memorial":
         facts += f'''<div><dt>Subject</dt><dd><strong>{esc(o['subject_name'])}</strong> ({esc(o['subject_dates'])})</dd></div>'''
-        context = f'''<p class="subject-bio">{esc(o['subject_bio'])} <a class="overview-source" href="{esc(o['subject_source_url'])}">Subject source</a></p>'''
+        intro = f'''<section class="record-introduction" aria-labelledby="record-introduction-heading"><h2 id="record-introduction-heading">About the memorial</h2><p>{esc(o['subject_bio'])} <a class="overview-source" href="{esc(o['subject_source_url'])}">Source</a></p></section>'''
     elif o["record_type"] == "historical_object":
-        context = f'''<p class="subject-bio">{esc(o['object_context'])} <a class="overview-source" href="{esc(o['object_context_source_url'])}">Context source</a></p>'''
+        intro = f'''<section class="record-introduction" aria-labelledby="record-introduction-heading"><h2 id="record-introduction-heading">About the object</h2><p>{esc(o['object_context'])} <a class="overview-source" href="{esc(o['object_context_source_url'])}">Source</a></p></section>'''
     else:
         raise SystemExit(f"{o['object_entity_id']}: unknown record_type {o['record_type']}")
 
-    overview = f'''<section class="record-overview" aria-label="Object overview">{figure}<div class="record-facts"><dl>{facts}</dl>{context}</div></section>'''
+    overview = f'''<section class="record-overview" aria-label="Object overview">{figure}<div class="record-facts"><dl>{facts}</dl>{intro}</div></section>'''
     h1end = text.find('</h1>')
     if h1end < 0:
         raise SystemExit(f"{path}: h1 not found")
     h1end += len('</h1>')
     text = text[:h1end] + overview + text[h1end:]
-    style = '''<style>.record-overview{display:grid;grid-template-columns:minmax(240px,42%) 1fr;gap:1.5rem;margin:1.4rem 0 2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}.record-photo{margin:0}.record-photo img{display:block;width:100%;height:auto;max-height:430px;object-fit:cover;background:var(--soft)}.record-photo figcaption{margin-top:.45rem;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:.72rem;line-height:1.4}.record-facts dl{margin:0}.record-facts dl>div{display:grid;grid-template-columns:6rem 1fr;gap:.65rem;padding:.55rem 0;border-bottom:1px solid var(--line)}.record-facts dt{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.78rem;font-weight:700;color:var(--muted)}.record-facts dd{margin:0}.subject-bio{margin:1rem 0 0;max-width:38rem}.overview-source{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;white-space:nowrap}@media(max-width:600px){.record-overview{grid-template-columns:1fr;gap:1rem}.record-photo img{max-height:none}.record-facts dl>div{grid-template-columns:5.4rem 1fr}}</style>'''
+    style = '''<style>.record-overview{display:grid;grid-template-columns:minmax(240px,42%) 1fr;gap:1.5rem;margin:1.4rem 0 2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}.record-photo{margin:0}.record-photo img{display:block;width:100%;height:auto;max-height:430px;object-fit:cover;background:var(--soft)}.record-photo figcaption{margin-top:.45rem;font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:.72rem;line-height:1.4}.record-facts dl{margin:0}.record-facts dl>div{display:grid;grid-template-columns:6rem 1fr;gap:.65rem;padding:.55rem 0;border-bottom:1px solid var(--line)}.record-facts dt{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.78rem;font-weight:700;color:var(--muted)}.record-facts dd{margin:0}.record-introduction{margin:1.2rem 0 0;max-width:40rem}.record-introduction h2{margin:0 0 .45rem;font-size:1.05rem}.record-introduction p{margin:0}.overview-source{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.7rem;white-space:nowrap}@media(max-width:600px){.record-overview{grid-template-columns:1fr;gap:1rem}.record-photo img{max-height:none}.record-facts dl>div{grid-template-columns:5.4rem 1fr}}</style>'''
     text = text.replace('</head>', style + '</head>', 1)
     path.write_text(text, encoding="utf-8")
     print("Injected overview into", path)
