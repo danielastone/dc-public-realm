@@ -73,7 +73,9 @@ jobs:
         run: python scripts/ensure_canonical_data_links.py
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
-      - name: Verify required routes and audit artifact
+      - name: Verify PUB-001 canonical-data routes
+        run: python scripts/validate_pub001_routes.py
+      - name: Verify legacy required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
@@ -87,22 +89,6 @@ jobs:
           grep -q 'What happens to your contribution' site/collaborate/artigas/index.html
           grep -q 'No specialized training is required' site/collaborate/artigas/index.html
           grep -q 'Goode (1974)' site/collaborate/artigas/index.html
-          test -f site/data/index.html
-          grep -q '<h1>Canonical data</h1>' site/data/index.html
-          for f in assertions.json entities.json assertion-evidence.json research-tasks.json claim-modes.json external-records.json; do
-            test -f "site/data/$f"
-            grep -q "/dc-public-realm/data/$f" site/data/index.html
-          done
-          grep -q 'href="/dc-public-realm/data/"' site/index.html
-          test -f site/data/assertions.json
-          for page in \
-            site/objects/jose-gervasio-artigas/index.html \
-            site/objects/jose-de-san-martin/index.html \
-            site/objects/cuban-american-friendship-urn/index.html; do
-            test -f "$page"
-            grep -q 'href="/dc-public-realm/data/"' "$page"
-            grep -q '>Canonical data</a>' "$page"
-          done
       - uses: actions/upload-artifact@v4
         with:
           name: site
