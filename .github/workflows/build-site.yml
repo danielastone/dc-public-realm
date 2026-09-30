@@ -25,6 +25,12 @@ jobs:
         run: python scripts/validate_data.py
       - name: Validate scholarly claim modes
         run: python scripts/validate_claim_modes.py
+      - name: Validate overview data
+        run: python scripts/validate_overview_data.py
+      - name: Validate public image rights metadata
+        run: python scripts/validate_image_rights.py
+      - name: Validate image provenance URLs
+        run: python scripts/check_image_urls.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
       - name: Validate materialized database
@@ -49,8 +55,10 @@ jobs:
         run: python scripts/build_country_pages.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
-      - name: Add sourced object overview
+      - name: Add sourced object overviews
         run: python scripts/inject_object_overviews.py
+      - name: Validate rendered object overviews
+        run: python scripts/validate_overview_rendering.py
       - name: Add Artigas external interoperability records
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
@@ -81,7 +89,7 @@ jobs:
           grep -q 'class="record-overview"' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Constitution Avenue &amp; 18th Street NW' site/objects/jose-gervasio-artigas/index.html
           grep -q 'June 19, 1950' site/objects/jose-gervasio-artigas/index.html
-          grep -q 'NPS Photo' site/objects/jose-gervasio-artigas/index.html
+          grep -q 'National Park Service' site/objects/jose-gervasio-artigas/index.html
           grep -q 'Research notes' site/objects/jose-gervasio-artigas/index.html
           grep -q 'External records' site/objects/jose-gervasio-artigas/index.html
           grep -q 'not automatically evidence' site/objects/jose-gervasio-artigas/index.html
