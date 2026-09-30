@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "rules": {
+    "VERIFIED": {
+      "rule_id": "STATUS-VERIFIED-001",
+      "public_label": "Verified",
+      "explanation": "The canonical evidence model currently satisfies the project's rule for verified support for this claim. This label is scoped to the evidence represented here and does not imply permanent or universal truth."
+    },
+    "SUPPORTED": {
+      "rule_id": "STATUS-SUPPORTED-001",
+      "public_label": "Supported",
+      "explanation": "The canonical evidence model currently contains support for this claim, but the represented evidence does not satisfy the stronger verified rule."
+    },
+    "CONTESTED": {
+      "rule_id": "STATUS-CONTESTED-001",
+      "public_label": "Sources differ",
+      "explanation": "The canonical evidence model contains materially conflicting evidence or claims, so the publication preserves the disagreement rather than selecting one account silently."
+    },
+    "UNRESOLVED": {
+      "rule_id": "STATUS-UNRESOLVED-001",
+      "public_label": "Unresolved",
+      "explanation": "The canonical evidence model does not currently establish a sufficiently resolved answer, including cases where evidence or source relationships remain incomplete."
+    },
+    "UNSUPPORTED": {
+      "rule_id": "STATUS-UNSUPPORTED-001",
+      "public_label": "Not established",
+      "explanation": "The canonical evidence model does not currently contain evidence sufficient to establish this claim. Absence of support in this project is not evidence that the proposition is historically false."
+    }
+  }
+}
