@@ -53,6 +53,8 @@ jobs:
         run: python scripts/build_artigas_public.py
       - name: Add sourced object overviews
         run: python scripts/inject_object_overviews.py
+      - name: Validate rendered object overviews
+        run: python scripts/validate_overview_rendering.py
       - name: Add Artigas external interoperability records
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
@@ -102,14 +104,7 @@ jobs:
           grep -q 'Review requested' site/review/artigas/index.html
           grep -q 'How review affects the record' site/review/artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
-          grep -q 'class="record-overview"' site/objects/jose-de-san-martin/index.html
-          grep -q 'October 28, 1925' site/objects/jose-de-san-martin/index.html
-          grep -q 'October 6, 1976' site/objects/jose-de-san-martin/index.html
-          grep -q 'CC BY-SA 3.0' site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
-          grep -q 'class="record-overview"' site/objects/cuban-american-friendship-urn/index.html
-          grep -q 'Presented to the United States' site/objects/cuban-american-friendship-urn/index.html
-          grep -q 'CC BY-SA 4.0' site/objects/cuban-american-friendship-urn/index.html
           test -f site/countries/uruguay/index.html
           test -f site/countries/argentina/index.html
           test -f site/countries/cuba/index.html
