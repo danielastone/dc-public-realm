@@ -76,9 +76,10 @@ jobs:
           test -f build/audit/manifest.json
           test -f site/index.html
           grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
-          grep -q 'Knowledge history' site/index.html
+          grep -q 'About the project' site/index.html
+          grep -q 'Cataloging and research are ongoing' site/index.html
           test -f site/collaborate/artigas/index.html
-          grep -q 'Help trace the Artigas memorial record' site/collaborate/artigas/index.html
+          grep -q 'Research Questions' site/collaborate/artigas/index.html
           grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
