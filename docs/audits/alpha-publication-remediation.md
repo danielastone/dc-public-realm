@@ -41,7 +41,7 @@ A code change by itself does not close a finding.
 | PUB-003 | P0 | Open research tasks summarized elsewhere are not exposed on the corresponding object pages. | Published task counts reconcile exactly to visible/linkable open tasks on each audited object page. | #47 | `scripts/validate_pub003_tasks.py` | PR #51; merge `01575c29`; Actions run #123 build + deploy succeeded | CLOSED |
 | EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | #52 | `scripts/validate_epi001_status_rules.py` | PR #53; merge `2b0c0aff`; Actions run #129 build + deploy succeeded | CLOSED |
 | EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | #54 | `scripts/validate_epi002_dependency_derivation.py`; `scripts/validate_epi002_dependency_rendering.py` | PR #55; merge `c1ddff79`; Actions run #133 build + deploy succeeded | CLOSED |
-| EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | TBD | TBD | TBD | OPEN |
+| EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | #56 | `scripts/validate_epi003_ancestry_rendering.py` | PR #57; merge `6e2185e8`; Actions run #135 build + deploy succeeded | CLOSED |
 | EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | TBD | TBD | TBD | OPEN |
 | EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | TBD | TBD | TBD | OPEN |
 | DATA-001 | P1 | HTML-to-canonical-data reconciliation is not mechanically demonstrated. | Every rendered factual assertion has a stable assertion identifier that maps unambiguously to canonical data. | TBD | TBD | TBD | OPEN |
@@ -60,7 +60,7 @@ The alpha remediation is not complete until the three reference objects pass the
 | Status rule is identifiable | PASS | PASS | PASS |
 | Displayed evidence maps to evidence records | NOT TESTED | NOT TESTED | NOT TESTED |
 | Source independence/dependence is represented accurately | PASS | PASS | PASS |
-| Unknown ancestry remains visible | NOT TESTED | NOT TESTED | NOT TESTED |
+| Unknown ancestry remains visible | PASS | PASS | PASS |
 | Material conflicts remain visible | NOT TESTED | NOT TESTED | NOT TESTED |
 | Open research tasks reconcile | PASS | PASS | PASS |
 | Canonical-data links resolve | PASS | PASS | PASS |
@@ -85,7 +85,7 @@ Required findings: `EPI-001`, `EPI-002`, `EPI-003`.
 
 **Exit criterion:** a reader can determine why a status was assigned and cannot mistake dependent or unknown source ancestry for independent corroboration.
 
-**Status:** BLOCKED (`EPI-001` and `EPI-002` closed; `EPI-003` remains open)
+**Status:** PASS (`EPI-001`, `EPI-002`, and `EPI-003` closed)
 
 ### Gate 3 — Provenance publication
 
@@ -167,6 +167,17 @@ Production verification: GitHub Actions run #133 (`36753237409`), build and depl
 Three-object regression: multi-source claim-evidence relationships reconcile to canonical dependency state for Artigas, San Martín, and Cuban Urn; synthetic regression cases cover explicit dependency, unresolved independence, and affirmatively established independent claim roots  
 Closed: 2026-09-30  
 Disposition: dependency is now published at the claim-evidence relationship rather than assigned globally to a source. Publication distinguishes dependent/inherited evidence, independence not established, and independent claim roots only when canonical lineage evidence affirmatively supports that conclusion. Different source families, institutions, or empty inheritance lists are not treated as proof of independence.
+
+### EPI-003
+
+Issue: #56  
+Implementation: PR #57  
+Merged production fix: `6e2185e8343df22f82a55325792e973879a54e64`  
+Automated acceptance test: `scripts/validate_epi003_ancestry_rendering.py`  
+Production verification: GitHub Actions run #135 (`36764404597`), build and deploy jobs both succeeded  
+Three-object regression: canonical `claim_origin`, canonical `dependency_status`, inherited-source counts/identifiers, and explicit UNKNOWN ancestry remain visible for multi-source evidence relationships across Artigas, San Martín, and Cuban Urn; empty inheritance lists retain the qualification that absence of a recorded parent does not establish independence  
+Closed: 2026-09-30  
+Disposition: publication now preserves the canonical ancestry facts behind the EPI-002 derived dependency label. UNKNOWN claim origin or dependency status remains a first-class visible state, and an empty inheritance list cannot silently collapse unresolved ancestry into independence.
 
 ## Closure evidence format
 
