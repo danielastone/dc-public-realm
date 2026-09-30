@@ -46,11 +46,13 @@ jobs:
           cp data/external-records.json /tmp/external-records.json
           cp data/claim-modes.json /tmp/claim-modes.json
           cp data/object-overviews.json /tmp/object-overviews.json
+          cp data/publication_status_rules.json /tmp/publication_status_rules.json
           rm -rf data
           cp -R build/data data
           cp /tmp/external-records.json data/external-records.json
           cp /tmp/claim-modes.json data/claim-modes.json
           cp /tmp/object-overviews.json data/object-overviews.json
+          cp /tmp/publication_status_rules.json data/publication_status_rules.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
       - name: Build country research indexes
@@ -69,6 +71,8 @@ jobs:
         run: python scripts/inject_project_frontdoor.py
       - name: Stamp canonical computed statuses onto rendered pages
         run: python scripts/stamp_publication_status.py
+      - name: Publish epistemic status rule explanations
+        run: python scripts/inject_status_rules.py
       - name: Preserve canonical-data links after page transforms
         run: python scripts/ensure_canonical_data_links.py
       - name: Enforce shared navigation and alpha state
@@ -77,6 +81,8 @@ jobs:
         run: python scripts/stamp_research_task_counts.py
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
+      - name: Verify EPI-001 public status rule contract
+        run: python scripts/validate_epi001_status_rules.py
       - name: Verify PUB-001 canonical-data routes
         run: python scripts/validate_pub001_routes.py
       - name: Verify PUB-002 navigation contract
