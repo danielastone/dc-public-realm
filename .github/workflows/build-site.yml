@@ -76,10 +76,10 @@ jobs:
           test -f build/audit/manifest.json
           test -f site/index.html
           grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
-          grep -q 'About the project' site/index.html
-          grep -q 'Cataloging and research are ongoing' site/index.html
+          grep -q 'How to use this site' site/index.html
+          grep -q 'Records may change when additional sources are reviewed' site/index.html
           test -f site/collaborate/artigas/index.html
-          grep -q 'Research Questions' site/collaborate/artigas/index.html
+          grep -q 'Open Research Tasks' site/collaborate/artigas/index.html
           grep -q 'Goode (1974), pp. 443–444' site/collaborate/artigas/index.html
           test -f site/data/assertions.json
           test -f site/objects/jose-gervasio-artigas/index.html
@@ -98,15 +98,18 @@ jobs:
           grep -q 'data-assertion-id="A-0004" data-computed-status="CONTESTED"' site/objects/jose-gervasio-artigas/index.html
           grep -q 'data-assertion-id="A-0005B" data-computed-status="SUPPORTED"' site/objects/jose-gervasio-artigas/index.html
           test -f site/review/artigas/index.html
-          grep -q 'Where our record differs from the Smithsonian presentation' site/review/artigas/index.html
-          grep -q 'Useful forms of reviewer response' site/review/artigas/index.html
-          grep -q 'Interpretation' site/review/artigas/index.html
+          grep -q 'Issues for review' site/review/artigas/index.html
+          grep -q 'Review requested' site/review/artigas/index.html
+          grep -q 'How review affects the record' site/review/artigas/index.html
           test -f site/objects/jose-de-san-martin/index.html
           test -f site/objects/cuban-american-friendship-urn/index.html
           test -f site/countries/uruguay/index.html
           test -f site/countries/argentina/index.html
           test -f site/countries/cuba/index.html
           test -f site/methodology/index.html
+          grep -q 'Evidence model' site/methodology/index.html
+          grep -q 'Source history' site/methodology/index.html
+          grep -q 'Status rules' site/methodology/index.html
       - uses: actions/upload-artifact@v4
         with:
           name: diplomatic-gifts-alpha-site
