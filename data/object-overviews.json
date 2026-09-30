@@ -1,0 +1,23 @@
+{
+  "schema_version": "alpha-0.1",
+  "object_overviews": [
+    {
+      "object_entity_id": "OBJ-0001",
+      "record_type": "person_memorial",
+      "location": "Constitution Avenue & 18th Street NW, Washington, D.C.",
+      "location_source_url": "https://www.si.edu/object/general-jose-gervasio-artigas-sculpture%3Asiris_ari_325679",
+      "event_label": "Dedicated",
+      "event_date": "June 19, 1950",
+      "event_source_url": "https://www.si.edu/object/general-jose-gervasio-artigas-sculpture%3Asiris_ari_325679",
+      "subject_name": "José Gervasio Artigas",
+      "subject_dates": "1764–1850",
+      "subject_bio": "Artigas was a military and political leader in the independence struggles of the Río de la Plata. He advocated federalism and regional autonomy and became a foundational figure in Uruguay's national history.",
+      "subject_source_url": "https://www.nps.gov/places/000/general-jose-gervasio-artigas-memorial.htm",
+      "image_url": "https://npgallery.nps.gov/GetAsset/96a9bfdb-bd4e-418b-a8a8-21f88cdd0810",
+      "image_alt": "Statue of General José Gervasio Artigas holding a hat",
+      "image_credit": "NPS Photo",
+      "image_rights": "Public domain",
+      "image_source_url": "https://npgallery.nps.gov/AssetDetail/96a9bfdb-bd4e-418b-a8a8-21f88cdd0810"
+    }
+  ]
+}
