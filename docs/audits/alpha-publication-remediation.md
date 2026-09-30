@@ -40,7 +40,7 @@ A code change by itself does not close a finding.
 | PUB-002 | P0 | Primary navigation and alpha-state presentation are inconsistent across audited pages. | Home, Methodology, Collaborate, Data, and all audited object pages use the same defined primary navigation and alpha-state treatment. | #46 | `scripts/validate_pub002_navigation.py` | PR #50; merge `088f46e`; Actions run #120 build + deploy succeeded | CLOSED |
 | PUB-003 | P0 | Open research tasks summarized elsewhere are not exposed on the corresponding object pages. | Published task counts reconcile exactly to visible/linkable open tasks on each audited object page. | #47 | `scripts/validate_pub003_tasks.py` | PR #51; merge `01575c29`; Actions run #123 build + deploy succeeded | CLOSED |
 | EPI-001 | P0 | Public verification/status labels do not expose the rule responsible for the classification. | Every published epistemic status maps to an identifiable published rule or rule identifier sufficient to explain why the status was assigned. | #52 | `scripts/validate_epi001_status_rules.py` | PR #53; merge `2b0c0aff`; Actions run #129 build + deploy succeeded | CLOSED |
-| EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | TBD | TBD | TBD | OPEN |
+| EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | #54 | `scripts/validate_epi002_dependency_derivation.py`; `scripts/validate_epi002_dependency_rendering.py` | PR #55; merge `c1ddff79`; Actions run #133 build + deploy succeeded | CLOSED |
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | TBD | TBD | TBD | OPEN |
 | EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | TBD | TBD | TBD | OPEN |
 | EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | TBD | TBD | TBD | OPEN |
@@ -59,7 +59,7 @@ The alpha remediation is not complete until the three reference objects pass the
 | Displayed status equals computed canonical status | PASS | PASS | PASS |
 | Status rule is identifiable | PASS | PASS | PASS |
 | Displayed evidence maps to evidence records | NOT TESTED | NOT TESTED | NOT TESTED |
-| Source independence/dependence is represented accurately | NOT TESTED | NOT TESTED | NOT TESTED |
+| Source independence/dependence is represented accurately | PASS | PASS | PASS |
 | Unknown ancestry remains visible | NOT TESTED | NOT TESTED | NOT TESTED |
 | Material conflicts remain visible | NOT TESTED | NOT TESTED | NOT TESTED |
 | Open research tasks reconcile | PASS | PASS | PASS |
@@ -85,7 +85,7 @@ Required findings: `EPI-001`, `EPI-002`, `EPI-003`.
 
 **Exit criterion:** a reader can determine why a status was assigned and cannot mistake dependent or unknown source ancestry for independent corroboration.
 
-**Status:** BLOCKED (`EPI-001` closed; `EPI-002` and `EPI-003` remain open)
+**Status:** BLOCKED (`EPI-001` and `EPI-002` closed; `EPI-003` remains open)
 
 ### Gate 3 — Provenance publication
 
@@ -156,6 +156,17 @@ Production verification: GitHub Actions run #129 (`36749859889`), build and depl
 Three-object regression: rendered assertion identity, canonical computed status, and stable published status-rule identifiers passed for Artigas, San Martín, and Cuban Urn  
 Closed: 2026-09-30  
 Disposition: canonical epistemic statuses now map through one versioned publication status-rule contract. Rendered claims expose stable rule identifiers and link to human-readable methodology definitions, while CI verifies that the displayed status remains equal to canonical `computed_status` and that every published rule identifier resolves.
+
+### EPI-002
+
+Issue: #54  
+Implementation: PR #55  
+Merged production fix: `c1ddff79cd7331858dc63b332569bc01cfe6800c`  
+Automated acceptance tests: `scripts/validate_epi002_dependency_derivation.py`; `scripts/validate_epi002_dependency_rendering.py`  
+Production verification: GitHub Actions run #133 (`36753237409`), build and deploy jobs both succeeded  
+Three-object regression: multi-source claim-evidence relationships reconcile to canonical dependency state for Artigas, San Martín, and Cuban Urn; synthetic regression cases cover explicit dependency, unresolved independence, and affirmatively established independent claim roots  
+Closed: 2026-09-30  
+Disposition: dependency is now published at the claim-evidence relationship rather than assigned globally to a source. Publication distinguishes dependent/inherited evidence, independence not established, and independent claim roots only when canonical lineage evidence affirmatively supports that conclusion. Different source families, institutions, or empty inheritance lists are not treated as proof of independence.
 
 ## Closure evidence format
 
