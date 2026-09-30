@@ -59,6 +59,8 @@ jobs:
           cp /tmp/claim-modes.json data/claim-modes.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
+      - name: Build country research indexes
+        run: python scripts/build_country_pages.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
       - name: Add Artigas external interoperability records
