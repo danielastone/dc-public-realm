@@ -6,17 +6,16 @@ navigation contract without changing research content or assertion presentation.
 """
 from pathlib import Path
 
+from publication_index import path_for, published_objects
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 BASE = "/dc-public-realm"
-PAGES = (
-    SITE / "objects" / "jose-gervasio-artigas" / "index.html",
-    SITE / "objects" / "jose-de-san-martin" / "index.html",
-    SITE / "objects" / "cuban-american-friendship-urn" / "index.html",
-)
 LINK = f'<a href="{BASE}/data/">Canonical data</a>'
 
-for page in PAGES:
+for entity in published_objects(DATA):
+    page = SITE / path_for(entity["entity_id"], DATA)
     text = page.read_text(encoding="utf-8")
     if f'href="{BASE}/data/"' in text and ">Canonical data</a>" in text:
         continue
