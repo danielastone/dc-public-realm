@@ -3,9 +3,9 @@ name: Build and deploy alpha site
 on:
   push:
     branches: [main]
-    paths: ['data/**','transactions/**','skills/**','scripts/**','.github/workflows/build-site.yml']
+    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','.github/workflows/build-site.yml']
   pull_request:
-    paths: ['data/**','transactions/**','skills/**','scripts/**','.github/workflows/build-site.yml']
+    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','.github/workflows/build-site.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -50,6 +50,9 @@ jobs:
       - name: Validate materialized database
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_data.py
+      - name: Validate materialized publication identity
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: python scripts/validate_publication_identity.py
       - name: Validate materialized scholarly claim modes
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_claim_modes.py
