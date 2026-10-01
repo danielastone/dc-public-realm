@@ -5,7 +5,7 @@ import json
 import re
 from pathlib import Path
 
-from publication_index import path_for, published_objects
+from publication_index import path_for, published_objects, slug_for
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
@@ -26,7 +26,7 @@ home = (SITE / "index.html").read_text(encoding="utf-8")
 
 for entity in objects:
     oid = entity["entity_id"]
-    slug = entity["publication"]["slug"]
+    slug = slug_for(oid, DATA)
     expected = open_by_object[oid]
     expected_ids = {t["task_id"] for t in expected}
     expected_count = len(expected)
