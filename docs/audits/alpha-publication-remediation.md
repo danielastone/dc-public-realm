@@ -44,7 +44,7 @@ A code change by itself does not close a finding.
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | #56 | `scripts/validate_epi003_ancestry_rendering.py` | PR #57; merge `6e2185e8`; Actions run #135 build + deploy succeeded | CLOSED |
 | EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | #58 | `scripts/validate_epi004_lineage_traversal.py`; `scripts/validate_epi004_corpus_lineage.py`; `scripts/validate_epi004_rendered_lineage.py`; `scripts/validate_epi004_san_martin_conflict.py` | PR #59; merge `fbad3c3f`; Actions run #144 build + deploy succeeded | CLOSED |
 | EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | #60 | `scripts/validate_epi005_conflict_inventory.py`; `scripts/validate_epi005_synthetic_rendering.py`; `scripts/validate_epi005_rendered_conflicts.py`; `scripts/validate_epi005_warning_placement.py` | PR #61; merge `9bc9572f`; Actions run #151 build + deploy succeeded | CLOSED |
-| DATA-001 | P1 | HTML-to-canonical-data reconciliation is not mechanically demonstrated. | Every rendered factual assertion has a stable assertion identifier that maps unambiguously to canonical data. | TBD | TBD | TBD | OPEN |
+| DATA-001 | P1 | HTML-to-canonical-data reconciliation is not mechanically demonstrated. | Every rendered factual assertion has a stable assertion identifier that maps unambiguously to canonical data. | #62 | `scripts/validate_data001_assertion_reconciliation.py`; `scripts/validate_data001_synthetic.py` | PR #63; merge `0763b7f5`; Actions run #158 build + deploy succeeded | CLOSED |
 | DATA-002 | P1 | Homepage/object summaries can drift from underlying canonical state if maintained separately. | Status badges, research-task counts, and other derived summaries reconcile to or are generated from canonical state. | TBD | TBD | TBD | OPEN |
 | UX-001 | P1 | Object cards repeat generic copy rather than communicating object-specific significance or research gaps. | Each audited object card communicates a specific historically or epistemically relevant feature without overstating the evidence. | TBD | TBD | TBD | OPEN |
 | META-001 | P2 | Public pages have weak or generic discovery metadata. | Each audited public page has an appropriate unique title and description; canonical/social metadata are present where the site architecture calls for them. | TBD | TBD | TBD | OPEN |
@@ -93,7 +93,7 @@ Required findings: `EPI-004`, `EPI-005`, `DATA-001`.
 
 **Exit criterion:** important published assertions are traceable to canonical evidence/lineage and material conflicts survive rendering.
 
-**Status:** BLOCKED (`EPI-004` and `EPI-005` closed; `DATA-001` remains open)
+**Status:** PASS (`EPI-004`, `EPI-005`, and `DATA-001` closed)
 
 ### Gate 4 — Three-object reconciliation
 
@@ -109,9 +109,20 @@ Required findings: all P0 and P1 findings closed; publication controls enforced 
 
 **Exit criterion:** adding another object does not require manually reproducing status, task, provenance, or summary state across separate publication surfaces.
 
-**Status:** BLOCKED
+**Status:** BLOCKED (`DATA-002` and `UX-001` remain open)
 
 ## Closure evidence
+
+### DATA-001
+
+Issue: #62  
+Implementation: PR #63  
+Merged production fix: `0763b7f56f52ae83726646a01c745977103391f0`  
+Automated acceptance tests: `scripts/validate_data001_assertion_reconciliation.py`; `scripts/validate_data001_synthetic.py`  
+Production verification: GitHub Actions run #158 (`36797728991`), build and deploy jobs both succeeded  
+Three-object regression: the materialized canonical assertion set for Artigas, San Martín, and Cuban Urn reconciles exactly to one factual assertion container per required assertion. Unknown IDs, cross-object leakage, duplicate factual containers, missing required assertions, and duplicate canonical IDs fail CI.  
+Closed: 2026-09-30  
+Disposition: assertion identity now has one HTML meaning. `data-assertion-id` identifies the canonical factual assertion container exactly once; derived dependency/ancestry and lineage UI reference it through `data-for-assertion-id`, while conflict UI retains its dedicated conflict-reference attribute. The expected public assertion set is derived from the materialized canonical dataset by object `subject_id`, so predecessor/research-graph assertions are excluded structurally rather than through a hand-maintained exception list.
 
 ### PUB-001
 
