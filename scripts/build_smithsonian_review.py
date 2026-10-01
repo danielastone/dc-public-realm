@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json, html
+from publication_index import href
 ROOT=Path(__file__).resolve().parents[1]; DATA=ROOT/'data'; SITE=ROOT/'site'; BASE='/dc-public-realm'
 def load(n): return json.loads((DATA/n).read_text(encoding='utf-8'))
 def esc(x): return html.escape(str(x))
@@ -8,7 +9,8 @@ S={x['source_id']:x for x in load('sources.json')['sources']}
 def link(sid,label=None):
  s=S[sid]; return f'<a href="{esc(s["url"])}">{esc(label or s["title"])}</a>'
 css='''<style>:root{--fg:#171717;--muted:#606060;--line:#d9d9d4;--soft:#f7f7f3;--accent:#5a3d16}*{box-sizing:border-box}body{margin:0;color:var(--fg);font-family:ui-serif,Georgia,serif;line-height:1.62}header,main,footer{max-width:900px;margin:auto;padding:1.2rem}header{border-bottom:1px solid var(--line)}h1{font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.05}h2{margin-top:3rem;border-bottom:1px solid var(--line);padding-bottom:.35rem}.lede{font-size:1.2rem;max-width:760px}.small,.eyebrow{font-family:ui-sans-serif,system-ui,sans-serif;color:var(--muted);font-size:.88rem}.eyebrow{letter-spacing:.06em}.card{border:1px solid var(--line);padding:1rem;margin:1rem 0}.question{border-left:4px solid var(--accent);padding:1rem;background:#fffdf8;margin:1rem 0}.compare{width:100%;border-collapse:collapse}.compare th,.compare td{border-bottom:1px solid var(--line);padding:.75rem;vertical-align:top;text-align:left}.compare th{font-family:ui-sans-serif,system-ui,sans-serif;font-size:.85rem}a{color:inherit}footer{border-top:1px solid var(--line);margin-top:3rem;color:var(--muted)}</style>'''
-body=f'''<div class="eyebrow">PROFESSIONAL REVIEW · OBJ-0001</div><h1>Artigas Memorial Review Brief</h1><p class="lede">This brief identifies four points in the José Gervasio Artigas Memorial record that require art-historical or cataloging review.</p><p><a href="{BASE}/objects/jose-gervasio-artigas/">Public object record</a> · <a href="{BASE}/collaborate/artigas/">Open research tasks</a></p>
+object_href=href('OBJ-0001',BASE,DATA)
+body=f'''<div class="eyebrow">PROFESSIONAL REVIEW · OBJ-0001</div><h1>Artigas Memorial Review Brief</h1><p class="lede">This brief identifies four points in the José Gervasio Artigas Memorial record that require art-historical or cataloging review.</p><p><a href="{object_href}">Public object record</a> · <a href="{BASE}/collaborate/artigas/">Open research tasks</a></p>
 <section><h2>Review requested</h2><p>Please review any of the issues below. A response may address one issue only. Useful responses include a correction, source citation, cataloging distinction, archival reference, or referral to another collection or specialist.</p></section>
 <section><h2>Issues for review</h2><table class="compare"><tr><th>Issue</th><th>Current record</th><th>Requested review</th></tr>
 <tr><td>Creative roles</td><td>{link('SRC-UY-003','Uruguay Resolution 732/004')} records separate roles for Juan Luis Blanes, Juan Manuel Blanes, and Dante Costa in the San José monument.</td><td>Does the current separation of commission, design development, modeling, and casting accurately represent the documented roles?</td></tr>
