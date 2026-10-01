@@ -2,8 +2,11 @@
 from pathlib import Path
 import re
 
+from publication_index import path_for, published_objects
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 BASE = "/dc-public-realm"
 EXPECTED = [
     ("Explore", f"{BASE}/"),
@@ -12,14 +15,12 @@ EXPECTED = [
     ("Data", f"{BASE}/data/"),
 ]
 PAGES = [
-    "index.html",
-    "methodology/index.html",
-    "collaborate/index.html",
-    "data/index.html",
-    "objects/jose-gervasio-artigas/index.html",
-    "objects/jose-de-san-martin/index.html",
-    "objects/cuban-american-friendship-urn/index.html",
-]
+    Path("index.html"),
+    Path("methodology/index.html"),
+    Path("collaborate/index.html"),
+    Path("data/index.html"),
+] + [path_for(entity["entity_id"], DATA) for entity in published_objects(DATA)]
+
 errors = []
 for rel in PAGES:
     path = SITE / rel
