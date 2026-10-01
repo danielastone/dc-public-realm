@@ -12,6 +12,7 @@ on:
       - 'qualifications/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_publication_identity.py'
       - 'scripts/validate_research_tasks.py'
       - 'scripts/validate_epistemic_fixtures.py'
       - 'scripts/validate_source_audits.py'
@@ -27,6 +28,7 @@ on:
       - 'qualifications/**'
       - 'scripts/build_database.py'
       - 'scripts/validate_data.py'
+      - 'scripts/validate_publication_identity.py'
       - 'scripts/validate_research_tasks.py'
       - 'scripts/validate_epistemic_fixtures.py'
       - 'scripts/validate_source_audits.py'
@@ -60,6 +62,10 @@ jobs:
         env:
           KNOWLEDGE_DATA_DIR: build/data
         run: python scripts/validate_data.py
+      - name: Validate materialized publication identity
+        env:
+          KNOWLEDGE_DATA_DIR: build/data
+        run: python scripts/validate_publication_identity.py
       - name: Verify audit manifests exist
         run: test -s build/audit/manifest.json && test -s build/audit/semantic-manifest.json
       - name: Verify deterministic semantic rebuild
