@@ -2,23 +2,19 @@
 """Fail CI when published object HTML drifts from computed assertion status.
 
 The canonical machine-readable publication is site/data/assertions.json, emitted by
-build_site.py from the materialized database. Every generic object page must expose
-its assertion id and computed status in the rendered HTML. Bespoke publication
-surfaces are not exempt: if they publish an assertion, they must carry the same
-machine-readable marker.
+build_site.py from the materialized database. Every published object page must expose
+its assertion id and computed status in the rendered HTML.
 """
 from __future__ import annotations
 import json
 from pathlib import Path
 
+from publication_index import path_for, published_objects
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 ASSERTIONS = SITE / "data" / "assertions.json"
-OBJECTS = {
-    "OBJ-0001": SITE / "objects" / "jose-gervasio-artigas" / "index.html",
-    "OBJ-0002": SITE / "objects" / "jose-de-san-martin" / "index.html",
-    "OBJ-0003": SITE / "objects" / "cuban-american-friendship-urn" / "index.html",
-}
 
 
 def marker(aid: str, status: str) -> str:
@@ -30,8 +26,12 @@ def main() -> None:
         raise SystemExit("publication consistency: missing site/data/assertions.json; run build_site.py first")
     payload = json.loads(ASSERTIONS.read_text(encoding="utf-8"))
     assertions = payload.get("assertions", payload if isinstance(payload, list) else [])
+    objects = published_objects(DATA)
+    object_ids = {entity["entity_id"] for entity in objects}
     errors: list[str] = []
-    for oid, path in OBJECTS.items():
+    for entity in objects:
+        oid = entity["entity_id"]
+        path = SITE / path_for(oid, DATA)
         if not path.exists():
             errors.append(f"{oid}: missing published object page {path.relative_to(ROOT)}")
             continue
@@ -47,7 +47,8 @@ def main() -> None:
                 errors.append(f"{aid}: HTML does not expose canonical status {status}")
     if errors:
         raise SystemExit("publication consistency FAILED\n- " + "\n- ".join(errors))
-    print(f"publication consistency PASS: checked {sum(1 for a in assertions if a.get('subject_id') in OBJECTS)} direct object assertions")
+    checked = sum(1 for a in assertions if a.get("subject_id") in object_ids)
+    print(f"publication consistency PASS: checked {checked} direct object assertions")
 
 
 if __name__ == "__main__":
