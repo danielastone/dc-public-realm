@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from collections import defaultdict
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,6 +33,61 @@ def attr(tag: str, name: str) -> str | None:
 
 def strip_tags(fragment: str) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", fragment)).strip()
+
+
+class EvidenceSummaryParser(HTMLParser):
+    """Associate each evidence summary with its containing assertion element."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.stack: list[tuple[str, str | None]] = []
+        self.current_details: dict | None = None
+        self.summaries: list[tuple[str, int, int]] = []
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        attrs = dict(attrs)
+        aid = attrs.get("data-assertion-id")
+        self.stack.append((tag, aid))
+        if tag == "details" and "evidence" in attrs.get("class", "").split() and "data-source-count" in attrs:
+            owner = next((assertion_id for _, assertion_id in reversed(self.stack[:-1]) if assertion_id), None)
+            self.current_details = {
+                "owner": owner,
+                "hook": attrs["data-source-count"],
+                "in_summary": False,
+                "summary_text": [],
+            }
+        elif tag == "summary" and self.current_details is not None:
+            self.current_details["in_summary"] = True
+
+    def handle_data(self, data: str) -> None:
+        if self.current_details is not None and self.current_details["in_summary"]:
+            self.current_details["summary_text"].append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "summary" and self.current_details is not None:
+            self.current_details["in_summary"] = False
+        elif tag == "details" and self.current_details is not None:
+            owner = self.current_details["owner"]
+            if not owner:
+                fail("source summary is not contained by an assertion element")
+            text = "".join(self.current_details["summary_text"]).strip()
+            m = re.fullmatch(r"Sources\s*·\s*([0-9]+)", text)
+            if not m:
+                fail(f"{owner}: malformed visible source summary {text!r}")
+            try:
+                hook = int(self.current_details["hook"])
+            except ValueError:
+                fail(f"{owner}: non-integer data-source-count {self.current_details['hook']!r}")
+            self.summaries.append((owner, hook, int(m.group(1))))
+            self.current_details = None
+
+        if self.stack:
+            # Generated pages are expected to be well nested. Pop through the matching
+            # element defensively so later ownership cannot leak across malformed markup.
+            for i in range(len(self.stack) - 1, -1, -1):
+                if self.stack[i][0] == tag:
+                    del self.stack[i:]
+                    break
 
 
 def reconcile(data_dir: Path = DEFAULT_DATA, site_dir: Path = DEFAULT_SITE) -> None:
@@ -107,25 +163,14 @@ def reconcile(data_dir: Path = DEFAULT_DATA, site_dir: Path = DEFAULT_SITE) -> N
         if not strip_tags(kickers[0]).startswith(country + " ·"):
             fail(f"{oid}: visible country label != canonical country {country!r}")
 
-        # Reconcile every source-count summary actually published on the page.
-        # Some canonical assertions are fallback/list-item statements and publish no
-        # source-summary UI; DATA-001/EPI controls govern those assertions instead.
-        summaries = re.finditer(
-            r'<details\s+class="evidence"[^>]*data-source-count="([0-9]+)"[^>]*>.*?<summary>Sources · ([0-9]+)</summary>',
-            page,
-            flags=re.S,
-        )
+        parser = EvidenceSummaryParser()
+        parser.feed(page)
+        parser.close()
         seen = set()
-        for details in summaries:
-            prefix = page[: details.start()]
-            ids = list(re.finditer(r'data-assertion-id="(A-[0-9A-Z]+)"', prefix))
-            if not ids:
-                fail(f"{oid}: source summary has no preceding assertion identity")
-            aid = ids[-1].group(1)
+        for aid, hook_count, visible_count in parser.summaries:
             if aid in seen:
                 fail(f"{oid}: duplicate source summary for {aid}")
             seen.add(aid)
-            hook_count, visible_count = map(int, details.groups())
             canonical_count = len(evidence.get(aid, set()))
             if hook_count != visible_count or hook_count != canonical_count:
                 fail(f"{oid}/{aid}: rendered source count hook={hook_count}, visible={visible_count}, canonical={canonical_count}")
