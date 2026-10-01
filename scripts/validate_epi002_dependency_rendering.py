@@ -15,29 +15,18 @@ for oid,slug in SLUGS.items():
  text=(SITE/'objects'/slug/'index.html').read_text(encoding='utf-8')
  for a in [x for x in assertions if x.get('subject_id')==oid]:
   aid=a['assertion_id']; rows=by_assertion.get(aid,[])
-  if len(rows)<2:
-   continue
+  if len(rows)<2: continue
   checked+=1
-  if f'class="evidence-independence" data-assertion-id="{aid}"' not in text:
+  if f'class="evidence-independence" data-for-assertion-id="{aid}"' not in text:
    errors.append(f'{oid}/{aid}: source-relationship disclosure missing')
   for row in rows:
-   eid=row['assertion_evidence_id']; expected=derive(row)
-   pattern=rf'<li[^>]*data-assertion-evidence-id="{re.escape(eid)}"[^>]*>'
-   m=re.search(pattern,text)
-   if not m:
-    errors.append(f'{oid}/{aid}/{eid}: rendered evidence relationship missing'); continue
+   eid=row['assertion_evidence_id']; expected=derive(row); pattern=rf'<li[^>]*data-assertion-evidence-id="{re.escape(eid)}"[^>]*>'; m=re.search(pattern,text)
+   if not m: errors.append(f'{oid}/{aid}/{eid}: rendered evidence relationship missing'); continue
    tag=m.group(0)
-   if f'data-source-id="{row["source_id"]}"' not in tag:
-    errors.append(f'{oid}/{aid}/{eid}: source identity mismatch')
-   if f'data-dependency-state="{expected}"' not in tag:
-    errors.append(f'{oid}/{aid}/{eid}: expected dependency state {expected}')
-   if expected=='INDEPENDENT':
-    if row.get('dependency_status')!='INDEPENDENT' or row.get('claim_origin') not in {'ORIGINAL_TO_SOURCE','INDEPENDENT_CLAIM_ROOT'}:
-     errors.append(f'{oid}/{aid}/{eid}: independence overstated')
-# The current corpus need not contain a dependent case; synthetic regression tests exercise that branch.
+   if f'data-source-id="{row["source_id"]}"' not in tag: errors.append(f'{oid}/{aid}/{eid}: source identity mismatch')
+   if f'data-dependency-state="{expected}"' not in tag: errors.append(f'{oid}/{aid}/{eid}: expected dependency state {expected}')
+   if expected=='INDEPENDENT' and (row.get('dependency_status')!='INDEPENDENT' or row.get('claim_origin') not in {'ORIGINAL_TO_SOURCE','INDEPENDENT_CLAIM_ROOT'}): errors.append(f'{oid}/{aid}/{eid}: independence overstated')
 if checked==0: errors.append('no multi-source reference assertions were exercised')
 if errors:
- print('EPI-002 RENDERING FAIL')
- for e in errors: print('-',e)
- raise SystemExit(1)
+ print('EPI-002 RENDERING FAIL'); [print('-',e) for e in errors]; raise SystemExit(1)
 print(f'EPI-002 rendering PASS: {checked} multi-source assertions reconciled across three reference objects.')
