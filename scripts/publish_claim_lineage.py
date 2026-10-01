@@ -4,8 +4,8 @@ from __future__ import annotations
 import html,json,re
 from pathlib import Path
 from trace_claim_lineage import build_index, trace_row, ROOT, UNRESOLVED, BROKEN, CYCLE
-ROOTDIR=Path(__file__).resolve().parents[1]; SITE=ROOTDIR/'site'
-SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
+from publication_index import path_for, published_objects
+ROOTDIR=Path(__file__).resolve().parents[1]; SITE=ROOTDIR/'site'; DATA=ROOTDIR/'data'
 assertions=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))['assertions']
 evidence=json.loads((SITE/'data'/'assertion-evidence.json').read_text(encoding='utf-8'))['assertion_evidence']
 sources=json.loads((ROOTDIR/'data'/'sources.json').read_text(encoding='utf-8'))['sources']
@@ -28,8 +28,8 @@ def evidence_item(row):
  if not s: raise SystemExit(f"{row['assertion_evidence_id']}: source {row['source_id']} missing from sources.json")
  t=trace_row(row,index); parents=row.get('inherits_claim_from_source_ids') or []; parent_text=', '.join(parents) if parents else 'none recorded'; evidence_note=row.get('evidence_note') or 'No evidence note recorded.'; inheritance_note=row.get('inheritance_note') or 'No inheritance note recorded.'; locator=row.get('locator') or 'no locator recorded'; role=row.get('evidence_role') or 'UNSPECIFIED'; url=s.get('url'); source_label=f'{s["source_id"]} — {s.get("title","Untitled source")}'; source_html=f'<a href="{html.escape(url)}">{html.escape(source_label)}</a>' if url else html.escape(source_label)
  return f'<li class="claim-lineage-evidence" data-assertion-evidence-id="{html.escape(row["assertion_evidence_id"])}" data-source-id="{html.escape(row["source_id"])}" data-lineage-terminal="{html.escape(trace_summary(t))}"><div><strong>{html.escape(row["assertion_evidence_id"])}</strong> · {html.escape(role)}</div><div>Source: {source_html}</div><div>Locator: {html.escape(locator)}</div><div>Evidence note: {html.escape(evidence_note)}</div><div>Direct inherited claim source(s): {html.escape(parent_text)}</div><div>Lineage terminus: <strong>{html.escape(trace_summary(t))}</strong></div><div class="small">Inheritance note: {html.escape(inheritance_note)}</div></li>'
-for oid,slug in SLUGS.items():
- path=SITE/'objects'/slug/'index.html'; text=path.read_text(encoding='utf-8')
+for entity in published_objects(DATA):
+ oid=entity['entity_id']; path=SITE/path_for(oid,DATA); text=path.read_text(encoding='utf-8')
  for a in [x for x in assertions if x.get('subject_id')==oid]:
   aid=a['assertion_id']; rows=by_assertion.get(aid,[])
   if not rows: continue
