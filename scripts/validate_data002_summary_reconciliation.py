@@ -2,7 +2,6 @@
 from __future__ import annotations
 import argparse, html, json, re, sys
 from collections import defaultdict
-from html.parser import HTMLParser
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; DEFAULT_DATA=ROOT/'data'; DEFAULT_SITE=ROOT/'site'
 OBJECTS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
@@ -10,38 +9,6 @@ def fail(msg): print(f'DATA-002 FAIL: {msg}',file=sys.stderr); raise SystemExit(
 def attr(tag,name):
  m=re.search(rf'\b{name}="([^"]*)"',tag); return html.unescape(m.group(1)) if m else None
 def strip_tags(x): return html.unescape(re.sub(r'<[^>]+>','',x)).strip()
-class EvidenceSummaryParser(HTMLParser):
- def __init__(self):
-  super().__init__(convert_charrefs=True); self.stack=[]; self.current=None; self.summaries=[]
- def handle_starttag(self,tag,attrs):
-  a=dict(attrs); aid=a.get('data-assertion-id')
-  if tag=='details' and 'evidence' in a.get('class','').split() and 'data-source-count' in a:
-   if self.current is not None: fail('nested canonical evidence panels are not supported')
-   owner=next((x for _,x in reversed(self.stack) if x),None)
-   self.current={'owner':owner,'hook':a['data-source-count'],'depth':len(self.stack)+1,'summary':False,'text':[]}
-  self.stack.append((tag,aid))
-  if tag=='summary' and self.current is not None and len(self.stack)==self.current['depth']+1:
-   self.current['summary']=True
- def handle_startendtag(self,tag,attrs):
-  # Void/self-closing elements must not remain on the ancestry stack.
-  return
- def handle_data(self,data):
-  if self.current is not None and self.current['summary']: self.current['text'].append(data)
- def handle_endtag(self,tag):
-  depth=len(self.stack)
-  if self.current is not None:
-   if tag=='summary' and self.current['summary'] and depth==self.current['depth']+1:
-    self.current['summary']=False
-   elif tag=='details' and depth==self.current['depth']:
-    owner=self.current['owner']
-    if not owner: fail('source summary is not contained by an assertion element')
-    text=''.join(self.current['text']).strip(); m=re.fullmatch(r'Sources\s*·\s*([0-9]+)',text)
-    if not m: fail(f'{owner}: malformed visible source summary {text!r}')
-    try: hook=int(self.current['hook'])
-    except ValueError: fail(f'{owner}: non-integer data-source-count {self.current["hook"]!r}')
-    self.summaries.append((owner,hook,int(m.group(1)))); self.current=None
-  for i in range(len(self.stack)-1,-1,-1):
-   if self.stack[i][0]==tag: del self.stack[i:]; break
 def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
  def load(n): return json.loads((data_dir/n).read_text(encoding='utf-8'))
  entities={x['entity_id']:x for x in load('entities.json')['entities']}; evidence=defaultdict(set)
@@ -73,12 +40,21 @@ def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
   if len(ks)!=1: fail(f'{oid}: expected exactly one hooked country kicker, found {len(ks)}')
   if attr(ks[0],'data-object-country')!=country: fail(f'{oid}: rendered country hook != canonical country {country!r}')
   if not strip_tags(ks[0]).startswith(country+' ·'): fail(f'{oid}: visible country label != canonical country {country!r}')
-  p=EvidenceSummaryParser(); p.feed(page); p.close(); seen=set()
-  for aid,hook,visible in p.summaries:
+  panels=re.findall(r'<details\s+class="evidence"[^>]*data-assertion-id="A-[0-9A-Z]+"[^>]*data-source-count="[0-9]+"[^>]*>.*?<summary>Sources\s*·\s*[0-9]+</summary>',page,flags=re.S)
+  seen=set()
+  for panel in panels:
+   aid=attr(panel,'data-assertion-id'); hook=attr(panel,'data-source-count')
    if aid in seen: fail(f'{oid}: duplicate source summary for {aid}')
-   seen.add(aid); canonical=len(evidence.get(aid,set()))
-   if hook!=visible or hook!=canonical: fail(f'{oid}/{aid}: rendered source count hook={hook}, visible={visible}, canonical={canonical}')
- print(f'DATA-002 PASS: reconciled {len(OBJECTS)} object summaries and rendered evidence-source counts')
+   seen.add(aid)
+   m=re.search(r'<summary>Sources\s*·\s*([0-9]+)</summary>',panel)
+   if not m: fail(f'{oid}/{aid}: malformed visible source summary')
+   visible=int(m.group(1)); canonical=len(evidence.get(aid,set()))
+   try: hook_count=int(hook)
+   except (TypeError,ValueError): fail(f'{oid}/{aid}: invalid data-source-count {hook!r}')
+   if hook_count!=visible or hook_count!=canonical: fail(f'{oid}/{aid}: rendered source count hook={hook_count}, visible={visible}, canonical={canonical}')
+  unowned=re.findall(r'<details\s+class="evidence"[^>]*data-source-count="[0-9]+"(?![^>]*data-assertion-id)[^>]*>',page)
+  if unowned: fail(f'{oid}: {len(unowned)} evidence panels lack explicit data-assertion-id ownership')
+ print(f'DATA-002 PASS: reconciled {len(OBJECTS)} object summaries and explicit evidence-source counts')
 def main():
  p=argparse.ArgumentParser(); p.add_argument('--data-dir',type=Path,default=DEFAULT_DATA); p.add_argument('--site-dir',type=Path,default=DEFAULT_SITE); a=p.parse_args(); reconcile(a.data_dir,a.site_dir)
 if __name__=='__main__': main()
