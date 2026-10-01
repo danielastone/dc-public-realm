@@ -4,9 +4,9 @@ from __future__ import annotations
 import html,json,re
 from pathlib import Path
 from detect_material_conflicts import conflict_index, validate_conflict_records
+from publication_index import path_for, published_objects
 
-ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'
-SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
+ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'; DATA=ROOT/'data'
 assertions=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))['assertions']
 rows=json.loads((SITE/'data'/'assertion-evidence.json').read_text(encoding='utf-8'))['assertion_evidence']
 errors=validate_conflict_records(rows)
@@ -30,8 +30,8 @@ def warning(aid, conflict_rows):
   f'<ul>{"".join(items)}</ul></aside>'
  )
 
-for oid,slug in SLUGS.items():
- path=SITE/'objects'/slug/'index.html'; text=path.read_text(encoding='utf-8')
+for entity in published_objects(DATA):
+ oid=entity['entity_id']; path=SITE/path_for(oid,DATA); text=path.read_text(encoding='utf-8')
  for a in [x for x in assertions if x.get('subject_id')==oid]:
   aid=a['assertion_id']; cr=conflicts.get(aid,[])
   if not cr: continue
