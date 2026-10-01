@@ -20,45 +20,18 @@ def attrs(a):
 def badge(a):
  r=rule(a); reason=html.escape(a.get('status_reason','')); rid=html.escape(r['rule_id']); label=html.escape(r['public_label'])
  return f'<div class="canonical-status status {html.escape(a["computed_status"])}"><span class="status-label">{label}</span><span class="status-reason">{reason}</span><a class="status-rule" href="/methodology/#rule-{rid}">Why this status? <span class="rule-id">{rid}</span></a></div>'
-def fallback(a):
- aid=html.escape(a['assertion_id']); title=html.escape(a.get('predicate','Research assertion').replace('_',' ').title())
- statement='The current published evidence does not establish a value for this assertion.' if a.get('value') in (None,'',[]) else f'Canonical value: {html.escape(str(a.get("value")))}.'
- if a['assertion_id']=='A-0003': title='Founder or caster of the Washington bronze'; statement='The current evidence does not establish the foundry or caster of the Washington bronze. A source failing to identify the founder is not evidence that the founder was historically unknown.'
- return f'<article class="claim canonical-fallback" {attrs(a)}><div class="claim-heading"><div class="eyebrow">CANONICAL ASSERTION</div><h3>{title}</h3>{badge(a)}</div><p>{statement} <a class="cite" href="#provenance-{aid}">[{aid.replace("A-","")}]</a></p><p class="small">Shown because this assertion is part of the canonical publication state.</p></article>'
 def stamp_generic(text,oid):
  pos=0
- for a in [x for x in assertions if x.get('subject_id')==oid]:
+ relevant=[x for x in assertions if x.get('subject_id')==oid]
+ for a in relevant:
   start=text.find('<article class="assertion">',pos)
-  if start<0: raise SystemExit(f'{oid}/{a["assertion_id"]}: generic assertion block not found')
+  if start<0: raise SystemExit(f'{oid}/{a["assertion_id"]}: shared assertion block not found')
   repl=f'<article class="assertion" {attrs(a)}>'; text=text[:start]+repl+text[start+len('<article class="assertion">'):]
   heading=text.find('</h3>',start)
   if heading<0: heading=text.find('</h2>',start)
   if heading<0: raise SystemExit(f'{oid}/{a["assertion_id"]}: assertion heading not found')
-  heading+=5; text=text[:heading]+badge(a)+text[heading:]; pos=heading+len(badge(a))
- return text
-def stamp_artigas(text):
- relevant=[a for a in assertions if a.get('subject_id')=='OBJ-0001']
- missing=[a for a in relevant if f'href="#provenance-{a["assertion_id"]}"' not in text]
- if missing:
-  boundary='</section><section id="sources">'
-  if boundary not in text: raise SystemExit('Artigas: cannot locate Evidence/Sources boundary')
-  text=text.replace(boundary,''.join(fallback(a) for a in missing)+boundary,1)
- for a in relevant:
-  aid=a['assertion_id']
-  if f'data-assertion-id="{aid}"' in text: continue
-  p=text.find(f'href="#provenance-{aid}"')
-  if p<0: raise SystemExit(f'{aid}: canonical Artigas assertion remains unpublished')
-  start=text.rfind('<article class="claim">',0,p)
-  if start>=0:
-   repl=f'<article class="claim" {attrs(a)}>'; text=text[:start]+repl+text[start+len('<article class="claim">'):]
-   p=text.find(f'href="#provenance-{aid}"',start); h3end=text.find('</h3>',start,p)
-   if h3end<0: raise SystemExit(f'{aid}: claim heading not found')
-   h3end+=5; text=text[:h3end]+badge(a)+text[h3end:]; continue
-  li=text.rfind('<li>',0,p)
-  if li<0: raise SystemExit(f'{aid}: published Artigas claim has no enclosing claim/list item')
-  repl=f'<li {attrs(a)}>'; text=text[:li]+repl+text[li+4:]
-  p=text.find(f'href="#provenance-{aid}"',li); br=text.find('<br>',li,p)
-  insert=br+4 if br>=0 else li+len(repl); text=text[:insert]+badge(a)+text[insert:]
+  heading+=5; b=badge(a); text=text[:heading]+b+text[heading:]; pos=heading+len(b)
+ if text.count('data-assertion-id=') < len(relevant): raise SystemExit(f'{oid}: not all canonical assertions were stamped')
  return text
 for oid,slug in SLUGS.items():
- path=SITE/'objects'/slug/'index.html'; text=path.read_text(encoding='utf-8'); text=stamp_artigas(text) if oid=='OBJ-0001' else stamp_generic(text,oid); path.write_text(text,encoding='utf-8'); print('Stamped',oid,path)
+ path=SITE/'objects'/slug/'index.html'; text=path.read_text(encoding='utf-8'); text=stamp_generic(text,oid); path.write_text(text,encoding='utf-8'); print('Stamped',oid,path)
