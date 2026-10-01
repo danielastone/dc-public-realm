@@ -116,24 +116,38 @@ def debt_meter() -> tuple[int, int, int]:
             continue
         source = path.read_text(encoding="utf-8")
         literals = script_string_literals(path)
+        try:
+            tree = ast.parse(source, filename=str(path))
+        except SyntaxError:
+            tree = None
 
-        # Transitional pair debt is counted only when an object ID and slug are
-        # coupled in the same source line. File-wide co-occurrence is not a
-        # relationship and would overcount unrelated literals.
-        for line in source.splitlines():
-            ids_here = [eid for eid in canonical if eid in line]
-            slugs_here = [slug for slug in canonical.values() if slug in line]
-            for eid in ids_here:
-                expected = canonical[eid]
-                if expected in slugs_here:
-                    pair_count += 1
-                    pair_files.add(path)
-                wrong = [slug for slug in slugs_here if slug != expected]
-                if wrong:
-                    fail(
-                        f"{path.relative_to(ROOT)}: {eid} is paired with non-canonical slug "
-                        f"{wrong[0]!r}; expected {expected!r}"
-                    )
+        # Count only explicit dictionary entries that map a canonical object ID
+        # directly to a slug. This measures duplicated routing configuration
+        # without inventing relationships from file-wide or line-wide literals.
+        if tree is not None:
+            for node in ast.walk(tree):
+                if not isinstance(node, ast.Dict):
+                    continue
+                for key, value in zip(node.keys, node.values):
+                    if not (
+                        isinstance(key, ast.Constant)
+                        and isinstance(key.value, str)
+                        and key.value in canonical
+                        and isinstance(value, ast.Constant)
+                        and isinstance(value.value, str)
+                    ):
+                        continue
+                    eid = key.value
+                    expected = canonical[eid]
+                    actual = value.value
+                    if actual == expected:
+                        pair_count += 1
+                        pair_files.add(path)
+                    elif actual in canonical.values():
+                        fail(
+                            f"{path.relative_to(ROOT)}: {eid} is paired with non-canonical slug "
+                            f"{actual!r}; expected {expected!r}"
+                        )
 
         for slug in canonical.values():
             if any(slug in literal for literal in literals):
