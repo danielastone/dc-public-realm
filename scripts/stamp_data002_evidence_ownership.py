@@ -14,7 +14,7 @@ pattern = re.compile(
 )
 
 def stamp(m: re.Match[str]) -> str:
-    return f'{m.group(1)} data-assertion-id="{m.group("aid")}"{m.group("body")}'
+    return f'{m.group(1)} data-evidence-assertion-id="{m.group("aid")}"{m.group("body")}'
 
 page, count = pattern.subn(stamp, page)
 if count == 0:
