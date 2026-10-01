@@ -30,7 +30,7 @@ jobs:
       - name: Validate localization integrity
         run: python scripts/validate_localization.py
       - name: Validate public image rights metadata
-        run: python scripts/validate_image_rights.py
+        run: python scripts/check_image_urls.py
       - name: Validate image provenance URLs
         run: python scripts/check_image_urls.py
       - name: Validate EPI-002 dependency derivation
@@ -75,8 +75,6 @@ jobs:
           cp /tmp/publication_dependency_rules.json data/publication_dependency_rules.json
       - name: Build static alpha from materialized database
         run: python scripts/build_site.py
-      - name: Build country research indexes
-        run: python scripts/build_country_pages.py
       - name: Add sourced object overviews
         run: python scripts/inject_object_overviews.py
       - name: Validate rendered object overviews
@@ -127,6 +125,8 @@ jobs:
         run: python scripts/validate_pub002_navigation.py
       - name: Verify PUB-003 research-task reconciliation
         run: python scripts/validate_pub003_tasks.py
+      - name: Verify PUB-004 internal link integrity
+        run: python scripts/validate_pub004_internal_links.py
       - name: Verify legacy required routes and audit artifact
         run: |
           test -f build/audit/manifest.json
