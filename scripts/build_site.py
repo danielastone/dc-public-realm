@@ -66,8 +66,8 @@ def evblock(ev):
  s=S[ev['source_id']]; role={'PRIMARY_SUPPORT':'Main source','CORROBORATION':'Additional source','QUALIFIES':'Qualification','CONTRADICTS':'Differing record','IMAGE_EVIDENCE':'Image evidence'}.get(ev['evidence_role'],pred(ev['evidence_role']))
  return f'<div class="source-row"><div class="source-role">{esc(role)}</div><a href="{esc(s["url"])}">{esc(s["title"])}</a><div class="meta">{esc(ev.get("locator","Record"))}</div></div>'
 def ablock(a):
- evs=EV.get(a['assertion_id'],[]); n=len({e['source_id'] for e in evs})
- return f'<article class="assertion"><div class="kicker">{esc(a["assertion_id"])}</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><div class="status {esc(a["computed_status"])}"><span class="status-label">{esc(public_status(a["computed_status"]))}</span><span class="status-reason">{esc(a["status_reason"])}</span></div><details class="evidence" data-source-count="{n}"><summary>Sources · {n}</summary>{"".join(evblock(x) for x in evs)}</details></article>'
+ evs=EV.get(a['assertion_id'],[]); n=len({e['source_id'] for e in evs}); aid=esc(a['assertion_id'])
+ return f'<article class="assertion"><div class="kicker">{aid}</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><div class="status {esc(a["computed_status"])}"><span class="status-label">{esc(public_status(a["computed_status"]))}</span><span class="status-reason">{esc(a["status_reason"])}</span></div><details class="evidence" data-source-count="{n}" data-evidence-assertion-id="{aid}"><summary>Sources · {n}</summary>{"".join(evblock(x) for x in evs)}</details></article>'
 def taskurl(t):
  body=f'Task: {t["task_id"]}\nTask URL: https://danielastone.github.io/dc-public-realm/tasks/{t["task_id"].lower()}/\n\nRepository: {t["repository"]}\nCollection: {t["collection"]}\n\nFindings:\n\nCitations:\n\nFiles/images/links:\n'
  return REPO+'/issues/new?'+urllib.parse.urlencode({'title':t['task_id']+' - '+t['title'],'body':body})
