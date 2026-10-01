@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""EPI-005 materialized canonical conflict inventory and detector regression."""
+"""EPI-005 canonical conflict inventory and detector regression.
+
+The repository keeps frozen seed data plus a transaction ledger. CI invokes this
+validator before materialization, so the frozen inventory is checked here. The
+rendered EPI-005 validator later reconciles the transaction-materialized state.
+"""
 from __future__ import annotations
 import json
 from collections import Counter
@@ -19,15 +24,15 @@ if errors:
  raise SystemExit(1)
 idx=conflict_index(ref_rows)
 counts=Counter(reference[subject[aid]] for aid in idx)
-# This baseline is the transaction-materialized publication state, not the frozen seed data.
-expected={'Artigas':1,'San Martín':1,'Cuban Urn':2}
+# Frozen seed baseline. TX-20260929-002 later changes AE-0009/A-0004 to CONTRADICTS;
+# the publication validator must therefore exercise four materialized conflicts.
+expected={'Artigas':0,'San Martín':1,'Cuban Urn':2}
 actual={name:counts.get(name,0) for name in expected}
 if actual != expected:
- raise SystemExit(f'EPI-005 INVENTORY FAIL: conflict assertion counts {actual}, expected {expected}')
-expected_ids={'A-0004','A-0106','A-0201','A-0201B'}
+ raise SystemExit(f'EPI-005 INVENTORY FAIL: frozen conflict assertion counts {actual}, expected {expected}')
+expected_ids={'A-0106','A-0201','A-0201B'}
 if set(idx) != expected_ids:
- raise SystemExit(f'EPI-005 INVENTORY FAIL: conflict assertions {sorted(idx)}, expected {sorted(expected_ids)}')
-# Synthetic semantics: QUALIFIES and multiple sources are not conflict markers.
+ raise SystemExit(f'EPI-005 INVENTORY FAIL: frozen conflict assertions {sorted(idx)}, expected {sorted(expected_ids)}')
 synthetic=[
  {'assertion_evidence_id':'S1','assertion_id':'A','source_id':'X','evidence_role':'PRIMARY_SUPPORT','locator':'x','evidence_note':'support'},
  {'assertion_evidence_id':'S2','assertion_id':'A','source_id':'Y','evidence_role':'QUALIFIES','locator':'y','evidence_note':'qualification'},
@@ -39,6 +44,6 @@ if 'A' in sidx or set(sidx) != {'B'}:
 bad=[{'assertion_evidence_id':'BAD','assertion_id':'C','source_id':'Q','evidence_role':'CONTRADICTS','locator':'q'}]
 if not validate_conflict_records(bad):
  raise SystemExit('EPI-005 INVENTORY FAIL: incomplete CONTRADICTS row accepted')
-print('EPI-005 inventory PASS: Artigas=1, San Martín=1, Cuban Urn=2 materialized conflict assertions; QUALIFIES remains non-conflict.')
+print('EPI-005 frozen inventory PASS: Artigas=0, San Martín=1, Cuban Urn=2; materialized publication is reconciled separately.')
 for aid in sorted(idx):
  print(aid, '=>', ', '.join(r['assertion_evidence_id'] for r in idx[aid]))
