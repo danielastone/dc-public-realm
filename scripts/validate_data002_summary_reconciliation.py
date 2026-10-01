@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import html
 import json
 import re
@@ -9,18 +10,14 @@ from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "data"
-SITE = ROOT / "site"
+DEFAULT_DATA = ROOT / "data"
+DEFAULT_SITE = ROOT / "site"
 
 OBJECTS = {
     "OBJ-0001": "jose-gervasio-artigas",
     "OBJ-0002": "jose-de-san-martin",
     "OBJ-0003": "cuban-american-friendship-urn",
 }
-
-
-def load(name: str):
-    return json.loads((DATA / name).read_text(encoding="utf-8"))
 
 
 def fail(message: str) -> None:
@@ -37,17 +34,10 @@ def strip_tags(fragment: str) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", fragment)).strip()
 
 
-def object_pages() -> dict[str, str]:
-    pages = {}
-    for oid, slug in OBJECTS.items():
-        path = SITE / "objects" / slug / "index.html"
-        if not path.exists():
-            fail(f"missing object page {path.relative_to(ROOT)}")
-        pages[oid] = path.read_text(encoding="utf-8")
-    return pages
+def reconcile(data_dir: Path = DEFAULT_DATA, site_dir: Path = DEFAULT_SITE) -> None:
+    def load(name: str):
+        return json.loads((data_dir / name).read_text(encoding="utf-8"))
 
-
-def reconcile() -> None:
     ep = load("entities.json")
     evp = load("assertion-evidence.json")
     entities = {x["entity_id"]: x for x in ep["entities"]}
@@ -59,14 +49,23 @@ def reconcile() -> None:
     if missing:
         fail(f"object ids missing from canonical entities: {missing}")
 
-    home_path = SITE / "index.html"
+    home_path = site_dir / "index.html"
     if not home_path.exists():
         fail("missing site/index.html")
     home = home_path.read_text(encoding="utf-8")
-    pages = object_pages()
+
+    pages = {}
+    for oid, slug in OBJECTS.items():
+        path = site_dir / "objects" / slug / "index.html"
+        if not path.exists():
+            fail(f"missing object page {path}")
+        pages[oid] = path.read_text(encoding="utf-8")
 
     card_tags = re.findall(r'<article\s+class="card"[^>]*data-object-id="[^"]+"[^>]*>', home)
-    cards = {attr(tag, "data-object-id"): tag for tag in card_tags}
+    card_ids = [attr(tag, "data-object-id") for tag in card_tags]
+    if len(card_ids) != len(set(card_ids)):
+        fail("homepage contains duplicate object hooks")
+    cards = dict(zip(card_ids, card_tags))
     if set(cards) != set(OBJECTS):
         fail(f"homepage object hooks differ from expected objects: {sorted(cards)}")
 
@@ -80,6 +79,8 @@ def reconcile() -> None:
         card_tag = cards[oid]
         card_start = home.index(card_tag)
         card_end = home.find("</article>", card_start)
+        if card_end < 0:
+            fail(f"{oid}: homepage card has no closing article tag")
         card = home[card_start : card_end + len("</article>")]
         if html.escape(name) not in card:
             fail(f"{oid}: homepage name does not match canonical_name {name!r}")
@@ -127,5 +128,13 @@ def reconcile() -> None:
     print(f"DATA-002 PASS: reconciled {len(OBJECTS)} object summaries and rendered evidence-source counts")
 
 
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data-dir", type=Path, default=DEFAULT_DATA)
+    parser.add_argument("--site-dir", type=Path, default=DEFAULT_SITE)
+    args = parser.parse_args()
+    reconcile(args.data_dir, args.site_dir)
+
+
 if __name__ == "__main__":
-    reconcile()
+    main()
