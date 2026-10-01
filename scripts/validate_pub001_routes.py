@@ -2,8 +2,11 @@
 """Validate the final PUB-001 canonical-data publication contract."""
 from pathlib import Path
 
+from publication_index import path_for, published_objects
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 BASE = "/dc-public-realm"
 
 failures: list[str] = []
@@ -35,12 +38,11 @@ for filename in (
 home = require_file(SITE / "index.html")
 require(home, f'href="{BASE}/data/"', "home canonical-data route")
 
-for slug in (
-    "jose-gervasio-artigas",
-    "jose-de-san-martin",
-    "cuban-american-friendship-urn",
-):
-    page = require_file(SITE / "objects" / slug / "index.html")
+objects = published_objects(DATA)
+for entity in objects:
+    oid = entity["entity_id"]
+    slug = entity["publication"]["slug"]
+    page = require_file(SITE / path_for(oid, DATA))
     require(page, f'href="{BASE}/data/"', f"{slug} canonical-data route")
     require(page, ">Canonical data</a>", f"{slug} canonical-data label")
 
@@ -50,4 +52,4 @@ if failures:
         print(f"- {failure}")
     raise SystemExit(1)
 
-print("PUB-001 route validation PASS: data index, six JSON outputs, home route, and three object routes")
+print(f"PUB-001 route validation PASS: data index, six JSON outputs, home route, and {len(objects)} object routes")
