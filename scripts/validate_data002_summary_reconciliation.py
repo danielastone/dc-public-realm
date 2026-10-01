@@ -14,13 +14,17 @@ class EvidenceSummaryParser(HTMLParser):
  def __init__(self):
   super().__init__(convert_charrefs=True); self.stack=[]; self.current=None; self.summaries=[]
  def handle_starttag(self,tag,attrs):
-  a=dict(attrs); aid=a.get('data-assertion-id'); self.stack.append((tag,aid))
+  a=dict(attrs); aid=a.get('data-assertion-id')
   if tag=='details' and 'evidence' in a.get('class','').split() and 'data-source-count' in a:
    if self.current is not None: fail('nested canonical evidence panels are not supported')
-   owner=next((x for _,x in reversed(self.stack[:-1]) if x),None)
-   self.current={'owner':owner,'hook':a['data-source-count'],'depth':len(self.stack),'summary':False,'text':[]}
-  elif tag=='summary' and self.current is not None and len(self.stack)==self.current['depth']+1:
+   owner=next((x for _,x in reversed(self.stack) if x),None)
+   self.current={'owner':owner,'hook':a['data-source-count'],'depth':len(self.stack)+1,'summary':False,'text':[]}
+  self.stack.append((tag,aid))
+  if tag=='summary' and self.current is not None and len(self.stack)==self.current['depth']+1:
    self.current['summary']=True
+ def handle_startendtag(self,tag,attrs):
+  # Void/self-closing elements must not remain on the ancestry stack.
+  return
  def handle_data(self,data):
   if self.current is not None and self.current['summary']: self.current['text'].append(data)
  def handle_endtag(self,tag):
