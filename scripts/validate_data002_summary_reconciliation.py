@@ -40,20 +40,24 @@ def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
   if len(ks)!=1: fail(f'{oid}: expected exactly one hooked country kicker, found {len(ks)}')
   if attr(ks[0],'data-object-country')!=country: fail(f'{oid}: rendered country hook != canonical country {country!r}')
   if not strip_tags(ks[0]).startswith(country+' ·'): fail(f'{oid}: visible country label != canonical country {country!r}')
-  panels=re.findall(r'<details\s+class="evidence"[^>]*data-evidence-assertion-id="A-[0-9A-Z]+"[^>]*data-source-count="[0-9]+"[^>]*>.*?<summary>Sources\s*·\s*[0-9]+</summary>',page,flags=re.S)
+  # Attribute order is presentation detail. Inspect every evidence opening tag,
+  # require explicit ownership/count hooks, then reconcile its visible summary.
+  openings=list(re.finditer(r'<details\s+class="evidence"[^>]*>',page))
   seen=set()
-  for panel in panels:
-   aid=attr(panel,'data-evidence-assertion-id'); hook=attr(panel,'data-source-count')
+  for i,match in enumerate(openings):
+   opening=match.group(0); aid=attr(opening,'data-evidence-assertion-id'); hook=attr(opening,'data-source-count')
+   if not aid: fail(f'{oid}: evidence panel lacks explicit data-evidence-assertion-id ownership')
+   if not re.fullmatch(r'A-[0-9A-Z]+',aid): fail(f'{oid}: invalid evidence assertion ownership {aid!r}')
+   if hook is None: fail(f'{oid}/{aid}: evidence panel lacks data-source-count')
    if aid in seen: fail(f'{oid}: duplicate source summary for {aid}')
    seen.add(aid)
-   m=re.search(r'<summary>Sources\s*·\s*([0-9]+)</summary>',panel)
+   limit=openings[i+1].start() if i+1<len(openings) else len(page); fragment=page[match.end():limit]
+   m=re.search(r'<summary>Sources\s*·\s*([0-9]+)</summary>',fragment)
    if not m: fail(f'{oid}/{aid}: malformed visible source summary')
    visible=int(m.group(1)); canonical=len(evidence.get(aid,set()))
    try: hook_count=int(hook)
    except (TypeError,ValueError): fail(f'{oid}/{aid}: invalid data-source-count {hook!r}')
    if hook_count!=visible or hook_count!=canonical: fail(f'{oid}/{aid}: rendered source count hook={hook_count}, visible={visible}, canonical={canonical}')
-  unowned=re.findall(r'<details\s+class="evidence"[^>]*data-source-count="[0-9]+"(?![^>]*data-evidence-assertion-id)[^>]*>',page)
-  if unowned: fail(f'{oid}: {len(unowned)} evidence panels lack explicit data-evidence-assertion-id ownership')
  print(f'DATA-002 PASS: reconciled {len(OBJECTS)} object summaries and explicit evidence-source counts')
 def main():
  p=argparse.ArgumentParser(); p.add_argument('--data-dir',type=Path,default=DEFAULT_DATA); p.add_argument('--site-dir',type=Path,default=DEFAULT_SITE); a=p.parse_args(); reconcile(a.data_dir,a.site_dir)
