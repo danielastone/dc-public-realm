@@ -40,10 +40,10 @@ def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
   if len(ks)!=1: fail(f'{oid}: expected exactly one hooked country kicker, found {len(ks)}')
   if attr(ks[0],'data-object-country')!=country: fail(f'{oid}: rendered country hook != canonical country {country!r}')
   if not strip_tags(ks[0]).startswith(country+' ·'): fail(f'{oid}: visible country label != canonical country {country!r}')
-  panels=re.findall(r'<details\s+class="evidence"[^>]*data-assertion-id="A-[0-9A-Z]+"[^>]*data-source-count="[0-9]+"[^>]*>.*?<summary>Sources\s*·\s*[0-9]+</summary>',page,flags=re.S)
+  panels=re.findall(r'<details\s+class="evidence"[^>]*data-evidence-assertion-id="A-[0-9A-Z]+"[^>]*data-source-count="[0-9]+"[^>]*>.*?<summary>Sources\s*·\s*[0-9]+</summary>',page,flags=re.S)
   seen=set()
   for panel in panels:
-   aid=attr(panel,'data-assertion-id'); hook=attr(panel,'data-source-count')
+   aid=attr(panel,'data-evidence-assertion-id'); hook=attr(panel,'data-source-count')
    if aid in seen: fail(f'{oid}: duplicate source summary for {aid}')
    seen.add(aid)
    m=re.search(r'<summary>Sources\s*·\s*([0-9]+)</summary>',panel)
@@ -52,8 +52,8 @@ def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
    try: hook_count=int(hook)
    except (TypeError,ValueError): fail(f'{oid}/{aid}: invalid data-source-count {hook!r}')
    if hook_count!=visible or hook_count!=canonical: fail(f'{oid}/{aid}: rendered source count hook={hook_count}, visible={visible}, canonical={canonical}')
-  unowned=re.findall(r'<details\s+class="evidence"[^>]*data-source-count="[0-9]+"(?![^>]*data-assertion-id)[^>]*>',page)
-  if unowned: fail(f'{oid}: {len(unowned)} evidence panels lack explicit data-assertion-id ownership')
+  unowned=re.findall(r'<details\s+class="evidence"[^>]*data-source-count="[0-9]+"(?![^>]*data-evidence-assertion-id)[^>]*>',page)
+  if unowned: fail(f'{oid}: {len(unowned)} evidence panels lack explicit data-evidence-assertion-id ownership')
  print(f'DATA-002 PASS: reconciled {len(OBJECTS)} object summaries and explicit evidence-source counts')
 def main():
  p=argparse.ArgumentParser(); p.add_argument('--data-dir',type=Path,default=DEFAULT_DATA); p.add_argument('--site-dir',type=Path,default=DEFAULT_SITE); a=p.parse_args(); reconcile(a.data_dir,a.site_dir)
