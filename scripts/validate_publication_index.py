@@ -114,30 +114,30 @@ def debt_meter() -> tuple[int, int, int]:
     for path in sorted(SCRIPTS.glob("*.py")):
         if path.name in {"publication_index.py", "validate_publication_index.py"}:
             continue
+        source = path.read_text(encoding="utf-8")
         literals = script_string_literals(path)
-        text = path.read_text(encoding="utf-8")
 
-        for eid, slug in canonical.items():
-            if eid in text and slug in text:
-                pair_count += 1
-                pair_files.add(path)
+        # Transitional pair debt is counted only when an object ID and slug are
+        # coupled in the same source line. File-wide co-occurrence is not a
+        # relationship and would overcount unrelated literals.
+        for line in source.splitlines():
+            ids_here = [eid for eid in canonical if eid in line]
+            slugs_here = [slug for slug in canonical.values() if slug in line]
+            for eid in ids_here:
+                expected = canonical[eid]
+                if expected in slugs_here:
+                    pair_count += 1
+                    pair_files.add(path)
+                wrong = [slug for slug in slugs_here if slug != expected]
+                if wrong:
+                    fail(
+                        f"{path.relative_to(ROOT)}: {eid} is paired with non-canonical slug "
+                        f"{wrong[0]!r}; expected {expected!r}"
+                    )
 
         for slug in canonical.values():
             if any(slug in literal for literal in literals):
                 literal_files.add(path)
-
-        for eid, slug in canonical.items():
-            for literal in literals:
-                if eid in literal:
-                    other_slugs = [
-                        known for known in canonical.values()
-                        if known in literal and known != slug
-                    ]
-                    if other_slugs:
-                        fail(
-                            f"{path.relative_to(ROOT)}: {eid} is paired with non-canonical slug "
-                            f"{other_slugs[0]!r}; expected {slug!r}"
-                        )
 
     print(
         "PUBLICATION INDEX DEBT: "
