@@ -111,6 +111,8 @@ jobs:
         run: python scripts/validate_epi004_san_martin_conflict.py
       - name: Verify EPI-005 rendered material conflicts
         run: python scripts/validate_epi005_rendered_conflicts.py
+      - name: Verify EPI-005 warning placement
+        run: python scripts/validate_epi005_warning_placement.py
       - name: Verify PUB-001 canonical-data routes
         run: python scripts/validate_pub001_routes.py
       - name: Verify PUB-002 navigation contract
