@@ -43,7 +43,7 @@ A code change by itself does not close a finding.
 | EPI-002 | P0 | Multiple sources can appear as corroboration without exposing whether their effective claim roots are independent. | Publication distinguishes independent, dependent/inherited, and unresolved corroboration; independence is asserted only when established under the source-inheritance rules. | #54 | `scripts/validate_epi002_dependency_derivation.py`; `scripts/validate_epi002_dependency_rendering.py` | PR #55; merge `c1ddff79`; Actions run #133 build + deploy succeeded | CLOSED |
 | EPI-003 | P0 | Unknown or unresolved source ancestry can disappear from the public presentation. | Unknown ancestry remains explicit in publication and is never silently treated as independent evidence. | #56 | `scripts/validate_epi003_ancestry_rendering.py` | PR #57; merge `6e2185e8`; Actions run #135 build + deploy succeeded | CLOSED |
 | EPI-004 | P1 | Public claim lineage is insufficient for an outsider to trace an important assertion through its evidence and source ancestry. | A published assertion can be traced from stable assertion identity to evidence and effective claim root, with unresolved lineage disclosed. | #58 | `scripts/validate_epi004_lineage_traversal.py`; `scripts/validate_epi004_corpus_lineage.py`; `scripts/validate_epi004_rendered_lineage.py`; `scripts/validate_epi004_san_martin_conflict.py` | PR #59; merge `fbad3c3f`; Actions run #144 build + deploy succeeded | CLOSED |
-| EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | TBD | TBD | TBD | OPEN |
+| EPI-005 | P1 | Conflicting evidence present in canonical data may be lost or understated in rendering. | A material canonical conflict necessarily produces a visible conflict or qualification on the corresponding public assertion. | #60 | `scripts/validate_epi005_conflict_inventory.py`; `scripts/validate_epi005_synthetic_rendering.py`; `scripts/validate_epi005_rendered_conflicts.py`; `scripts/validate_epi005_warning_placement.py` | PR #61; merge `9bc9572f`; Actions run #151 build + deploy succeeded | CLOSED |
 | DATA-001 | P1 | HTML-to-canonical-data reconciliation is not mechanically demonstrated. | Every rendered factual assertion has a stable assertion identifier that maps unambiguously to canonical data. | TBD | TBD | TBD | OPEN |
 | DATA-002 | P1 | Homepage/object summaries can drift from underlying canonical state if maintained separately. | Status badges, research-task counts, and other derived summaries reconcile to or are generated from canonical state. | TBD | TBD | TBD | OPEN |
 | UX-001 | P1 | Object cards repeat generic copy rather than communicating object-specific significance or research gaps. | Each audited object card communicates a specific historically or epistemically relevant feature without overstating the evidence. | TBD | TBD | TBD | OPEN |
@@ -61,7 +61,7 @@ The alpha remediation is not complete until the three reference objects pass the
 | Displayed evidence maps to evidence records | PASS | PASS | PASS |
 | Source independence/dependence is represented accurately | PASS | PASS | PASS |
 | Unknown ancestry remains visible | PASS | PASS | PASS |
-| Material conflicts remain visible | NOT TESTED | PASS (Daumas/Dumont regression) | NOT TESTED |
+| Material conflicts remain visible | PASS | PASS | PASS |
 | Open research tasks reconcile | PASS | PASS | PASS |
 | Canonical-data links resolve | PASS | PASS | PASS |
 
@@ -93,7 +93,7 @@ Required findings: `EPI-004`, `EPI-005`, `DATA-001`.
 
 **Exit criterion:** important published assertions are traceable to canonical evidence/lineage and material conflicts survive rendering.
 
-**Status:** BLOCKED (`EPI-004` closed; `EPI-005` and `DATA-001` remain open)
+**Status:** BLOCKED (`EPI-004` and `EPI-005` closed; `DATA-001` remains open)
 
 ### Gate 4 — Three-object reconciliation
 
@@ -101,7 +101,7 @@ Required evidence: completed publication reconciliation matrix and San Martín r
 
 **Exit criterion:** Artigas, San Martín, and Cuban Urn pass the defined reconciliation controls.
 
-**Status:** BLOCKED
+**Status:** PASS (three-object matrix complete; San Martín conflict regression remains enforced)
 
 ### Gate 5 — Expansion readiness
 
@@ -189,6 +189,17 @@ Production verification: GitHub Actions run #144 (`36789962639`), build and depl
 Three-object regression: rendered provenance reconciles stable assertion identity, assertion-evidence identity, source identity, locator, direct inherited claim sources, and explicit lineage terminus across Artigas, San Martín, and Cuban Urn; the San Martín Daumas/Dumont regression preserves both supporting and contradictory evidence notes rather than normalizing away the disagreement  
 Closed: 2026-09-30  
 Disposition: public assertions now provide a claim-level provenance trace from stable assertion identity through canonical evidence and source records to an explicit lineage terminus. Traversal distinguishes established roots, unresolved ancestry, broken references, and cycles; an empty parent list cannot manufacture a root. The current reference corpus honestly terminates in unresolved ancestry where no upstream claim root has been established.
+
+### EPI-005
+
+Issue: #60  
+Implementation: PR #61  
+Merged production fix: `9bc9572f1185209492827211eb847810d14fb1c3`  
+Automated acceptance tests: `scripts/validate_epi005_conflict_inventory.py`; `scripts/validate_epi005_synthetic_rendering.py`; `scripts/validate_epi005_rendered_conflicts.py`; `scripts/validate_epi005_warning_placement.py`  
+Production verification: GitHub Actions run #151 (`36796490963`), build and deploy jobs both succeeded  
+Three-object regression: materialized publication state reconciled exactly to visible conflict warnings for Artigas, San Martín, and Cuban Urn; warnings precede optional provenance disclosure and retain contradictory evidence identity, source, locator, and note. Frozen baseline and materialized publication state are tested separately so transaction-derived conflicts cannot disappear during publication.  
+Closed: 2026-09-30  
+Disposition: canonical `CONTRADICTS` evidence now necessarily produces an immediately visible assertion-level conflict warning. Publication does not infer conflict from `QUALIFIES`, source plurality, uncertainty, or wording variation alone. The materialized publication state currently exposes one conflicted Artigas assertion, one San Martín assertion, and two Cuban Urn assertions; future transaction changes alter the publication obligation automatically through exact canonical-to-rendered reconciliation.
 
 ## Closure evidence format
 
