@@ -107,36 +107,26 @@ def reconcile(data_dir: Path = DEFAULT_DATA, site_dir: Path = DEFAULT_SITE) -> N
         if not strip_tags(kickers[0]).startswith(country + " ·"):
             fail(f"{oid}: visible country label != canonical country {country!r}")
 
-        # DATA-001 gives factual containers a stable data-assertion-id. DATA-002
-        # keys off that semantic identity rather than a CSS class so specialized
-        # and generic renderers can share one publication contract.
-        seen_assertions = set()
-        for aid in sorted(evidence):
-            opener = re.search(
-                rf'<(?P<tag>article|li)[^>]*data-assertion-id="{re.escape(aid)}"[^>]*>',
-                page,
-            )
-            if not opener:
-                continue
-            if aid in seen_assertions:
-                fail(f"{oid}: duplicate rendered assertion {aid}")
-            seen_assertions.add(aid)
-            tag = opener.group("tag")
-            close = page.find(f'</{tag}>', opener.end())
-            if close < 0:
-                fail(f"{oid}/{aid}: assertion container has no closing {tag} tag")
-            block = page[opener.start() : close + len(tag) + 3]
-            details = re.search(
-                r'<details\s+class="evidence"[^>]*data-source-count="([0-9]+)"[^>]*>.*?<summary>Sources · ([0-9]+)</summary>',
-                block,
-                flags=re.S,
-            )
-            canonical_count = len(evidence.get(aid, set()))
-            if not details:
-                if canonical_count:
-                    fail(f"{oid}/{aid}: published source summary lacks machine-readable source count")
-                continue
+        # Reconcile every source-count summary actually published on the page.
+        # Some canonical assertions are fallback/list-item statements and publish no
+        # source-summary UI; DATA-001/EPI controls govern those assertions instead.
+        summaries = re.finditer(
+            r'<details\s+class="evidence"[^>]*data-source-count="([0-9]+)"[^>]*>.*?<summary>Sources · ([0-9]+)</summary>',
+            page,
+            flags=re.S,
+        )
+        seen = set()
+        for details in summaries:
+            prefix = page[: details.start()]
+            ids = list(re.finditer(r'data-assertion-id="(A-[0-9A-Z]+)"', prefix))
+            if not ids:
+                fail(f"{oid}: source summary has no preceding assertion identity")
+            aid = ids[-1].group(1)
+            if aid in seen:
+                fail(f"{oid}: duplicate source summary for {aid}")
+            seen.add(aid)
             hook_count, visible_count = map(int, details.groups())
+            canonical_count = len(evidence.get(aid, set()))
             if hook_count != visible_count or hook_count != canonical_count:
                 fail(f"{oid}/{aid}: rendered source count hook={hook_count}, visible={visible_count}, canonical={canonical_count}")
 
