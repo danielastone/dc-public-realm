@@ -107,21 +107,36 @@ def reconcile(data_dir: Path = DEFAULT_DATA, site_dir: Path = DEFAULT_SITE) -> N
         if not strip_tags(kickers[0]).startswith(country + " ·"):
             fail(f"{oid}: visible country label != canonical country {country!r}")
 
-        articles = re.findall(r'<article\s+class="assertion">.*?</article>', page, flags=re.S)
+        # DATA-001 gives factual containers a stable data-assertion-id. DATA-002
+        # keys off that semantic identity rather than a CSS class so specialized
+        # and generic renderers can share one publication contract.
         seen_assertions = set()
-        for article in articles:
-            m = re.search(r'<div\s+class="kicker">(A-[0-9]+)</div>', article)
-            if not m:
-                fail(f"{oid}: assertion block lacks assertion id")
-            aid = m.group(1)
+        for aid in sorted(evidence):
+            opener = re.search(
+                rf'<(?P<tag>article|li)[^>]*data-assertion-id="{re.escape(aid)}"[^>]*>',
+                page,
+            )
+            if not opener:
+                continue
             if aid in seen_assertions:
                 fail(f"{oid}: duplicate rendered assertion {aid}")
             seen_assertions.add(aid)
-            details = re.search(r'<details\s+class="evidence"[^>]*data-source-count="([0-9]+)"[^>]*>.*?<summary>Sources · ([0-9]+)</summary>', article, flags=re.S)
-            if not details:
-                fail(f"{oid}/{aid}: missing machine-readable evidence source count")
-            hook_count, visible_count = map(int, details.groups())
+            tag = opener.group("tag")
+            close = page.find(f'</{tag}>', opener.end())
+            if close < 0:
+                fail(f"{oid}/{aid}: assertion container has no closing {tag} tag")
+            block = page[opener.start() : close + len(tag) + 3]
+            details = re.search(
+                r'<details\s+class="evidence"[^>]*data-source-count="([0-9]+)"[^>]*>.*?<summary>Sources · ([0-9]+)</summary>',
+                block,
+                flags=re.S,
+            )
             canonical_count = len(evidence.get(aid, set()))
+            if not details:
+                if canonical_count:
+                    fail(f"{oid}/{aid}: published source summary lacks machine-readable source count")
+                continue
+            hook_count, visible_count = map(int, details.groups())
             if hook_count != visible_count or hook_count != canonical_count:
                 fail(f"{oid}/{aid}: rendered source count hook={hook_count}, visible={visible_count}, canonical={canonical_count}")
 
