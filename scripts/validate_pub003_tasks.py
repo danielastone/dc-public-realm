@@ -66,7 +66,9 @@ for entity in objects:
         rf'data-object-id="{re.escape(oid)}" data-open-task-count="(\d+)"',
         home,
     )
-    if hm and int(hm.group(1)) != expected_count:
+    if not hm:
+        errors.append(f"missing homepage task count marker: {oid}")
+    elif int(hm.group(1)) != expected_count:
         errors.append(
             f"homepage task count mismatch: {oid}: published={hm.group(1)} canonical={expected_count}"
         )
