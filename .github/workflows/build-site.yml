@@ -43,6 +43,8 @@ jobs:
         run: python scripts/validate_epi005_conflict_inventory.py
       - name: Validate EPI-005 synthetic conflict semantics
         run: python scripts/validate_epi005_synthetic_rendering.py
+      - name: Validate DATA-001 synthetic reconciliation semantics
+        run: python scripts/validate_data001_synthetic.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
       - name: Validate materialized database
@@ -113,6 +115,8 @@ jobs:
         run: python scripts/validate_epi005_rendered_conflicts.py
       - name: Verify EPI-005 warning placement
         run: python scripts/validate_epi005_warning_placement.py
+      - name: Verify DATA-001 exact rendered assertion reconciliation
+        run: python scripts/validate_data001_assertion_reconciliation.py
       - name: Verify PUB-001 canonical-data routes
         run: python scripts/validate_pub001_routes.py
       - name: Verify PUB-002 navigation contract
