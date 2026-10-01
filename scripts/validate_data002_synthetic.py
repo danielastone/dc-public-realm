@@ -83,7 +83,16 @@ def cross_object_binding(_data: Path, site: Path) -> None:
 
 def wrong_home_route(_data: Path, site: Path) -> None:
     p = site / "index.html"
-    replace_once(p, '/objects/jose-gervasio-artigas/', '/objects/jose-de-san-martin/')
+    text = p.read_text(encoding="utf-8")
+    card_match = re.search(r'<article\s+class="card"[^>]*data-object-id="OBJ-0001"[^>]*>.*?</article>', text, flags=re.S)
+    if not card_match:
+        raise AssertionError("OBJ-0001 homepage card not found")
+    card = card_match.group(0)
+    mutated, count = re.subn(r'href="([^"]*/objects/)jose-gervasio-artigas/([^"]*)"', r'href="\1jose-de-san-martin/\2"', card, count=1)
+    if count != 1:
+        raise AssertionError("OBJ-0001 homepage object route not found inside its card")
+    text = text[:card_match.start()] + mutated + text[card_match.end():]
+    p.write_text(text, encoding="utf-8")
 
 
 def duplicate_home_object(_data: Path, site: Path) -> None:
