@@ -6,19 +6,17 @@ import json
 import re
 from pathlib import Path
 
+from publication_index import path_for, published_objects, slug_for
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 DATA = ROOT / "data"
 BASE = "/dc-public-realm"
 
-OBJECTS = {
-    "OBJ-0001": "jose-gervasio-artigas",
-    "OBJ-0002": "jose-de-san-martin",
-    "OBJ-0003": "cuban-american-friendship-urn",
-}
-
+objects = published_objects(DATA)
+object_ids = [entity["entity_id"] for entity in objects]
 tasks = json.loads((DATA / "research-tasks.json").read_text(encoding="utf-8"))["tasks"]
-open_by_object = {oid: [] for oid in OBJECTS}
+open_by_object = {oid: [] for oid in object_ids}
 for task in tasks:
     if task.get("status") == "OPEN" and task.get("object_entity_id") in open_by_object:
         open_by_object[task["object_entity_id"]].append(task)
@@ -37,8 +35,10 @@ def task_card(task):
         f'</article>'
     )
 
-for oid, slug in OBJECTS.items():
-    page = SITE / "objects" / slug / "index.html"
+for entity in objects:
+    oid = entity["entity_id"]
+    slug = slug_for(oid, DATA)
+    page = SITE / path_for(oid, DATA)
     text = page.read_text(encoding="utf-8")
     expected = open_by_object[oid]
     count = len(expected)
@@ -102,7 +102,9 @@ for oid, slug in OBJECTS.items():
 # Publish the same canonical counts on the homepage cards where object links appear.
 home = SITE / "index.html"
 text = home.read_text(encoding="utf-8")
-for oid, slug in OBJECTS.items():
+for entity in objects:
+    oid = entity["entity_id"]
+    slug = slug_for(oid, DATA)
     count = len(open_by_object[oid])
     marker = (
         f'<span class="open-task-count" data-object-id="{oid}" '
