@@ -20,7 +20,7 @@ contradict=[r for r in ars if r.get('evidence_role')=='CONTRADICTS' and 'Dumont'
 if not support: raise SystemExit('EPI-004 SAN MARTIN FAIL: Daumas supporting evidence missing')
 if not contradict: raise SystemExit('EPI-004 SAN MARTIN FAIL: Dumont contradictory evidence missing')
 text=(SITE/'objects'/'jose-de-san-martin'/'index.html').read_text(encoding='utf-8')
-if 'class="claim-lineage" data-assertion-id="A-0106"' not in text:
+if 'class="claim-lineage" data-for-assertion-id="A-0106"' not in text:
  raise SystemExit('EPI-004 SAN MARTIN FAIL: A-0106 public lineage trace missing')
 for r in support+contradict:
  eid=r['assertion_evidence_id']
