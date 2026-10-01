@@ -53,6 +53,9 @@ jobs:
       - name: Validate materialized publication identity
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_publication_identity.py
+      - name: Validate publication index contract
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: python scripts/validate_publication_index.py
       - name: Validate materialized scholarly claim modes
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_claim_modes.py
