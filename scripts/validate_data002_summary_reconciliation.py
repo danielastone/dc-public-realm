@@ -29,7 +29,9 @@ def reconcile(data_dir=DEFAULT_DATA,site_dir=DEFAULT_SITE):
   card=home[start:end+10]
   if html.escape(name) not in card: fail(f'{oid}: homepage name does not match canonical_name {name!r}')
   if html.escape(country) not in card: fail(f'{oid}: homepage country does not match canonical country {country!r}')
-  if f'/dc-public-realm/objects/{slug}/' not in card: fail(f'{oid}: homepage card points to wrong object route')
+  hrefs=re.findall(r'\bhref="([^"]+)"',card)
+  expected_suffix=f'/objects/{slug}/'
+  if not any(href.split('?',1)[0].split('#',1)[0].endswith(expected_suffix) for href in hrefs): fail(f'{oid}: homepage card points to wrong object route')
   path=site_dir/'objects'/slug/'index.html'
   if not path.exists(): fail(f'missing object page {path}')
   page=path.read_text(encoding='utf-8'); h1=re.findall(r'<h1[^>]*data-object-id="[^"]+"[^>]*>.*?</h1>',page,flags=re.S)
