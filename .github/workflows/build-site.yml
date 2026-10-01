@@ -73,6 +73,8 @@ jobs:
         run: python scripts/build_country_pages.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
+      - name: Normalize Artigas DATA-002 contract
+        run: python scripts/normalize_artigas_data002_contract.py
       - name: Add sourced object overviews
         run: python scripts/inject_object_overviews.py
       - name: Validate rendered object overviews
