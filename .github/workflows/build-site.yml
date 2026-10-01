@@ -30,7 +30,7 @@ jobs:
       - name: Validate localization integrity
         run: python scripts/validate_localization.py
       - name: Validate public image rights metadata
-        run: python scripts/check_image_urls.py
+        run: python scripts/validate_image_rights.py
       - name: Validate image provenance URLs
         run: python scripts/check_image_urls.py
       - name: Validate EPI-002 dependency derivation
