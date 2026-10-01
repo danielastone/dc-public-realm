@@ -60,7 +60,13 @@ def value(a):return E.get(a.get('object_entity_id'),{}).get('canonical_name',a.g
 def public_status(st):return {'VERIFIED':'Verified','SUPPORTED':'Supported','CONTESTED':'Sources differ','UNRESOLVED':'Unresolved','UNSUPPORTED':'Not established'}.get(st,st.title())
 def evblock(ev):
  s=S[ev['source_id']]; role={'PRIMARY_SUPPORT':'Main source','CORROBORATION':'Additional source','QUALIFIES':'Qualification','CONTRADICTS':'Differing record','IMAGE_EVIDENCE':'Image evidence'}.get(ev['evidence_role'],pred(ev['evidence_role']))
- return f'<div class="source-row"><div class="source-role">{esc(role)}</div><a href="{esc(s["url"])}">{esc(s["title"])}</a><div class="meta">{esc(ev.get("locator","Record"))}</div></div>'
+ origin=ev.get('claim_origin','UNKNOWN'); parents=ev.get('inherits_claim_from_source_ids',[])
+ if origin=='ORIGINAL_TO_SOURCE': lineage='Source history: recorded as originating in this source.'
+ elif origin=='INHERITED' and parents: lineage='Source history: inherited from '+', '.join(parents)+'.'
+ elif origin=='MIXED' and parents: lineage='Source history: mixed; includes material inherited from '+', '.join(parents)+'.'
+ elif origin=='MIXED': lineage='Source history: mixed origin; upstream source not yet identified.'
+ else: lineage='Source history: not yet established.'
+ return f'<div class="source-row"><div class="source-role">{esc(role)}</div><a href="{esc(s["url"])}">{esc(s["title"])}</a><div class="meta">{esc(ev.get("locator","Record"))}</div><div class="meta source-lineage">{esc(lineage)}</div></div>'
 def ablock(a):
  evs=EV.get(a['assertion_id'],[]); n=len({e['source_id'] for e in evs})
  return f'<article class="assertion"><div class="kicker">{esc(a["assertion_id"])}</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><div class="status {esc(a["computed_status"])}"><span class="status-label">{esc(public_status(a["computed_status"]))}</span><span class="status-reason">{esc(a["status_reason"])}</span></div><details class="evidence"><summary>Sources · {n}</summary>{"".join(evblock(x) for x in evs)}</details></article>'

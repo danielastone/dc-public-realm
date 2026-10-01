@@ -24,23 +24,15 @@ section = f'''<section id="external-records"><h2>External records</h2>
 </section>'''
 
 text = PAGE.read_text(encoding="utf-8")
-candidates = [
-    '<section id="research"><h2>Research notes</h2>',
-    '<section id="questions"><h2>Open questions</h2>',
-]
-needle = next((x for x in candidates if x in text), None)
-if needle is None:
-    raise SystemExit("Artigas publication insertion point not found")
-text = text.replace(needle, section + needle, 1)
+if 'id="external-records"' in text:
+    raise SystemExit("External records already rendered on Artigas page")
 
-nav_candidates = [
-    ('<a href="#sources">References</a><a href="#research">', '<a href="#sources">References</a><a href="#external-records">External records</a><a href="#research">'),
-    ('<a href="#sources">Sources</a><a href="#questions">', '<a href="#sources">Sources</a><a href="#external-records">External records</a><a href="#questions">'),
-]
-for old, new in nav_candidates:
-    if old in text:
-        text = text.replace(old, new, 1)
-        break
+# Insert at the stable shared page-shell boundary rather than depending on
+# headings or navigation emitted by the retired Artigas-specific renderer.
+needle = "</main>"
+if text.count(needle) != 1:
+    raise SystemExit(f"Expected exactly one shared </main> boundary, found {text.count(needle)}")
+text = text.replace(needle, section + needle, 1)
 
 PAGE.write_text(text, encoding="utf-8")
 print("Injected external interoperability records into", PAGE)
