@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import contextlib
 import io
+import re
 import shutil
 import tempfile
 from pathlib import Path
@@ -48,7 +49,12 @@ def replace_once(path: Path, old: str, new: str) -> None:
 
 def stale_name(_data: Path, site: Path) -> None:
     p = site / "objects" / "jose-gervasio-artigas" / "index.html"
-    replace_once(p, 'data-object-id="OBJ-0001">José Gervasio Artigas</h1>', 'data-object-id="OBJ-0001">Stale Artigas Name</h1>')
+    text = p.read_text(encoding="utf-8")
+    pattern = r'(<h1\b[^>]*\bdata-object-id="OBJ-0001"[^>]*>).*?(</h1>)'
+    text, count = re.subn(pattern, r'\1Stale Artigas Name\2', text, count=1, flags=re.S)
+    if count != 1:
+        raise AssertionError(f"expected exactly one OBJ-0001 heading in {p}, found {count}")
+    p.write_text(text, encoding="utf-8")
 
 
 def stale_country(_data: Path, site: Path) -> None:
