@@ -73,8 +73,6 @@ jobs:
         run: python scripts/build_country_pages.py
       - name: Build Artigas public vertical slice
         run: python scripts/build_artigas_public.py
-      - name: Stamp legacy Artigas DATA-002 evidence ownership
-        run: python scripts/stamp_data002_evidence_ownership.py
       - name: Add sourced object overviews
         run: python scripts/inject_object_overviews.py
       - name: Validate rendered object overviews
@@ -101,6 +99,8 @@ jobs:
         run: python scripts/enforce_navigation_contract.py
       - name: Reconcile published research tasks
         run: python scripts/stamp_research_task_counts.py
+      - name: Stamp DATA-002 evidence ownership on final object pages
+        run: python scripts/stamp_data002_evidence_ownership.py
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
