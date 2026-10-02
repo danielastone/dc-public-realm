@@ -63,14 +63,12 @@ jobs:
         run: |
           cp data/external-records.json /tmp/external-records.json
           cp data/claim-modes.json /tmp/claim-modes.json
-          cp data/object-overviews.json /tmp/object-overviews.json
           cp data/publication_status_rules.json /tmp/publication_status_rules.json
           cp data/publication_dependency_rules.json /tmp/publication_dependency_rules.json
           rm -rf data
           cp -R build/data data
           cp /tmp/external-records.json data/external-records.json
           cp /tmp/claim-modes.json data/claim-modes.json
-          cp /tmp/object-overviews.json data/object-overviews.json
           cp /tmp/publication_status_rules.json data/publication_status_rules.json
           cp /tmp/publication_dependency_rules.json data/publication_dependency_rules.json
       - name: Build static alpha from materialized database
