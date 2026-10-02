@@ -71,10 +71,8 @@ jobs:
           cp /tmp/claim-modes.json data/claim-modes.json
           cp /tmp/publication_status_rules.json data/publication_status_rules.json
           cp /tmp/publication_dependency_rules.json data/publication_dependency_rules.json
-      - name: Build static alpha from materialized database
-        run: python scripts/build_site.py
-      - name: Add sourced object overviews
-        run: python scripts/inject_object_overviews.py
+      - name: Build publication from materialized database
+        run: python scripts/build_publication.py
       - name: Validate rendered object overviews
         run: python scripts/validate_overview_rendering.py
       - name: Add Artigas external interoperability records
