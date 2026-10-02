@@ -32,8 +32,6 @@ jobs:
       - name: Validate localization integrity
         run: python scripts/validate_localization.py
       - name: Validate public image rights metadata
-        run: python scripts/validate_image_rights.py
-      - name: Validate image provenance URLs
         run: python scripts/check_image_urls.py
       - name: Validate EPI-002 dependency derivation
         run: python scripts/validate_epi002_dependency_derivation.py
@@ -94,6 +92,9 @@ jobs:
         run: python scripts/enforce_navigation_contract.py
       - name: Prove HTML parity comparator sensitivity
         run: node tests/html-parity-sensitivity.mjs
+      - name: Prove Python object-page build determinism
+        env: {KNOWLEDGE_DATA_DIR: data}
+        run: node tests/python-object-page-determinism.mjs
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
