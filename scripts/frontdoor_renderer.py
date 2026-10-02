@@ -11,6 +11,12 @@ def esc(x): return html.escape(str(x), quote=True)
 
 def render_frontdoor(data_dir: Path, base: str = BASE) -> tuple[str,str]:
     overviews={o['object_entity_id']:o for o in json.loads((data_dir/'object-overviews.json').read_text(encoding='utf-8'))['object_overviews']}
+    tasks=json.loads((data_dir/'research-tasks.json').read_text(encoding='utf-8'))['tasks']
+    open_counts={e['entity_id']:0 for e in published_objects(data_dir)}
+    for task in tasks:
+        oid=task.get('object_entity_id')
+        if task.get('status')=='OPEN' and oid in open_counts:
+            open_counts[oid]+=1
     featured=featured_object(data_dir)
     featured_id=featured['entity_id']
     if featured_id != 'OBJ-0001':
@@ -27,10 +33,13 @@ def render_frontdoor(data_dir: Path, base: str = BASE) -> tuple[str,str]:
 
     def object_card(entity):
         oid=entity['entity_id']
+        count=open_counts[oid]
         return (
             f'<article class="card" data-object-id="{esc(oid)}" data-object-country="{esc(entity["country"])}">'
             f'<div class="kicker">{esc(entity["country"]).upper()}</div>'
-            f'<h3><a href="{href(oid,base,data_dir)}">{esc(entity["canonical_name"])}</a></h3></article>'
+            f'<h3><a href="{href(oid,base,data_dir)}">{esc(entity["canonical_name"])}</a></h3>'
+            f'<span class="open-task-count" data-object-id="{esc(oid)}" data-open-task-count="{count}">{count} open research mission{"s" if count != 1 else ""}</span>'
+            f'</article>'
         )
 
     object_grid=''.join(object_card(entity) for entity in published_objects(data_dir))
