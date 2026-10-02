@@ -76,6 +76,11 @@ def ablock(a):
  if not sr: raise SystemExit(f'{a["assertion_id"]}: no publication status rule for {a["computed_status"]}')
  rid=sr['rule_id']; label=sr['public_label']
  return f'<article class="assertion" data-assertion-id="{esc(a["assertion_id"])}" data-computed-status="{esc(a["computed_status"])}" data-status-rule="{esc(rid)}"><div class="kicker">{esc(a["assertion_id"])}</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><div class="canonical-status status {esc(a["computed_status"])}"><span class="status-label">{esc(label)}</span><span class="status-reason">{esc(a["status_reason"])}</span><a class="status-rule" href="{BASE}/methodology/#rule-{esc(rid)}">Why this status? <span class="rule-id">{esc(rid)}</span></a></div><details class="evidence" data-evidence-assertion-id="{esc(a["assertion_id"])}" data-source-count="{n}"><summary>Sources · {n}</summary>{"".join(evblock(x) for x in evs)}</details></article>'
+def related_ablock(a):
+ evs=EV.get(a['assertion_id'],[]); n=len({e['source_id'] for e in evs}); sr=status_rules.get(a['computed_status'])
+ if not sr: raise SystemExit(f'{a["assertion_id"]}: no publication status rule for {a["computed_status"]}')
+ rid=sr['rule_id']; label=sr['public_label']
+ return f'<article class="assertion related-assertion" data-related-assertion-id="{esc(a["assertion_id"])}" data-computed-status="{esc(a["computed_status"])}" data-status-rule="{esc(rid)}"><div class="kicker">{esc(a["assertion_id"])}</div><h3>{esc(pred(a["predicate"]))}: {esc(value(a))}</h3><div class="canonical-status status {esc(a["computed_status"])}"><span class="status-label">{esc(label)}</span><span class="status-reason">{esc(a["status_reason"])}</span><a class="status-rule" href="{BASE}/methodology/#rule-{esc(rid)}">Why this status? <span class="rule-id">{esc(rid)}</span></a></div><details class="evidence" data-evidence-assertion-id="{esc(a["assertion_id"])}" data-source-count="{n}"><summary>Sources · {n}</summary>{"".join(evblock(x) for x in evs)}</details></article>'
 def taskurl(t):
  body=f'Task: {t["task_id"]}\nTask URL: https://danielastone.github.io/dc-public-realm/tasks/{t["task_id"].lower()}/\n\nRepository: {t["repository"]}\nCollection: {t["collection"]}\n\nFindings:\n\nCitations:\n\nFiles/images/links:\n'
  return REPO+'/issues/new?'+urllib.parse.urlencode({'title':t['task_id']+' - '+t['title'],'body':body})
@@ -95,7 +100,7 @@ for oid in OBJECTS:
 for oid in OBJECTS:
  c=country(oid); rel=[a for a in derived if a['subject_id']==oid];preds={a.get('object_entity_id') for a in rel if a.get('predicate') in {'RECAST_OF','COPY_OF','DERIVED_FROM_MATERIAL','RELIEF_DERIVED_FROM'}};lineage=[a for a in derived if a['subject_id'] in preds]
  body=f'<div class="kicker" data-object-country="{esc(c)}">{esc(c)} · catalog record</div><h1 data-object-id="{esc(oid)}">{esc(E[oid]["canonical_name"])}</h1><p class="lede">Current research record with each statement presented together with its status and supporting sources.</p><p><a href="{BASE}/data/">Canonical data</a></p><h2>Record</h2>{"".join(ablock(a) for a in rel)}'
- if lineage:body+='<h2>Predecessor and lineage</h2>'+''.join(ablock(a) for a in lineage)
+ if lineage:body+='<h2>Predecessor and lineage</h2>'+''.join(related_ablock(a) for a in lineage)
  if TASKS.get(oid):body+='<h2>Research missions</h2><p>These missions identify records that could clarify or qualify this catalog record.</p>'+''.join(taskblock(t) for t in TASKS[oid])
  d=OUT/'objects'/SLUGS[oid];d.mkdir(parents=True);(d/'index.html').write_text(shell(E[oid]['canonical_name'],body),encoding='utf-8')
 for t in tasks:
