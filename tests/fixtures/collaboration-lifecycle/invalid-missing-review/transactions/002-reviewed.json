@@ -1,0 +1,1 @@
+{"transaction_id":"TEST-BAD-TX-002","purpose":"TEST ONLY","operations":[{"table":"research_tasks","action":"update","id":"TEST-COLLAB-BAD-001","value":{"task_id":"TEST-COLLAB-BAD-001","status":"REVIEWED"}}]}
