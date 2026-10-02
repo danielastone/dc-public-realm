@@ -1,0 +1,12 @@
+{
+  "transaction_id":"TEST-TX-003",
+  "purpose":"TEST ONLY: incorporate synthetic reviewed contribution",
+  "resolves":{
+    "task_id":"TEST-COLLAB-001",
+    "submission_ref":"submissions/TEST-SUB-001.md",
+    "contributor":"Example Researcher (fictional)",
+    "review_record":"reviews/TEST-REVIEW-001.md",
+    "reviewed_at":"2099-01-01"
+  },
+  "operations":[{"table":"research_tasks","action":"update","id":"TEST-COLLAB-001","value":{"task_id":"TEST-COLLAB-001","status":"INCORPORATED"}}]
+}
