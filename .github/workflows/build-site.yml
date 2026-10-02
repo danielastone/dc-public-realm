@@ -92,6 +92,8 @@ jobs:
         run: python scripts/build_smithsonian_review.py
       - name: Enforce shared navigation and alpha state
         run: python scripts/enforce_navigation_contract.py
+      - name: Prove HTML parity comparator sensitivity
+        run: node tests/html-parity-sensitivity.mjs
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
