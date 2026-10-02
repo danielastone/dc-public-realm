@@ -52,6 +52,9 @@ jobs:
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
+      - name: Verify AUD-11 JS publication index against materialized metadata
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/publication-index.mjs
       - name: Validate materialized database
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_data.py
