@@ -4,11 +4,14 @@ import { fileURLToPath } from 'node:url';
 import { computeStatus } from '../lib/status.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const DATA = process.env.KNOWLEDGE_DATA_DIR || 'build/data';
 const read = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
-const assertions = read('data/assertions.json').assertions;
-const evidence = read('data/assertion-evidence.json').assertion_evidence;
-const rules = read('data/predicate-rules.json').predicate_rules;
-const golden = read('tests/fixtures/golden-assertion-status.json').statuses;
+const assertions = read(`${DATA}/assertions.json`).assertions;
+const evidence = read(`${DATA}/assertion-evidence.json`).assertion_evidence;
+const rules = read(`${DATA}/predicate-rules.json`).predicate_rules;
+const goldenDoc = read('tests/fixtures/golden-assertion-status.json');
+const golden = goldenDoc.statuses;
+if (goldenDoc.input_state !== 'materialized build/data') throw new Error('AUD-10 oracle is not marked as materialized build/data');
 const byAssertion = new Map();
 for (const edge of evidence) {
   const rows = byAssertion.get(edge.assertion_id) || [];
@@ -32,4 +35,4 @@ if (JSON.stringify(actualIds) !== JSON.stringify(expectedIds)) {
 }
 const mismatches = expectedIds.filter(id => actual[id] !== golden[id]).map(id => `${id}: expected ${golden[id]}, got ${actual[id]}`);
 if (mismatches.length) throw new Error(`AUD-10 status mismatch:\n${mismatches.join('\n')}`);
-console.log(`AUD-10 golden status PASS: ${expectedIds.length}/${expectedIds.length}`);
+console.log(`AUD-10 golden status PASS: ${expectedIds.length}/${expectedIds.length} against ${DATA}`);
