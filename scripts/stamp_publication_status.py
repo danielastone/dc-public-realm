@@ -3,8 +3,8 @@
 from __future__ import annotations
 import html, json
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'
-SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
+from publication_index import path_for, published_objects
+ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'; DATA=ROOT/'data'
 payload=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))
 assertions=payload.get('assertions',payload if isinstance(payload,list) else [])
 rules_payload=json.loads((ROOT/'data'/'publication_status_rules.json').read_text(encoding='utf-8'))
@@ -33,5 +33,5 @@ def stamp_generic(text,oid):
   heading+=5; b=badge(a); text=text[:heading]+b+text[heading:]; pos=heading+len(b)
  if text.count('data-assertion-id=') < len(relevant): raise SystemExit(f'{oid}: not all canonical assertions were stamped')
  return text
-for oid,slug in SLUGS.items():
- path=SITE/'objects'/slug/'index.html'; text=path.read_text(encoding='utf-8'); text=stamp_generic(text,oid); path.write_text(text,encoding='utf-8'); print('Stamped',oid,path)
+for entity in published_objects(DATA):
+ oid=entity['entity_id']; path=SITE/path_for(oid,DATA); text=path.read_text(encoding='utf-8'); text=stamp_generic(text,oid); path.write_text(text,encoding='utf-8'); print('Stamped',oid,path)

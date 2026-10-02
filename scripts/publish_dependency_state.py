@@ -4,8 +4,8 @@ from __future__ import annotations
 import html,json,re
 from pathlib import Path
 from derive_dependency_state import derive
-ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'
-SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}
+from publication_index import path_for, published_objects
+ROOT=Path(__file__).resolve().parents[1]; SITE=ROOT/'site'; DATA=ROOT/'data'
 a=json.loads((SITE/'data'/'assertions.json').read_text(encoding='utf-8'))['assertions']
 ae=json.loads((SITE/'data'/'assertion-evidence.json').read_text(encoding='utf-8'))['assertion_evidence']
 rules=json.loads((ROOT/'data'/'publication_dependency_rules.json').read_text(encoding='utf-8'))['rules']
@@ -21,8 +21,8 @@ def ancestry_detail(row):
          f'<dt>Dependency status</dt><dd data-canonical-dependency-status="{html.escape(dependency)}">{html.escape(dependency)}</dd>'
          f'<dt>Inherited claim from</dt><dd data-inherited-source-count="{len(inherited)}">{html.escape(inherited_text)}</dd></dl>')
 
-for oid,slug in SLUGS.items():
- p=SITE/'objects'/slug/'index.html'; text=p.read_text(encoding='utf-8')
+for entity in published_objects(DATA):
+ oid=entity['entity_id']; p=SITE/path_for(oid,DATA); text=p.read_text(encoding='utf-8')
  for assertion in [x for x in a if x.get('subject_id')==oid]:
   aid=assertion['assertion_id']; rows=by_assertion.get(aid,[])
   if len(rows)<2: continue

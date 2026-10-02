@@ -3,9 +3,11 @@ from __future__ import annotations
 import html, json
 from pathlib import Path
 
+from publication_index import path_for
+
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-PAGE = ROOT / "site" / "objects" / "jose-gervasio-artigas" / "index.html"
+PAGE = ROOT / "site" / path_for("OBJ-0001", DATA)
 
 def esc(x): return html.escape(str(x), quote=True)
 records = json.loads((DATA / "external-records.json").read_text(encoding="utf-8"))["external_records"]

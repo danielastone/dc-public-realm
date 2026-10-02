@@ -5,19 +5,18 @@ import json
 import re
 from pathlib import Path
 
+from publication_index import path_for, published_objects, slug_for
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 DATA = ROOT / "data"
 BASE = "/dc-public-realm"
 
-OBJECTS = {
-    "OBJ-0001": "jose-gervasio-artigas",
-    "OBJ-0002": "jose-de-san-martin",
-    "OBJ-0003": "cuban-american-friendship-urn",
-}
+objects = published_objects(DATA)
+object_ids = [entity["entity_id"] for entity in objects]
 
 tasks = json.loads((DATA / "research-tasks.json").read_text(encoding="utf-8"))["tasks"]
-open_by_object = {oid: [] for oid in OBJECTS}
+open_by_object = {oid: [] for oid in object_ids}
 for task in tasks:
     if task.get("status") == "OPEN" and task.get("object_entity_id") in open_by_object:
         open_by_object[task["object_entity_id"]].append(task)
@@ -25,11 +24,13 @@ for task in tasks:
 errors = []
 home = (SITE / "index.html").read_text(encoding="utf-8")
 
-for oid, slug in OBJECTS.items():
+for entity in objects:
+    oid = entity["entity_id"]
+    slug = slug_for(oid, DATA)
     expected = open_by_object[oid]
     expected_ids = {t["task_id"] for t in expected}
     expected_count = len(expected)
-    page_path = SITE / "objects" / slug / "index.html"
+    page_path = SITE / path_for(oid, DATA)
     if not page_path.exists():
         errors.append(f"missing object page: {slug}")
         continue
@@ -65,7 +66,9 @@ for oid, slug in OBJECTS.items():
         rf'data-object-id="{re.escape(oid)}" data-open-task-count="(\d+)"',
         home,
     )
-    if hm and int(hm.group(1)) != expected_count:
+    if not hm:
+        errors.append(f"missing homepage task count marker: {oid}")
+    elif int(hm.group(1)) != expected_count:
         errors.append(
             f"homepage task count mismatch: {oid}: published={hm.group(1)} canonical={expected_count}"
         )
@@ -73,5 +76,5 @@ for oid, slug in OBJECTS.items():
 if errors:
     raise SystemExit("PUB-003 FAILED\n- " + "\n- ".join(errors))
 
-counts = ", ".join(f"{oid}={len(open_by_object[oid])}" for oid in OBJECTS)
+counts = ", ".join(f"{oid}={len(open_by_object[oid])}" for oid in object_ids)
 print(f"PUB-003 PASS: canonical OPEN tasks reconcile ({counts})")

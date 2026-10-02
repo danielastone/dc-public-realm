@@ -3,14 +3,11 @@ from __future__ import annotations
 import html, json
 from pathlib import Path
 
+from publication_index import path_for
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 DATA = ROOT / "data"
-SLUGS = {
-    "OBJ-0001": "jose-gervasio-artigas",
-    "OBJ-0002": "jose-de-san-martin",
-    "OBJ-0003": "cuban-american-friendship-urn",
-}
 
 def esc(x): return html.escape(str(x), quote=True)
 
@@ -19,8 +16,7 @@ def fact(label, value, source_url):
 
 payload = json.loads((DATA / "object-overviews.json").read_text(encoding="utf-8"))
 for o in payload["object_overviews"]:
-    slug = SLUGS[o["object_entity_id"]]
-    path = SITE / "objects" / slug / "index.html"
+    path = SITE / path_for(o["object_entity_id"], DATA)
     text = path.read_text(encoding="utf-8")
     if 'class="record-overview"' in text:
         continue

@@ -2,8 +2,11 @@
 """Validate the final PUB-001 canonical-data publication contract."""
 from pathlib import Path
 
+from publication_index import path_for, published_objects, slug_for
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
+DATA = ROOT / "data"
 BASE = "/dc-public-realm"
 
 failures: list[str] = []
@@ -35,12 +38,25 @@ for filename in (
 home = require_file(SITE / "index.html")
 require(home, f'href="{BASE}/data/"', "home canonical-data route")
 
-for slug in (
-    "jose-gervasio-artigas",
-    "jose-de-san-martin",
-    "cuban-american-friendship-urn",
-):
-    page = require_file(SITE / "objects" / slug / "index.html")
+objects = published_objects(DATA)
+expected_slugs = {slug_for(entity["entity_id"], DATA) for entity in objects}
+objects_dir = SITE / "objects"
+actual_slugs = {
+    page.parent.name
+    for page in objects_dir.glob("*/index.html")
+    if page.is_file()
+}
+missing = sorted(expected_slugs - actual_slugs)
+orphans = sorted(actual_slugs - expected_slugs)
+if missing:
+    failures.append(f"missing published object page(s): {missing}")
+if orphans:
+    failures.append(f"orphan object page(s): {orphans}")
+
+for entity in objects:
+    oid = entity["entity_id"]
+    slug = slug_for(oid, DATA)
+    page = require_file(SITE / path_for(oid, DATA))
     require(page, f'href="{BASE}/data/"', f"{slug} canonical-data route")
     require(page, ">Canonical data</a>", f"{slug} canonical-data label")
 
@@ -50,4 +66,4 @@ if failures:
         print(f"- {failure}")
     raise SystemExit(1)
 
-print("PUB-001 route validation PASS: data index, six JSON outputs, home route, and three object routes")
+print(f"PUB-001 route validation PASS: data index, six JSON outputs, home route, and {len(objects)} object routes; object-page bijection exact")

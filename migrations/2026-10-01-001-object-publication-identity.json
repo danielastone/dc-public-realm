@@ -1,0 +1,127 @@
+{
+  "migration_id": "MIG-20261001-001",
+  "from_schema_version": "0.5",
+  "to_schema_version": "0.5",
+  "purpose": "Add explicit publication identity metadata to every PhysicalObject.",
+  "rationale": "Published-object eligibility, stable slugs, and front-door feature selection must be canonical data rather than duplicated renderer or validator configuration. This migration is publication metadata only and must not change epistemic state.",
+  "affected_record_ids": [
+    "OBJ-0001",
+    "OBJ-0002",
+    "OBJ-0003",
+    "OBJ-PRE-0001",
+    "OBJ-PRE-0002",
+    "OBJ-PRE-0101"
+  ],
+  "operations": [
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-0001",
+      "before_sha256": "6a0a0795629934d4ce727f9aff4ae9702fb6a66e712a520f2783713dbc43b1e8",
+      "value": {
+        "entity_id": "OBJ-0001",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "José Gervasio Artigas Memorial",
+        "country": "Uruguay",
+        "publication": {
+          "publish": true,
+          "slug": "jose-gervasio-artigas",
+          "featured": true
+        }
+      }
+    },
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-0002",
+      "before_sha256": "ff715898b6f37a92d23ac8f7facd144b1f697335efb4c113b5458421878213c7",
+      "value": {
+        "entity_id": "OBJ-0002",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "José de San Martín Memorial",
+        "country": "Argentina",
+        "publication": {
+          "publish": true,
+          "slug": "jose-de-san-martin",
+          "featured": false
+        }
+      }
+    },
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-0003",
+      "before_sha256": "24f7180f88361e58fec97aef567b0d550a54d3e09302f2d1eda7951f57611550",
+      "value": {
+        "entity_id": "OBJ-0003",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "Cuban American Friendship Urn",
+        "country": "Cuba",
+        "publication": {
+          "publish": true,
+          "slug": "cuban-american-friendship-urn",
+          "featured": false
+        }
+      }
+    },
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-PRE-0001",
+      "before_sha256": "c8c7ae48484a0489d1fe1f74ebf70dae51651858c60a1e66e2154adb7d9ebdb2",
+      "value": {
+        "entity_id": "OBJ-PRE-0001",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "Monument to the Victims of the USS Maine",
+        "native_name": "Monumento a las víctimas del Maine",
+        "language": "es",
+        "country": "Cuba",
+        "notes": "Havana Maine Monument designed by Felix Cabarrocas, erected 1924-25, damaged by the 1926 hurricane and rebuilt in 1927. The Cuban Friendship Urn uses physical material from the damaged monument and derives relief/design elements from it.",
+        "publication": {
+          "publish": false,
+          "featured": false
+        }
+      }
+    },
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-PRE-0002",
+      "before_sha256": "7032cf6e99438d334ff89965393c44af68c6045ecfcca14d0908a8ca08dbce03",
+      "value": {
+        "entity_id": "OBJ-PRE-0002",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "Monument to General José Gervasio Artigas, San José de Mayo",
+        "native_name": "Monumento al General José Gervasio Artigas",
+        "language": "es",
+        "country": "Uruguay",
+        "notes": "Monument inaugurated in Plaza Independencia, San José de Mayo, in 1898. Uruguay's 2004 heritage resolution identifies Washington, DC among foreign bronzes copying the San José monument.",
+        "publication": {
+          "publish": false,
+          "featured": false
+        }
+      }
+    },
+    {
+      "table": "entities",
+      "action": "update",
+      "id": "OBJ-PRE-0101",
+      "before_sha256": "7f7e55df781c855fa23daecdb99aeb50df9c33fbe924eca037e19575ded333f9",
+      "value": {
+        "entity_id": "OBJ-PRE-0101",
+        "entity_type": "PhysicalObject",
+        "canonical_name": "Equestrian Monument to General José de San Martín, Buenos Aires",
+        "native_name": "Monumento al General San Martín",
+        "language": "es",
+        "country": "Argentina",
+        "notes": "Buenos Aires equestrian statue inaugurated in 1862. Argentine government sources identify Louis-Joseph Daumas as sculptor; the Washington monument is documented as a copy.",
+        "publication": {
+          "publish": false,
+          "featured": false
+        }
+      }
+    }
+  ],
+  "expected_epistemic_deltas": [],
+  "regression_fixtures": []
+}
