@@ -55,6 +55,9 @@ jobs:
       - name: Verify AUD-11 JS publication index against materialized metadata
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/publication-index.mjs
+      - name: Verify JS↔Python publication-index parity
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/publication-index-parity.mjs
       - name: Validate materialized database
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_data.py
