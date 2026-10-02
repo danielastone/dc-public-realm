@@ -83,8 +83,6 @@ jobs:
         run: python scripts/ensure_canonical_data_links.py
       - name: Enforce shared navigation and alpha state
         run: python scripts/enforce_navigation_contract.py
-      - name: Reconcile published research tasks
-        run: python scripts/stamp_research_task_counts.py
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
