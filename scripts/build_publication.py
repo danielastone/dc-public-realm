@@ -14,6 +14,7 @@ import build_site  # noqa: F401,E402
 from overview_renderer import OVERVIEW_CSS, render_overview
 from publication_index import path_for, published_objects
 from render_epistemics import build_context, render_epistemics
+from frontdoor_renderer import render_frontdoor
 
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'data'
@@ -73,4 +74,10 @@ for entity in published_objects(DATA):
         text=text[:close]+rest+text[close:]
     path.write_text(text,encoding='utf-8')
 
-print('Built publication with integrated overviews and epistemic state')
+home, collab = render_frontdoor(DATA)
+(SITE/'index.html').write_text(home,encoding='utf-8')
+d=SITE/'collaborate'/'artigas'
+d.mkdir(parents=True,exist_ok=True)
+(d/'index.html').write_text(collab,encoding='utf-8')
+
+print('Built publication with integrated overviews, epistemic state, and front door')
