@@ -7,7 +7,8 @@ def load(n): return json.loads((DATA/n).read_text(encoding='utf-8'))
 ep=load('entities.json'); ap=load('assertions.json'); evp=load('assertion-evidence.json'); sp=load('sources.json'); rp=load('predicate-rules.json'); tp=load('research-tasks.json'); psr=load('publication_status_rules.json')
 entities=ep['entities']; assertions=ap['assertions']; evidence=evp['assertion_evidence']; sources=sp['sources']; rules=rp['predicate_rules']; tasks=tp['tasks']; status_rules=psr['rules']; E={x['entity_id']:x for x in entities}; S={x['source_id']:x for x in sources}; EV={}; TASKS={}
 for x in evidence: EV.setdefault(x['assertion_id'],[]).append(x)
-for x in tasks: TASKS.setdefault(x['object_entity_id'],[]).append(x)
+for x in tasks:
+ if x.get('status')=='OPEN': TASKS.setdefault(x['object_entity_id'],[]).append(x)
 OBJECTS=['OBJ-0001','OBJ-0002','OBJ-0003']; SLUGS={'OBJ-0001':'jose-gervasio-artigas','OBJ-0002':'jose-de-san-martin','OBJ-0003':'cuban-american-friendship-urn'}; POS={'PRIMARY_SUPPORT','IMAGE_EVIDENCE','CORROBORATION'}; DIRECT={'PRIMARY_SUPPORT','IMAGE_EVIDENCE'}; REPO='https://github.com/danielastone/dc-public-realm'
 def country(oid):
  c=E.get(oid,{}).get('country')
@@ -101,7 +102,10 @@ for oid in OBJECTS:
  c=country(oid); rel=[a for a in derived if a['subject_id']==oid];preds={a.get('object_entity_id') for a in rel if a.get('predicate') in {'RECAST_OF','COPY_OF','DERIVED_FROM_MATERIAL','RELIEF_DERIVED_FROM'}};lineage=[a for a in derived if a['subject_id'] in preds]
  body=f'<div class="kicker" data-object-country="{esc(c)}">{esc(c)} · catalog record</div><h1 data-object-id="{esc(oid)}">{esc(E[oid]["canonical_name"])}</h1><p class="lede">Current research record with each statement presented together with its status and supporting sources.</p><p><a href="{BASE}/data/">Canonical data</a></p><h2>Record</h2>{"".join(ablock(a) for a in rel)}'
  if lineage:body+='<h2>Predecessor and lineage</h2>'+''.join(related_ablock(a) for a in lineage)
- if TASKS.get(oid):body+='<h2>Research missions</h2><p>These missions identify records that could clarify or qualify this catalog record.</p>'+''.join(taskblock(t) for t in TASKS[oid])
+ if TASKS.get(oid):
+  n=len(TASKS[oid]); body+=f'<h2>Research missions</h2><p class="task-summary" data-open-task-count="{n}">{n} open research mission'+('s' if n!=1 else '')+'</p><p>These missions identify records that could clarify or qualify this catalog record.</p>'+''.join(taskblock(t) for t in TASKS[oid])
+ else:
+  body+='<h2>Research missions</h2><p class="task-summary" data-open-task-count="0">0 open research missions</p><p>There are no open research missions for this catalog record.</p>'
  d=OUT/'objects'/SLUGS[oid];d.mkdir(parents=True);(d/'index.html').write_text(shell(E[oid]['canonical_name'],body),encoding='utf-8')
 for t in tasks:
  oid=t['object_entity_id'];units=''.join(f'<li>{esc(x)}</li>' for x in t['priority_units']);targets=''.join(targetblock(x) for x in t.get('epistemic_targets',[]));inherit=''.join(f'<li>{esc(x)}</li>' for x in t.get('inheritance_questions',[]))
