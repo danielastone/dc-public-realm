@@ -7,9 +7,9 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE=ROOT/'data'; MIG=ROOT/'migrations'; TX=ROOT/'transactions'; OUT=ROOT/'build'/'data'; AUDIT=ROOT/'build'/'audit'
-FILES={'entities':'entities.json','sources':'sources.json','assertions':'assertions.json','assertion_evidence':'assertion-evidence.json','predicate_rules':'predicate-rules.json','research_tasks':'research-tasks.json'}
-ARRAY_KEY={'entities':'entities','sources':'sources','assertions':'assertions','assertion_evidence':'assertion_evidence','research_tasks':'tasks'}
-ID_KEY={'entities':'entity_id','sources':'source_id','assertions':'assertion_id','assertion_evidence':'assertion_evidence_id','research_tasks':'task_id'}
+FILES={'entities':'entities.json','sources':'sources.json','assertions':'assertions.json','assertion_evidence':'assertion-evidence.json','predicate_rules':'predicate-rules.json','research_tasks':'research-tasks.json','object_overviews':'object-overviews.json'}
+ARRAY_KEY={'entities':'entities','sources':'sources','assertions':'assertions','assertion_evidence':'assertion_evidence','research_tasks':'tasks','object_overviews':'object_overviews'}
+ID_KEY={'entities':'entity_id','sources':'source_id','assertions':'assertion_id','assertion_evidence':'assertion_evidence_id','research_tasks':'task_id','object_overviews':'object_entity_id'}
 
 def canon(x): return json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()
 def sha(x): return hashlib.sha256(canon(x)).hexdigest()
@@ -74,6 +74,12 @@ def integrity(db):
   if e.get('source_id') not in S: errors.append(f"{e['assertion_evidence_id']}: missing source")
   for p in e.get('inherits_claim_from_source_ids',[]):
    if p not in S: errors.append(f"{e['assertion_evidence_id']}: missing inherited source {p}")
+ for o in db['object_overviews']['object_overviews']:
+  if o.get('object_entity_id') not in E: errors.append(f"object_overview:{o.get('object_entity_id')}: missing object entity")
+  for field,ref in (o.get('assertion_refs') or {}).items():
+   refs=ref if isinstance(ref,list) else [ref]
+   for aid in refs:
+    if aid not in A: errors.append(f"object_overview:{o['object_entity_id']}.{field}: missing assertion {aid}")
  if errors: raise ValueError('; '.join(errors))
 
 def affected_assertions(before,after):
