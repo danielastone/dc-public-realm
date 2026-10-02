@@ -1,0 +1,1 @@
+{"transaction_id":"TEST-BAD-TX-003","purpose":"TEST ONLY","resolves":{"task_id":"TEST-COLLAB-BAD-001","submission_ref":"submissions/fake.md","contributor":"Fictional Contributor","review_record":"reviews/DOES-NOT-EXIST.md"},"operations":[{"table":"research_tasks","action":"update","id":"TEST-COLLAB-BAD-001","value":{"task_id":"TEST-COLLAB-BAD-001","status":"INCORPORATED"}}]}
