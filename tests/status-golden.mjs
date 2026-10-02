@@ -7,7 +7,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const assertions = read('data/assertions.json').assertions;
 const evidence = read('data/assertion-evidence.json').assertion_evidence;
-const rules = Object.fromEntries(read('data/predicate-rules.json').predicate_rules.map(r => [r.predicate, r]));
+const rules = read('data/predicate-rules.json').predicate_rules;
 const golden = read('tests/fixtures/golden-assertion-status.json').statuses;
 const byAssertion = new Map();
 for (const edge of evidence) {
