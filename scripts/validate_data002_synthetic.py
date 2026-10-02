@@ -27,9 +27,11 @@ def stale_name(_data,site):
  p.write_text(text,encoding='utf-8')
 def stale_country(_data,site): replace_once(site/'objects'/'jose-de-san-martin'/'index.html','data-object-country="Argentina">Argentina ·','data-object-country="Uruguay">Uruguay ·')
 def stale_source_count(_data,site):
- p=site/'objects'/'cuban-american-friendship-urn'/'index.html'; text=p.read_text(encoding='utf-8'); marker='class="evidence" data-source-count="'; start=text.find(marker)
- if start<0: raise AssertionError('no evidence source-count hook')
- nstart=start+len(marker); nend=text.find('"',nstart); text=text[:nstart]+str(int(text[nstart:nend])+1)+text[nend:]; p.write_text(text,encoding='utf-8')
+ p=site/'objects'/'cuban-american-friendship-urn'/'index.html'; text=p.read_text(encoding='utf-8')
+ m=re.search(r'(<details\s+class="evidence"[^>]*\bdata-source-count=")([0-9]+)(")',text)
+ if not m: raise AssertionError('no evidence source-count hook')
+ text=text[:m.start(2)]+str(int(m.group(2))+1)+text[m.end(2):]
+ p.write_text(text,encoding='utf-8')
 def cross_object_binding(_data,site): replace_once(site/'objects'/'jose-de-san-martin'/'index.html','data-object-id="OBJ-0002"','data-object-id="OBJ-0001"')
 def wrong_home_route(_data,site):
  p=site/'index.html'; text=p.read_text(encoding='utf-8'); m=re.search(r'<article\s+class="card"[^>]*data-object-id="OBJ-0001"[^>]*>.*?</article>',text,flags=re.S)
