@@ -1,0 +1,562 @@
+{
+  "transaction_id": "TX-20261002-001",
+  "recorded_at": "2026-10-02",
+  "actor": "i1-traceability-migration",
+  "purpose": "Make structured object-overview facts traceable to canonical assertions under I-1 without changing the displayed values.",
+  "evidence_decision": "Adds atomic assertions for current location, dedication/rededication/presentation dates, and subject birth/death years. These claims use the overview's existing cited sources and enter conservatively as supported unless existing status rules independently justify verification. Relocation and rededication remain distinct propositions.",
+  "supersedes": null,
+  "operations": [
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-US-005",
+      "value": {
+        "source_id": "SRC-US-005",
+        "title": "General José Gervasio Artigas Memorial",
+        "publisher_or_creator": "National Park Service",
+        "language": "en",
+        "source_type": "GovernmentRecord",
+        "url": "https://www.nps.gov/places/000/general-jose-gervasio-artigas-memorial.htm",
+        "authority_scope": "Artigas subject biography and life dates",
+        "retrieved_at": "2026-10-02",
+        "archived_url": null,
+        "source_family_id": "US_NPS_PLACES",
+        "derived_from_source_ids": [],
+        "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+        "source_role": "OFFICIAL_ADMINISTRATIVE_OR_SUMMARY_RECORD",
+        "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
+      }
+    },
+    {
+      "table": "sources",
+      "action": "add",
+      "id": "SRC-AR-007",
+      "value": {
+        "source_id": "SRC-AR-007",
+        "title": "Liberador General Jose de San Martin, (sculpture)",
+        "publisher_or_creator": "Smithsonian Institution",
+        "language": "en",
+        "source_type": "MuseumInventory",
+        "url": "https://www.si.edu/object/liberador-general-jose-de-san-martin-sculpture:siris_ari_323790",
+        "authority_scope": "San Martín memorial location, dedication/rededication dates, and subject biography/life dates",
+        "retrieved_at": "2026-10-02",
+        "archived_url": null,
+        "source_family_id": "SMITHSONIAN_ART_INVENTORIES",
+        "derived_from_source_ids": [],
+        "independence_note": "No source dependency is encoded unless identified in derived_from_source_ids. Distinct source_family_id values are a generator proxy for independent provenance, not proof of independent research.",
+        "source_role": "OFFICIAL_INVENTORY",
+        "credibility_note": "Credibility is evaluated per claim through authority_fit, proximity, and dependency metadata; this source is not assigned a universal numeric score."
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "CURRENT_LOCATION",
+      "value": {
+        "standard": "CURRENT_ADMINISTRATIVE",
+        "single_source_can_verify": true
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "DEDICATED_ON",
+      "value": {
+        "standard": "HISTORICAL_EVENT",
+        "single_source_can_verify": false
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "REDEDICATED_ON",
+      "value": {
+        "standard": "HISTORICAL_EVENT",
+        "single_source_can_verify": false
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "PRESENTED_ON",
+      "value": {
+        "standard": "HISTORICAL_EVENT",
+        "single_source_can_verify": false
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "BIRTH_YEAR",
+      "value": {
+        "standard": "BIOGRAPHICAL_FACT",
+        "single_source_can_verify": false
+      }
+    },
+    {
+      "table": "predicate_rules",
+      "action": "add",
+      "id": "DEATH_YEAR",
+      "value": {
+        "standard": "BIOGRAPHICAL_FACT",
+        "single_source_can_verify": false
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0008",
+      "value": {
+        "assertion_id": "A-0008",
+        "subject_id": "OBJ-0001",
+        "predicate": "CURRENT_LOCATION",
+        "literal_value": "Constitution Avenue & 18th Street NW, Washington, D.C.",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0009",
+      "value": {
+        "assertion_id": "A-0009",
+        "subject_id": "OBJ-0001",
+        "predicate": "DEDICATED_ON",
+        "literal_value": "June 19, 1950",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0010",
+      "value": {
+        "assertion_id": "A-0010",
+        "subject_id": "AG-0001",
+        "predicate": "BIRTH_YEAR",
+        "literal_value": "1764",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0011",
+      "value": {
+        "assertion_id": "A-0011",
+        "subject_id": "AG-0001",
+        "predicate": "DEATH_YEAR",
+        "literal_value": "1850",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0110",
+      "value": {
+        "assertion_id": "A-0110",
+        "subject_id": "OBJ-0002",
+        "predicate": "CURRENT_LOCATION",
+        "literal_value": "Virginia Avenue between 20th & 21st Streets NW, Washington, D.C.",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0111",
+      "value": {
+        "assertion_id": "A-0111",
+        "subject_id": "OBJ-0002",
+        "predicate": "DEDICATED_ON",
+        "literal_value": "October 28, 1925",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0112",
+      "value": {
+        "assertion_id": "A-0112",
+        "subject_id": "OBJ-0002",
+        "predicate": "REDEDICATED_ON",
+        "literal_value": "October 6, 1976",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0113",
+      "value": {
+        "assertion_id": "A-0113",
+        "subject_id": "AG-0101",
+        "predicate": "BIRTH_YEAR",
+        "literal_value": "1778",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0114",
+      "value": {
+        "assertion_id": "A-0114",
+        "subject_id": "AG-0101",
+        "predicate": "DEATH_YEAR",
+        "literal_value": "1850",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0207",
+      "value": {
+        "assertion_id": "A-0207",
+        "subject_id": "OBJ-0003",
+        "predicate": "CURRENT_LOCATION",
+        "literal_value": "East Potomac Park near the 14th Street Bridge, Washington, D.C.",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertions",
+      "action": "add",
+      "id": "A-0208",
+      "value": {
+        "assertion_id": "A-0208",
+        "subject_id": "OBJ-0003",
+        "predicate": "PRESENTED_ON",
+        "literal_value": "1928",
+        "literal_language": "en"
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0013",
+      "value": {
+        "assertion_evidence_id": "AE-0013",
+        "assertion_id": "A-0008",
+        "source_id": "SRC-US-004",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "location/site field",
+        "evidence_note": "Smithsonian inventory supplies the displayed Washington location.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0014",
+      "value": {
+        "assertion_evidence_id": "AE-0014",
+        "assertion_id": "A-0009",
+        "source_id": "SRC-US-004",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "date field",
+        "evidence_note": "Smithsonian inventory supplies the displayed dedication date.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0015",
+      "value": {
+        "assertion_evidence_id": "AE-0015",
+        "assertion_id": "A-0010",
+        "source_id": "SRC-US-005",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "biographical record",
+        "evidence_note": "National Park Service supplies the displayed Artigas birth year.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_SUMMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0016",
+      "value": {
+        "assertion_evidence_id": "AE-0016",
+        "assertion_id": "A-0011",
+        "source_id": "SRC-US-005",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "biographical record",
+        "evidence_note": "National Park Service supplies the displayed Artigas death year.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_SUMMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0110",
+      "value": {
+        "assertion_evidence_id": "AE-0110",
+        "assertion_id": "A-0110",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "location/site field",
+        "evidence_note": "Smithsonian inventory supplies the displayed Washington location.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0111",
+      "value": {
+        "assertion_evidence_id": "AE-0111",
+        "assertion_id": "A-0111",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "date field",
+        "evidence_note": "Smithsonian inventory supplies the displayed dedication date.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0112",
+      "value": {
+        "assertion_evidence_id": "AE-0112",
+        "assertion_id": "A-0112",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "date/remarks field",
+        "evidence_note": "Smithsonian inventory supplies the displayed rededication date. This assertion is distinct from relocation in 1976.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0113",
+      "value": {
+        "assertion_evidence_id": "AE-0113",
+        "assertion_id": "A-0113",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "biographical record",
+        "evidence_note": "Smithsonian inventory supplies the displayed San Martín birth year.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0114",
+      "value": {
+        "assertion_evidence_id": "AE-0114",
+        "assertion_id": "A-0114",
+        "source_id": "SRC-AR-007",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "biographical record",
+        "evidence_note": "Smithsonian inventory supplies the displayed San Martín death year.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_INVENTORY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0209",
+      "value": {
+        "assertion_evidence_id": "AE-0209",
+        "assertion_id": "A-0207",
+        "source_id": "SRC-CU-001",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "place record",
+        "evidence_note": "National Park Service supplies the displayed current location.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_SUMMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "assertion_evidence",
+      "action": "add",
+      "id": "AE-0212",
+      "value": {
+        "assertion_evidence_id": "AE-0212",
+        "assertion_id": "A-0208",
+        "source_id": "SRC-CU-001",
+        "evidence_role": "PRIMARY_SUPPORT",
+        "source_language": "en",
+        "locator": "history section",
+        "evidence_note": "National Park Service supplies the displayed 1928 presentation year.",
+        "authority_fit": "DIRECT",
+        "proximity": "LATER_OFFICIAL_SUMMARY",
+        "dependency_status": "UNKNOWN",
+        "claim_origin": "UNKNOWN",
+        "inherits_claim_from_source_ids": [],
+        "inheritance_basis": "UNKNOWN",
+        "inheritance_note": "Claim ancestry has not yet been traced. Different institution, repository, or source family must not be treated as proof of independence."
+      }
+    },
+    {
+      "table": "object_overviews",
+      "action": "update",
+      "id": "OBJ-0001",
+      "value": {
+        "object_entity_id": "OBJ-0001",
+        "record_type": "person_memorial",
+        "location": "Constitution Avenue & 18th Street NW, Washington, D.C.",
+        "location_source_url": "https://www.si.edu/object/general-jose-gervasio-artigas-sculpture%3Asiris_ari_325679",
+        "event_label": "Dedicated",
+        "event_date": "June 19, 1950",
+        "event_source_url": "https://www.si.edu/object/general-jose-gervasio-artigas-sculpture%3Asiris_ari_325679",
+        "subject_name": "José Gervasio Artigas",
+        "subject_dates": "1764–1850",
+        "subject_bio": "Artigas was a military and political leader in the independence struggles of the Río de la Plata. He advocated federalism and regional autonomy and became a foundational figure in Uruguay's national history.",
+        "subject_source_url": "https://www.nps.gov/places/000/general-jose-gervasio-artigas-memorial.htm",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/General_Jose_Gervasio_Artigas_Memorial_(96a9bfdb-bd4e-418b-a8a8-21f88cdd0810).jpg",
+        "image_alt": "Statue of General José Gervasio Artigas holding a hat",
+        "image_credit": "National Park Service",
+        "image_rights": "Public domain (U.S. National Park Service work)",
+        "image_source_url": "https://commons.wikimedia.org/wiki/File:General_Jose_Gervasio_Artigas_Memorial_(96a9bfdb-bd4e-418b-a8a8-21f88cdd0810).jpg",
+        "assertion_refs": {
+          "location": "A-0008",
+          "event_date": "A-0009",
+          "subject_dates": [
+            "A-0010",
+            "A-0011"
+          ]
+        }
+      }
+    },
+    {
+      "table": "object_overviews",
+      "action": "update",
+      "id": "OBJ-0002",
+      "value": {
+        "object_entity_id": "OBJ-0002",
+        "record_type": "person_memorial",
+        "location": "Virginia Avenue between 20th & 21st Streets NW, Washington, D.C.",
+        "location_source_url": "https://www.si.edu/object/liberador-general-jose-de-san-martin-sculpture%3Asiris_ari_323790",
+        "event_label": "Dedicated",
+        "event_date": "October 28, 1925",
+        "event_source_url": "https://www.si.edu/object/liberador-general-jose-de-san-martin-sculpture%3Asiris_ari_323790",
+        "secondary_event_label": "Rededicated",
+        "secondary_event_date": "October 6, 1976",
+        "secondary_event_source_url": "https://www.si.edu/object/liberador-general-jose-de-san-martin-sculpture%3Asiris_ari_323790",
+        "subject_name": "José de San Martín",
+        "subject_dates": "1778–1850",
+        "subject_bio": "San Martín was an Argentine general and independence leader. After returning to South America from military service in Spain, he helped secure independence in Argentina, led an army across the Andes into Chile, and continued the campaign into Peru.",
+        "subject_source_url": "https://www.si.edu/object/liberador-general-jose-de-san-martin-sculpture%3Asiris_ari_323790",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/General_Jose_de_San_Martin_Memorial.jpg",
+        "image_alt": "Equestrian memorial to General José de San Martín in Washington, D.C.",
+        "image_credit": "AgnosticPreachersKid / Wikimedia Commons",
+        "image_rights": "CC BY-SA 3.0",
+        "image_license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "image_source_url": "https://commons.wikimedia.org/wiki/File:General_Jose_de_San_Martin_Memorial.jpg",
+        "assertion_refs": {
+          "location": "A-0110",
+          "event_date": "A-0111",
+          "secondary_event_date": "A-0112",
+          "subject_dates": [
+            "A-0113",
+            "A-0114"
+          ]
+        }
+      }
+    },
+    {
+      "table": "object_overviews",
+      "action": "update",
+      "id": "OBJ-0003",
+      "value": {
+        "object_entity_id": "OBJ-0003",
+        "record_type": "historical_object",
+        "location": "East Potomac Park near the 14th Street Bridge, Washington, D.C.",
+        "location_source_url": "https://www.nps.gov/places/000/cuban-american-friendship-urn.htm",
+        "event_label": "Presented to the United States",
+        "event_date": "1928",
+        "event_source_url": "https://www.nps.gov/places/000/cuban-american-friendship-urn.htm",
+        "object_context": "The urn incorporates material salvaged from the Havana memorial to the sailors who died in the 1898 explosion of USS Maine. After a 1926 hurricane damaged that memorial, Cuban officials fashioned salvaged material into the urn. Cuban President Gerardo Machado presented it to the United States during President Calvin Coolidge's 1928 visit to Cuba.",
+        "object_context_source_url": "https://www.nps.gov/places/000/cuban-american-friendship-urn.htm",
+        "image_url": "https://commons.wikimedia.org/wiki/Special:Redirect/file/CubanFriendshipUrnWashingtonDC.jpg",
+        "image_alt": "Cuban-American Friendship Urn in Washington, D.C.",
+        "image_credit": "AgnosticPreachersKid / Wikimedia Commons",
+        "image_rights": "CC BY-SA 4.0",
+        "image_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "image_source_url": "https://commons.wikimedia.org/wiki/File:CubanFriendshipUrnWashingtonDC.jpg",
+        "assertion_refs": {
+          "location": "A-0207",
+          "event_date": "A-0208"
+        }
+      }
+    }
+  ]
+}
