@@ -3,9 +3,9 @@ name: Build and deploy alpha site
 on:
   push:
     branches: [main]
-    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','.github/workflows/build-site.yml']
+    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','lib/**','tests/**','.github/workflows/build-site.yml']
   pull_request:
-    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','.github/workflows/build-site.yml']
+    paths: ['data/**','transactions/**','migrations/**','skills/**','scripts/**','lib/**','tests/**','.github/workflows/build-site.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,6 +21,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
       - name: Validate frozen migration baseline
         run: python scripts/validate_data.py
       - name: Validate scholarly claim modes
@@ -47,6 +49,9 @@ jobs:
         run: python scripts/validate_data001_synthetic.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
+      - name: Verify AUD-10 JS status rule against frozen materialized oracle
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/status-golden.mjs
       - name: Validate materialized database
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_data.py
