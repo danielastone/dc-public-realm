@@ -93,7 +93,9 @@ def apply_ledger(db,paths,kind,previous=None):
   before_db=copy.deepcopy(db); before=sha(db)
   for op in t['operations']: apply_op(db,op)
   integrity(db); after=sha(db); deltas=affected_assertions(before_db,db)
-  records.append({idkey:rid,'file':str(p.relative_to(ROOT)),'purpose':t['purpose'],'before_sha256':before,'after_sha256':after,'operation_count':len(t['operations']),'epistemic_deltas':deltas})
+  record={idkey:rid,'file':str(p.relative_to(ROOT)),'purpose':t['purpose'],'before_sha256':before,'after_sha256':after,'operation_count':len(t['operations']),'epistemic_deltas':deltas}
+  if kind=='transaction' and t.get('resolves'): record['resolves']=copy.deepcopy(t['resolves'])
+  records.append(record)
   previous=rid
  return records,previous
 

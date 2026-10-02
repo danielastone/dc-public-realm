@@ -1,0 +1,12 @@
+{
+  "schema_version": "test-only",
+  "tasks": [{
+    "task_id": "TEST-COLLAB-001",
+    "object_entity_id": "TEST-OBJECT-001",
+    "title": "Synthetic collaboration lifecycle fixture",
+    "status": "OPEN",
+    "evidence_effect": "NONE_UNTIL_REVIEWED",
+    "epistemic_targets": [{"proposition":"The fictional monument was painted blue.","problem":"TEST_ONLY","desired_evidence":"TEST_ONLY","desired_effect":"TEST_ONLY"}],
+    "inheritance_questions": ["Synthetic fixture only"]
+  }]
+}

@@ -1,0 +1,1 @@
+{"transaction_id":"TEST-TX-002","purpose":"TEST ONLY: record synthetic review","operations":[{"table":"research_tasks","action":"update","id":"TEST-COLLAB-001","value":{"task_id":"TEST-COLLAB-001","status":"REVIEWED"}}]}
