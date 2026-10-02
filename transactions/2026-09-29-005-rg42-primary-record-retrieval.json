@@ -1,0 +1,49 @@
+{
+  "transaction_id": "TX-20260929-005",
+  "recorded_at": "2026-09-29",
+  "actor": "archive-root-audit-5",
+  "purpose": "Convert the Cuba installation and custody research gap into a precise primary-record retrieval task after locating the 1929 Office of Public Buildings and Public Parks annual-report series and its National Archives record group.",
+  "evidence_decision": "No assertion status changes in this transaction. The 1929 annual report is bibliographically located but its cited page has not yet been inspected. NARA RG 42 also preserves monthly reports of operations through 1929. These are retrieval targets, not evidence until the underlying pages are reviewed. Failure to find the urn in an online search is not negative evidence.",
+  "supersedes": "TX-20260929-004",
+  "operations": [
+    {
+      "table": "research_tasks",
+      "action": "add",
+      "id": "CUB-URN-003",
+      "value": {
+        "task_id": "CUB-URN-003",
+        "object_entity_id": "OBJ-0003",
+        "title": "Retrieve the 1929 federal park-administration record for the Cuban Friendship Urn",
+        "status": "OPEN",
+        "evidence_effect": "NONE_UNTIL_REVIEWED",
+        "research_gap": "The 2007 National Register nomination cites page 64 of the 1929 Annual Report of the Office of Public Buildings and Public Parks for the urn's federal installation history, but that underlying page has not yet been inspected. The National Archives identifies RG 42 as the responsible agency record group and states that monthly reports of operations survive through 1929.",
+        "archive_strategy": "PRIMARY_FEDERAL_ADMINISTRATIVE_RECORD",
+        "repository": "National Archives and Records Administration / U.S. Government Printing Office public-document ecosystem",
+        "collection": "Record Group 42, Records of the Office of Public Buildings and Public Parks of the National Capital; Annual Report of the Director, fiscal year 1929 (SuDoc PB 1.1:929); monthly reports of operations, 1899-1929",
+        "priority_units": [
+          "Annual Report of the Director of Public Buildings and Public Parks of the National Capital, fiscal year 1929, p. 64",
+          "Monthly reports of operations for the months covering receipt, placement and dedication of the urn in late 1928 and any follow-up reporting in 1929",
+          "Any correspondence, work order, site plan, photograph, custody entry or installation record cross-referenced by the annual or monthly reports"
+        ],
+        "search_terms": [
+          "Cuban Friendship Urn",
+          "Cuban urn",
+          "Republic of Cuba",
+          "Gerardo Machado",
+          "Calvin Coolidge",
+          "Maine memorial",
+          "West Potomac Park",
+          "East Potomac Park",
+          "Rose Garden",
+          "December 1928",
+          "45 Stat. 713",
+          "Public Resolution 49",
+          "marble urn"
+        ],
+        "critical_rule": "Do not treat the existence of the annual report, a catalog record, or a later citation to page 64 as evidence for the underlying historical proposition. Transcribe the relevant 1929 text before creating an evidence edge. Separate receipt, installation location/date, custody, presentation, and material provenance into distinct propositions. If the 1929 record repeats diplomatic wording, trace that inheritance rather than counting it as an independent root.",
+        "high_value_result": "A contemporaneous federal administrative entry documenting receipt, placement, dedication, custody, or physical handling of the Cuban Friendship Urn, with enough context to distinguish original park-administration observation from repeated diplomatic or legislative information.",
+        "instructions_path": "docs/collaboration.md"
+      }
+    }
+  ]
+}
