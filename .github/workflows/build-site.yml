@@ -81,10 +81,6 @@ jobs:
         run: python scripts/build_smithsonian_review.py
       - name: Update public project front door
         run: python scripts/inject_project_frontdoor.py
-      - name: Stamp canonical computed statuses onto rendered pages
-        run: python scripts/stamp_publication_status.py
-      - name: Publish epistemic status rule explanations
-        run: python scripts/inject_status_rules.py
       - name: Publish claim-evidence dependency states
         run: python scripts/publish_dependency_state.py
       - name: Publish claim lineage traces
