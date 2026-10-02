@@ -115,6 +115,10 @@ jobs:
         run: python scripts/validate_epi005_warning_placement.py
       - name: Verify DATA-001 exact rendered assertion reconciliation
         run: python scripts/validate_data001_assertion_reconciliation.py
+      - name: Verify DATA-002 canonical summary reconciliation
+        run: python scripts/validate_data002_summary_reconciliation.py
+      - name: Verify DATA-002 stale-summary mutation rejection
+        run: python scripts/validate_data002_synthetic.py
       - name: Verify PUB-001 canonical-data routes
         run: python scripts/validate_pub001_routes.py
       - name: Verify PUB-002 navigation contract
@@ -123,20 +127,13 @@ jobs:
         run: python scripts/validate_pub003_tasks.py
       - name: Verify PUB-004 internal link integrity
         run: python scripts/validate_pub004_internal_links.py
-      - name: Verify legacy required routes and audit artifact
+      - name: Verify required build artifacts
         run: |
           test -f build/audit/manifest.json
           test -f site/index.html
-          grep -q 'CURRENT PROJECT · URUGUAY' site/index.html
-          grep -q 'Take part in the research' site/index.html
-          grep -q 'Browse research missions' site/index.html
-          grep -q 'Records may change when additional sources are reviewed' site/index.html
-          test -f site/collaborate/artigas/index.html
-          grep -q 'Help Research the Artigas Memorial' site/collaborate/artigas/index.html
-          grep -q 'Research missions' site/collaborate/artigas/index.html
-          grep -q 'What happens to your contribution' site/collaborate/artigas/index.html
-          grep -q 'No specialized training is required' site/collaborate/artigas/index.html
-          grep -q 'Goode (1974)' site/collaborate/artigas/index.html
+          test -f site/collaborate/index.html
+          test -f site/methodology/index.html
+          test -f site/data/index.html
       - uses: actions/upload-artifact@v4
         with:
           name: site
