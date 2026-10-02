@@ -29,7 +29,8 @@ if a.get('image_license_url'):
 def object_card(entity):
     oid=entity['entity_id']
     return (
-        f'<article class="card" data-object-id="{esc(oid)}"><div class="kicker">{esc(entity["country"]).upper()}</div>'
+        f'<article class="card" data-object-id="{esc(oid)}" data-object-country="{esc(entity["country"])}">'
+        f'<div class="kicker">{esc(entity["country"]).upper()}</div>'
         f'<h3><a href="{href(oid,BASE,DATA)}">{esc(entity["canonical_name"])}</a></h3></article>'
     )
 
