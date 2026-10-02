@@ -79,8 +79,6 @@ jobs:
         run: python scripts/inject_external_records.py
       - name: Build Smithsonian Artigas review brief
         run: python scripts/build_smithsonian_review.py
-      - name: Update public project front door
-        run: python scripts/inject_project_frontdoor.py
       - name: Preserve canonical-data links after page transforms
         run: python scripts/ensure_canonical_data_links.py
       - name: Enforce shared navigation and alpha state
