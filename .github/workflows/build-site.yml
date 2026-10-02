@@ -81,12 +81,6 @@ jobs:
         run: python scripts/build_smithsonian_review.py
       - name: Update public project front door
         run: python scripts/inject_project_frontdoor.py
-      - name: Publish claim-evidence dependency states
-        run: python scripts/publish_dependency_state.py
-      - name: Publish claim lineage traces
-        run: python scripts/publish_claim_lineage.py
-      - name: Publish visible material conflicts
-        run: python scripts/publish_material_conflicts.py
       - name: Preserve canonical-data links after page transforms
         run: python scripts/ensure_canonical_data_links.py
       - name: Enforce shared navigation and alpha state
