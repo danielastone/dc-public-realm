@@ -10,6 +10,7 @@ Both producers read `tests/fixtures/epistemic-derivation.json`.
 - Evidence rows contain only derivation inputs.
 - Cases copied from frozen validators keep their original semantic inputs; `origin: "parity-extension"` identifies coverage added specifically for cross-language parity.
 - Cases with `validation_only: true` are excluded from dependency and lineage derivation. This is required because missing IDs can raise before lineage output exists and duplicate IDs can collapse in Python's `trace_all()`.
+- Validation-only conflict cases emit `validation` only. They do not emit or compute `index`: Python `build_context()` validates first and aborts on invalid rows, so `conflict_index()` is not reached for those inputs.
 - Every lineage case must contain present, unique `assertion_evidence_id` values.
 - Required branch-order extension cases are `lin-multi-parent-order` and `lin-multi-candidate-order`; both must remain present.
 
@@ -34,12 +35,19 @@ Each producer emits the same logical JSON document:
       "index": {"ASSERTION-ID": [<evidence row>, ...]},
       "validation": [<validation condition>, ...]
     },
-    "cases": [{
-      "case_id": "...",
-      "validation_only": true|false,
-      "index": {"ASSERTION-ID": [<evidence row>, ...]},
-      "validation": [<validation condition>, ...]
-    }]
+    "cases": [
+      {
+        "case_id": "...",
+        "validation_only": false,
+        "index": {"ASSERTION-ID": [<evidence row>, ...]},
+        "validation": []
+      },
+      {
+        "case_id": "...",
+        "validation_only": true,
+        "validation": [<validation condition>, ...]
+      }
+    ]
   }
 }
 ```
@@ -80,7 +88,7 @@ Python message text is not a parity requirement. Validation is normalized to str
 - Duplicate evidence ID: `{"evidence_id":"...", "condition":"DUPLICATE_ASSERTION_EVIDENCE_ID"}`.
 - Incomplete contradiction: `{"evidence_id":"...", "condition":"INCOMPLETE_CONTRADICTS", "field":"assertion_id"|"source_id"|"locator"|"evidence_note"}`.
 
-Validation condition order follows Python's validation traversal order. A nonempty validation result is the semantic condition that later causes `build_context()` to abort; exact `SystemExit` wording is outside parity.
+Validation condition order follows Python's validation traversal order. A nonempty validation result is the semantic condition that later causes `build_context()` to abort; exact `SystemExit` wording is outside parity. Because validation precedes conflict indexing, validation-only cases stop at this normalized validation result and have no `index` member.
 
 ## Coverage is harness-derived
 
