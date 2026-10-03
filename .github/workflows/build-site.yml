@@ -51,6 +51,10 @@ jobs:
         run: python scripts/build_database.py
       - name: Verify JS renderer materialized-input policy
         run: node tests/renderer-input-policy.mjs
+      - name: Verify JS overview renderer semantics
+        # This suite imports overview-error-inventory.mjs, so the frozen Python
+        # raise-site tripwire reruns here as part of the same CI invocation.
+        run: node tests/overview-renderer-semantic.mjs
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
