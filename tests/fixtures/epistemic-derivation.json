@@ -1,0 +1,525 @@
+{
+  "description": "Shared inputs for JS↔Python epistemic derivation parity. Provenance stays at case level; evidence rows are passed unchanged to derivation functions. Existing validator cases are copied from the frozen Python checks named in each case. parity-extension cases close coverage gaps found in #120.",
+  "cases": [
+    {
+      "case_id": "dep-unknown-ancestry",
+      "origin": "EPI-002",
+      "origin_case": "unknown ancestry",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-1",
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "UNKNOWN",
+          "inherits_claim_from_source_ids": []
+        }
+      ],
+      "expected_state_from_origin": "INDEPENDENCE_NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "dep-original-not-independent",
+      "origin": "EPI-002",
+      "origin_case": "original-to-source alone does not prove independence",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-2",
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "ORIGINAL_TO_SOURCE",
+          "inherits_claim_from_source_ids": []
+        }
+      ],
+      "expected_state_from_origin": "INDEPENDENCE_NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "dep-encoded-inherited-source",
+      "origin": "EPI-002",
+      "origin_case": "encoded inherited source",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-3",
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "UNKNOWN",
+          "inherits_claim_from_source_ids": [
+            "SRC-X"
+          ]
+        }
+      ],
+      "expected_state_from_origin": "DEPENDENT"
+    },
+    {
+      "case_id": "dep-explicit-dependency",
+      "origin": "EPI-002",
+      "origin_case": "explicit dependency",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-4",
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN",
+          "inherits_claim_from_source_ids": []
+        }
+      ],
+      "expected_state_from_origin": "DEPENDENT"
+    },
+    {
+      "case_id": "dep-established-independent-root",
+      "origin": "EPI-002",
+      "origin_case": "affirmatively established independent root",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-5",
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "ORIGINAL_TO_SOURCE",
+          "inherits_claim_from_source_ids": []
+        }
+      ],
+      "expected_state_from_origin": "INDEPENDENT"
+    },
+    {
+      "case_id": "dep-independent-without-root",
+      "origin": "EPI-002",
+      "origin_case": "independent flag without claim-root evidence",
+      "kind": "dependency",
+      "rows": [
+        {
+          "assertion_evidence_id": "DEP-6",
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "UNKNOWN",
+          "inherits_claim_from_source_ids": []
+        }
+      ],
+      "expected_state_from_origin": "INDEPENDENCE_NOT_ESTABLISHED"
+    },
+    {
+      "case_id": "lin-unknown-empty",
+      "origin": "EPI-004",
+      "origin_case": "unknown-empty",
+      "kind": "lineage",
+      "start_evidence_id": "AE-U",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-U",
+          "assertion_id": "A-X",
+          "source_id": "SRC-U",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-original-not-independent",
+      "origin": "EPI-004",
+      "origin_case": "original-not-independent",
+      "kind": "lineage",
+      "start_evidence_id": "AE-O",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-O",
+          "assertion_id": "A-X",
+          "source_id": "SRC-O",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "ORIGINAL_TO_SOURCE"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-established-root",
+      "origin": "EPI-004",
+      "origin_case": "established-root",
+      "kind": "lineage",
+      "start_evidence_id": "AE-R",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-R",
+          "assertion_id": "A-X",
+          "source_id": "SRC-R",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "ORIGINAL_TO_SOURCE"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-broken-parent",
+      "origin": "EPI-004",
+      "origin_case": "broken-parent",
+      "kind": "lineage",
+      "start_evidence_id": "AE-B",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-B",
+          "assertion_id": "A-X",
+          "source_id": "SRC-B",
+          "inherits_claim_from_source_ids": [
+            "SRC-MISSING"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-dependent-to-root",
+      "origin": "EPI-004",
+      "origin_case": "dependent-to-root",
+      "kind": "lineage",
+      "start_evidence_id": "AE-C",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-C",
+          "assertion_id": "A-X",
+          "source_id": "SRC-C",
+          "inherits_claim_from_source_ids": [
+            "SRC-P"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        },
+        {
+          "assertion_evidence_id": "AE-P",
+          "assertion_id": "A-X",
+          "source_id": "SRC-P",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "ORIGINAL_TO_SOURCE"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-cycle",
+      "origin": "EPI-004",
+      "origin_case": "cycle",
+      "kind": "lineage",
+      "start_evidence_id": "AE-A",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-A",
+          "assertion_id": "A-X",
+          "source_id": "SRC-A",
+          "inherits_claim_from_source_ids": [
+            "SRC-B"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        },
+        {
+          "assertion_evidence_id": "AE-B2",
+          "assertion_id": "A-X",
+          "source_id": "SRC-B",
+          "inherits_claim_from_source_ids": [
+            "SRC-A"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-multi-parent-order",
+      "origin": "parity-extension",
+      "origin_case": "multi-parent: root then broken, parent-source order is contractual",
+      "kind": "lineage",
+      "start_evidence_id": "AE-MP-CHILD",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-MP-CHILD",
+          "assertion_id": "A-MP",
+          "source_id": "SRC-CHILD",
+          "inherits_claim_from_source_ids": [
+            "SRC-ROOT",
+            "SRC-MISSING"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        },
+        {
+          "assertion_evidence_id": "AE-MP-ROOT",
+          "assertion_id": "A-MP",
+          "source_id": "SRC-ROOT",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "ORIGINAL_TO_SOURCE"
+        }
+      ]
+    },
+    {
+      "case_id": "lin-multi-candidate-order",
+      "origin": "parity-extension",
+      "origin_case": "multi-candidate ambiguity: candidate-row input order is contractual",
+      "kind": "lineage",
+      "start_evidence_id": "AE-MC-CHILD",
+      "rows": [
+        {
+          "assertion_evidence_id": "AE-MC-CHILD",
+          "assertion_id": "A-MC",
+          "source_id": "SRC-CHILD",
+          "inherits_claim_from_source_ids": [
+            "SRC-PARENT"
+          ],
+          "dependency_status": "DEPENDENT",
+          "claim_origin": "UNKNOWN"
+        },
+        {
+          "assertion_evidence_id": "AE-MC-P1",
+          "assertion_id": "A-MC",
+          "source_id": "SRC-PARENT",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "INDEPENDENT",
+          "claim_origin": "ORIGINAL_TO_SOURCE"
+        },
+        {
+          "assertion_evidence_id": "AE-MC-P2",
+          "assertion_id": "A-MC",
+          "source_id": "SRC-PARENT",
+          "inherits_claim_from_source_ids": [],
+          "dependency_status": "UNKNOWN",
+          "claim_origin": "UNKNOWN"
+        }
+      ]
+    },
+    {
+      "case_id": "conf-role-semantics",
+      "origin": "EPI-005",
+      "origin_case": "support, qualification, contradiction role semantics",
+      "kind": "conflict",
+      "validation_only": false,
+      "rows": [
+        {
+          "assertion_evidence_id": "S1",
+          "assertion_id": "A",
+          "source_id": "X",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "x",
+          "evidence_note": "support"
+        },
+        {
+          "assertion_evidence_id": "S2",
+          "assertion_id": "A",
+          "source_id": "Y",
+          "evidence_role": "QUALIFIES",
+          "locator": "y",
+          "evidence_note": "qualification"
+        },
+        {
+          "assertion_evidence_id": "S3",
+          "assertion_id": "B",
+          "source_id": "Z",
+          "evidence_role": "CONTRADICTS",
+          "locator": "z",
+          "evidence_note": "contradiction"
+        }
+      ]
+    },
+    {
+      "case_id": "conf-explicit-conflict",
+      "origin": "EPI-005",
+      "origin_case": "conflict",
+      "kind": "conflict",
+      "validation_only": false,
+      "rows": [
+        {
+          "assertion_evidence_id": "1",
+          "assertion_id": "A",
+          "source_id": "SRC-1",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "loc",
+          "evidence_note": "note"
+        },
+        {
+          "assertion_evidence_id": "2",
+          "assertion_id": "A",
+          "source_id": "SRC-2",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "opposing wording"
+        }
+      ]
+    },
+    {
+      "case_id": "conf-qualification-not-conflict",
+      "origin": "EPI-005",
+      "origin_case": "non-conflict / qualification",
+      "kind": "conflict",
+      "validation_only": false,
+      "rows": [
+        {
+          "assertion_evidence_id": "3",
+          "assertion_id": "B",
+          "source_id": "SRC-3",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "loc",
+          "evidence_note": "note"
+        },
+        {
+          "assertion_evidence_id": "4",
+          "assertion_id": "B",
+          "source_id": "SRC-4",
+          "evidence_role": "QUALIFIES",
+          "locator": "loc",
+          "evidence_note": "narrows scope"
+        }
+      ]
+    },
+    {
+      "case_id": "conf-plurality-not-conflict",
+      "origin": "EPI-005",
+      "origin_case": "multiple support sources are not conflict",
+      "kind": "conflict",
+      "validation_only": false,
+      "rows": [
+        {
+          "assertion_evidence_id": "5",
+          "assertion_id": "C",
+          "source_id": "SRC-5",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "loc",
+          "evidence_note": "note"
+        },
+        {
+          "assertion_evidence_id": "6",
+          "assertion_id": "C",
+          "source_id": "SRC-6",
+          "evidence_role": "CORROBORATION",
+          "locator": "loc",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "conf-normalization-preserves-conflict",
+      "origin": "EPI-005",
+      "origin_case": "normalization-with-conflict",
+      "kind": "conflict",
+      "validation_only": false,
+      "rows": [
+        {
+          "assertion_evidence_id": "8",
+          "assertion_id": "E",
+          "source_id": "SRC-8",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "loc",
+          "evidence_note": "preferred normalized form"
+        },
+        {
+          "assertion_evidence_id": "9",
+          "assertion_id": "E",
+          "source_id": "SRC-9",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "source gives alternate form"
+        }
+      ]
+    },
+    {
+      "case_id": "val-missing-evidence-id",
+      "origin": "parity-extension",
+      "origin_case": "missing assertion_evidence_id",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_id": "V1",
+          "source_id": "SRC-V1",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "val-duplicate-evidence-id",
+      "origin": "parity-extension",
+      "origin_case": "duplicate assertion_evidence_id",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "DUP",
+          "assertion_id": "V2",
+          "source_id": "SRC-D1",
+          "evidence_role": "PRIMARY_SUPPORT",
+          "locator": "loc",
+          "evidence_note": "note"
+        },
+        {
+          "assertion_evidence_id": "DUP",
+          "assertion_id": "V3",
+          "source_id": "SRC-D2",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "val-contradicts-missing-assertion-id",
+      "origin": "parity-extension",
+      "origin_case": "CONTRADICTS missing assertion_id",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "V-AID",
+          "source_id": "SRC-V",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "val-contradicts-missing-source-id",
+      "origin": "parity-extension",
+      "origin_case": "CONTRADICTS missing source_id",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "V-SID",
+          "assertion_id": "V4",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "val-contradicts-missing-locator",
+      "origin": "parity-extension",
+      "origin_case": "CONTRADICTS missing locator",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "V-LOC",
+          "assertion_id": "V5",
+          "source_id": "SRC-V",
+          "evidence_role": "CONTRADICTS",
+          "evidence_note": "note"
+        }
+      ]
+    },
+    {
+      "case_id": "val-contradicts-missing-evidence-note",
+      "origin": "EPI-005",
+      "origin_case": "missing contradictory detail / incomplete CONTRADICTS row",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "7",
+          "assertion_id": "D",
+          "source_id": "SRC-7",
+          "evidence_role": "CONTRADICTS",
+          "locator": "loc",
+          "evidence_note": ""
+        }
+      ]
+    }
+  ]
+}
