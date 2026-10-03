@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
 import { publishedObjects } from '../lib/publication-index.mjs';
+import { escapeHtml } from '../lib/render-shell.mjs';
 import { renderObjectPage } from '../lib/render-object-page.mjs';
 import {
   renderOverview,
@@ -54,9 +55,37 @@ for (const object of published) {
     displayedFactCount,
     `${object.entity_id}: rendered assertion-backed structures must match the materialized assertion_refs fact list`,
   );
-  assert.ok(html.includes('<figure class="record-photo">'), `${object.entity_id}: image figure missing`);
-  assert.ok(html.includes('<figcaption>'), `${object.entity_id}: image rights caption missing`);
-  assert.ok(html.includes('Image record</a>'), `${object.entity_id}: image provenance link missing`);
+  const displayedFields = [
+    'object_entity_id',
+    'location',
+    'location_source_url',
+    'event_label',
+    'event_date',
+    'event_source_url',
+    'image_url',
+    'image_alt',
+    'image_credit',
+    'image_rights',
+    'image_source_url',
+  ];
+  if (overview.image_license_url) displayedFields.push('image_license_url');
+  if (overview.secondary_event_label) {
+    displayedFields.push('secondary_event_label', 'secondary_event_date', 'secondary_event_source_url');
+  }
+  if (overview.record_type === 'person_memorial') {
+    displayedFields.push('subject_name', 'subject_dates', 'subject_bio', 'subject_source_url');
+  } else if (overview.record_type === 'historical_object') {
+    displayedFields.push('object_context', 'object_context_source_url');
+  }
+
+  for (const field of displayedFields) {
+    const value = overview[field];
+    assert.notEqual(value, undefined, `${object.entity_id}: displayed field ${field} must exist in materialized overview`);
+    assert.ok(
+      html.includes(escapeHtml(value)),
+      `${object.entity_id}: rendered overview must contain materialized field ${field}`,
+    );
+  }
   reconciledObjects += 1;
 }
 
