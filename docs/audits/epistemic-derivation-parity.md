@@ -13,6 +13,7 @@ Both producers read `tests/fixtures/epistemic-derivation.json`.
 - Validation-only conflict cases emit `validation` only. They do not emit or compute `index`: Python `build_context()` validates first and aborts on invalid rows, so `conflict_index()` is not reached for those inputs.
 - Every lineage case must contain present, unique `assertion_evidence_id` values.
 - Required branch-order extension cases are `lin-multi-parent-order` and `lin-multi-candidate-order`; both must remain present.
+- Each synthetic case feeds only the output section matching its `kind`: `dependency` → `dependency`, `lineage` → `lineage`, and `conflict` → `conflicts`. Validation-only cases remain confined to `conflicts`.
 
 DATA-001 synthetic reconciliation is intentionally not copied here because it tests rendered assertion reconciliation, not any of the three derivation outputs frozen for 64b.
 
