@@ -49,6 +49,8 @@ jobs:
         run: python scripts/validate_data001_synthetic.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
+      - name: Verify JS renderer materialized-input policy
+        run: node tests/renderer-input-policy.mjs
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
