@@ -507,7 +507,7 @@
     {
       "case_id": "val-contradicts-missing-evidence-note",
       "origin": "EPI-005",
-      "origin_case": "missing contradictory detail / incomplete CONTRADICTS row",
+      "origin_case": "missing contradictory detail must fail validation",
       "kind": "conflict",
       "validation_only": true,
       "rows": [
@@ -518,6 +518,22 @@
           "evidence_role": "CONTRADICTS",
           "locator": "loc",
           "evidence_note": ""
+        }
+      ]
+    },
+    {
+      "case_id": "val-contradicts-evidence-note-key-absent",
+      "origin": "EPI-005",
+      "origin_case": "incomplete CONTRADICTS row accepted",
+      "kind": "conflict",
+      "validation_only": true,
+      "rows": [
+        {
+          "assertion_evidence_id": "BAD",
+          "assertion_id": "C",
+          "source_id": "Q",
+          "evidence_role": "CONTRADICTS",
+          "locator": "q"
         }
       ]
     }
