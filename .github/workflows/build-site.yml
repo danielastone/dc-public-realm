@@ -55,6 +55,9 @@ jobs:
         # This suite imports overview-error-inventory.mjs, so the frozen Python
         # raise-site tripwire reruns here as part of the same CI invocation.
         run: node tests/overview-renderer-semantic.mjs
+      - name: Verify JS↔Python epistemic derivation parity
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/epistemic-derivation-parity.mjs
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
