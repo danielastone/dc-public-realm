@@ -28,27 +28,19 @@ function leadingSpaces(line) {
 }
 
 function functionBlocks(source) {
+  // A def's body is every following line indented deeper than the def line;
+  // the block ends at the first non-blank line at the same or lesser indent.
   const lines = source.split(/\r?\n/);
   const blocks = new Map();
   for (let i = 0; i < lines.length; i += 1) {
     const match = lines[i].match(/^(\s*)def\s+(render_overview|refs|require_subject|fact)\s*\(/);
     if (!match) continue;
-    const name = match[2];
     const indent = match[1].length;
     let end = lines.length;
     for (let j = i + 1; j < lines.length; j += 1) {
-      const line = lines[j];
-      if (!line.trim()) continue;
-      if (leadingSpaces(line) <= indent && /^\s*def\s+/.test(line)) {
-        end = j;
-        break;
-      }
-      if (indent === 0 && leadingSpaces(line) === 0 && !/^\s/.test(line)) {
-        end = j;
-        break;
-      }
+      if (lines[j].trim() && leadingSpaces(lines[j]) <= indent) { end = j; break; }
     }
-    blocks.set(name, lines.slice(i + 1, end));
+    blocks.set(match[2], { indent, lines: lines.slice(i + 1, end) });
   }
   return blocks;
 }
@@ -57,14 +49,20 @@ function scanRaiseSites(source) {
   const blocks = functionBlocks(source);
   const discovered = [];
   for (const helper of SCOPED_HELPERS) {
-    const lines = blocks.get(helper);
-    assert.ok(lines, `missing scoped Python helper: ${helper}`);
+    const block = blocks.get(helper);
+    assert.ok(block, `missing scoped Python helper: ${helper}`);
     let ordinal = 0;
-    for (const line of lines) {
+    let nestedIndent = null; // indent of a nested def whose body we are skipping
+    for (const line of block.lines) {
       // Deliberately simple heuristic: explicit `raise` tokens only. No AST or
-      // control-flow analysis. Nested helper bodies are excluded from the outer
-      // render_overview block to avoid double counting.
-      if (helper === 'render_overview' && /^\s{4}def\s+/.test(line)) continue;
+      // control-flow analysis. Nested def bodies are excluded from the
+      // enclosing block so each raise site is attributed to exactly one helper.
+      if (line.trim()) {
+        const ind = leadingSpaces(line);
+        if (nestedIndent !== null && ind <= nestedIndent) nestedIndent = null;
+        if (nestedIndent === null && /^\s*def\s+/.test(line)) { nestedIndent = ind; continue; }
+      }
+      if (nestedIndent !== null) continue;
       if (/\braise\s+/.test(line)) {
         ordinal += 1;
         discovered.push(`${helper}#${ordinal}`);
