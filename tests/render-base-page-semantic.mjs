@@ -62,9 +62,10 @@ assert.ok(html.includes('<h2>Predecessor and lineage</h2><article class="asserti
 assert.ok(html.includes('<span class="status-reason">A directly authoritative source meets the evidence rule for this statement.</span>'));
 assert.ok(!html.includes('data-assertion-id="A-LINEAGE"'));
 assert.ok(!html.includes('undefined'));
+assert.ok(!html.includes('<style>'));
 assert.ok(html.indexOf('A-DIRECT') < html.indexOf('Predecessor and lineage'));
 assert.ok(html.includes('<h2>Research missions</h2><p class="task-summary" data-open-task-count="0">0 open research missions</p>'));
-console.log('base page PASS: final header, derived status reasons, assertion status rule, lineage section, and zero-task section');
+console.log('base page PASS: final header, derived status reasons, assertion status rule, lineage section, zero-task section, and no overview CSS without an overview');
 
 assert.throws(
   () => render({ statusRules: { rules: { VERIFIED: statusRules.rules.VERIFIED } } }),
