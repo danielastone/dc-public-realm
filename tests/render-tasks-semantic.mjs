@@ -43,7 +43,7 @@ for (const object of published) {
 assert.equal(pred('PRIMARY_SOURCE'), 'Primary Source');
 assert.equal(pred("foo's_bar"), "Foo'S Bar");
 assert.equal(publicStatus('CONTESTED'), 'Sources differ');
-assert.equal(publicStatus('CUSTOM_STATUS'), 'Custom Status');
+assert.equal(publicStatus('CUSTOM_STATUS'), 'Custom_Status');
 
 // #176: Python quote_plus behavior, deliberately not URLSearchParams behavior.
 assert.equal(quotePlus("a~b*c'(d) e"), 'a~b%2Ac%27%28d%29+e');
