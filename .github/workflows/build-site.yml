@@ -66,6 +66,8 @@ jobs:
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
+      - name: Verify JS research missions rendering semantics
+        run: node tests/render-tasks-semantic.mjs
       - name: Verify AUD-11 JS publication index against materialized metadata
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/publication-index.mjs
