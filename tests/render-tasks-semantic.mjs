@@ -38,10 +38,14 @@ for (const object of published) {
   rendered += 1;
 }
 
-// Task-specific presentation must match Python str.title() behavior for the
-// ASCII predicate/status vocabulary, not merely uppercase first characters.
+// Task-specific presentation must match Python str.title() behavior across
+// ordinary ASCII/Unicode letters and digit boundaries. Unicode titlecase
+// digraphs remain a documented JS limit in pythonTitle().
 assert.equal(pred('PRIMARY_SOURCE'), 'Primary Source');
 assert.equal(pred("foo's_bar"), "Foo'S Bar");
+assert.equal(pred('3rd_party'), '3Rd Party');
+assert.equal(pred('a1b2'), 'A1B2');
+assert.equal(pred('ÉLAN_x'), 'Élan X');
 assert.equal(publicStatus('CONTESTED'), 'Sources differ');
 assert.equal(publicStatus('CUSTOM_STATUS'), 'Custom_Status');
 
