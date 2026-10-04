@@ -29,5 +29,16 @@
 - **Fix:** restored both main-branch steps exactly, then limited branch workflow changes to the two intended parity/determinism steps.
 - **Standing rule:** after any workflow edit, diff the complete workflow against `main` and enumerate every added, removed, or command-changed step before accepting the change.
 - **Verification rule:** after CI runs, confirm each restored/added step appears in the job step log as executed successfully; YAML presence alone is insufficient.
-- **Future hardening:** consider a required-step-name contract check in CI so accidental validation-step deletion fails automatically.
+- **Future hardening:** if automated, protect the expected step-name → command mapping rather than step names alone; a name-only check would not detect command substitution.
 - **Impact:** caught before merge; no reduction in `main` CI coverage occurred.
+
+## RT-2026-10-03-01 — Overview raise-site scanner miscounted its frozen oracle
+
+- **Found:** 2026-10-03 while freezing the Python `render_overview()` error-condition inventory for the JS renderer migration.
+- **Status:** Fixed on `js-object-renderer-parity` in commit `4a1fa59`; the corrected 11-site set is frozen.
+- **Defect:** the first simple source scanner bounded function blocks incorrectly and did not reliably exclude nested helper bodies from the enclosing `render_overview()` scan. The instrumentation therefore miscounted/misattributed raise sites even though the Python source and hand-compiled condition table were unchanged.
+- **Detection:** the declared-site set and scanner-discovered set disagreed. The migration's stop-and-inspect rule treated that discrepancy as an instrumentation defect to investigate rather than evidence that the table should be renumbered.
+- **Fix:** function blocks now end at the first non-blank line at the same or lesser indentation, and nested `def` bodies are skipped while scanning an enclosing function. The corrected local run discovers exactly 11 sites, the declared table contains exactly 11 unique sites, and the sets are equal.
+- **Standing rule:** a change in the discovered raise-site set is a review event. Do not renumber `helper#ordinal` IDs merely to make the tripwire green. The scanner remains a heuristic for inventory completeness, not proof that semantic mappings are correct.
+- **Evidence:** frozen sites are `render_overview#1`–`render_overview#7`, `refs#1`–`refs#2`, `require_subject#1`, and `fact#1`; duplicate declared IDs: none; exact set comparison: equal.
+- **Impact:** no renderer or publication behavior was affected. The defect was confined to migration instrumentation and was caught before the tripwire entered CI.
