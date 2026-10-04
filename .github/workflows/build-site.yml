@@ -55,6 +55,10 @@ jobs:
         # This suite imports overview-error-inventory.mjs, so the frozen Python
         # raise-site tripwire reruns here as part of the same CI invocation.
         run: node tests/overview-renderer-semantic.mjs
+      - name: Verify JS overview CSS parity
+        run: |
+          node tests/overview-css-parity.mjs
+          node tests/render-base-page-semantic.mjs
       - name: Verify JS external-record rendering semantics
         run: node tests/render-external-records-semantic.mjs
       - name: Verify JS↔Python epistemic derivation parity
