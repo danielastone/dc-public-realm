@@ -100,6 +100,9 @@ jobs:
           cp /tmp/publication_dependency_rules.json data/publication_dependency_rules.json
       - name: Build publication from materialized database
         run: python scripts/build_publication.py
+      - name: Verify JS status and reason against Python publication output
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/status-reason-parity.mjs
       - name: Validate rendered object overviews
         run: python scripts/validate_overview_rendering.py
       - name: Add Artigas external interoperability records
