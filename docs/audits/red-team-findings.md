@@ -42,3 +42,16 @@
 - **Standing rule:** a change in the discovered raise-site set is a review event. Do not renumber `helper#ordinal` IDs merely to make the tripwire green. The scanner remains a heuristic for inventory completeness, not proof that semantic mappings are correct.
 - **Evidence:** frozen sites are `render_overview#1`–`render_overview#7`, `refs#1`–`refs#2`, `require_subject#1`, and `fact#1`; duplicate declared IDs: none; exact set comparison: equal.
 - **Impact:** no renderer or publication behavior was affected. The defect was confined to migration instrumentation and was caught before the tripwire entered CI.
+
+
+## RT-2026-10-04-01 — Synthetic base-page fixture hid dropped status reasons
+
+- **Found:** 2026-10-04 during the first full object-page diagnostic comparison for #175.
+- **Status:** Fixed on `js-object-renderer-parity`; regression coverage added.
+- **Defect:** `computeStatus()` already returned `[status, reason]`, but `deriveAssertions()` in `lib/render-tasks.mjs` destructured only the status and discarded the reason. `renderObjectPage()` later read `assertion.status_reason`, so all rendered status-reason spans became `undefined`.
+- **Why the semantic test missed it:** the synthetic base-page fixture manually supplied `status_reason`, bypassing the upstream derivation boundary that production rendering uses.
+- **Detection:** the preregistered #195 full-page diagnostic reported 36 otherwise-identical regions, all at `status-reason` spans. Tracing the producer boundary reduced them to one propagation defect rather than 36 renderer defects.
+- **Fix:** preserve both values from `computeStatus()` as `computed_status` and `status_reason`; render object-page assertions with those derived fields; make the base-page semantic test derive them instead of supplying them manually.
+- **Regression gate:** `tests/status-reason-parity.mjs` compares JS `(status, reason)` tuples for the full materialized corpus against Python's generated `site/data/assertions.json` after `build_publication.py`. The historical AUD-10 frozen status oracle remains unchanged and status-only.
+- **Standing rule:** renderer fixtures must not manually provide fields that an upstream JS producer is responsible for computing when the purpose of the test is to exercise that producer-renderer boundary.
+- **Impact:** caught before JS publication cutover. The first diagnostic showed every other #175-owned object-page region byte-identical; only status reasons were wrong.
