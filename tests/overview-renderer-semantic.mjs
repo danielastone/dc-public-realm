@@ -101,6 +101,7 @@ const pageWithoutOverview = renderObjectPage({
   statusRules: [],
   entities,
   basePath: '/dc-public-realm',
+  taskContext: { openTasksByObject: new Map(), derivedById: new Map() },
 });
 assert.ok(!pageWithoutOverview.includes('class="record-overview"'), 'object without overview must render no overview section');
 
