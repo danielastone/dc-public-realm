@@ -49,9 +49,33 @@ jobs:
         run: python scripts/validate_data001_synthetic.py
       - name: Materialize transaction database
         run: python scripts/build_database.py
+      - name: Verify JS renderer materialized-input policy
+        run: node tests/renderer-input-policy.mjs
+      - name: Build and verify JS object-page driver
+        run: |
+          node scripts/build_object_pages.mjs
+          node tests/object-page-driver.mjs
+      - name: Verify JS overview renderer semantics
+        run: node tests/overview-renderer-semantic.mjs
+      - name: Verify JS overview CSS parity
+        run: |
+          node tests/overview-css-parity.mjs
+          node tests/render-base-page-semantic.mjs
+      - name: Verify JS external-record rendering semantics
+        run: node tests/render-external-records-semantic.mjs
+      - name: Verify JS↔Python epistemic derivation parity
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/epistemic-derivation-parity.mjs
+      - name: Verify JS epistemic context and rendering semantics
+        run: |
+          node tests/epistemic-context.mjs
+          node tests/epistemic-trace-row.mjs
+          node tests/render-epistemics-semantic.mjs
       - name: Verify AUD-10 JS status rule against frozen materialized oracle
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/status-golden.mjs
+      - name: Verify JS research missions rendering semantics
+        run: node tests/render-tasks-semantic.mjs
       - name: Verify AUD-11 JS publication index against materialized metadata
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: node tests/publication-index.mjs
@@ -84,6 +108,9 @@ jobs:
           cp /tmp/publication_dependency_rules.json data/publication_dependency_rules.json
       - name: Build publication from materialized database
         run: python scripts/build_publication.py
+      - name: Verify JS status and reason against Python publication output
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: node tests/status-reason-parity.mjs
       - name: Validate rendered object overviews
         run: python scripts/validate_overview_rendering.py
       - name: Add Artigas external interoperability records
@@ -97,6 +124,8 @@ jobs:
       - name: Prove Python object-page build determinism
         env: {KNOWLEDGE_DATA_DIR: data}
         run: node tests/python-object-page-determinism.mjs
+      - name: Verify final JS-Python object-page parity
+        run: node tests/object-page-final-parity.mjs
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
