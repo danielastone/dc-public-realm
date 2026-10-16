@@ -126,6 +126,8 @@ jobs:
         run: node tests/python-object-page-determinism.mjs
       - name: Verify final JS-Python object-page parity
         run: node tests/object-page-final-parity.mjs
+      - name: Reject hard-coded entity literals in JS renderer
+        run: node tests/entity-literal-scan.mjs
       - name: Verify publication status consistency
         run: python scripts/validate_publication_consistency.py
       - name: Verify EPI-001 public status rule contract
