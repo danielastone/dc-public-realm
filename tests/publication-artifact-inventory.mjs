@@ -25,8 +25,8 @@ export async function inventory(root) {
   files.sort((a,b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
   return { format: 'publication-artifact-inventory-v1', files };
 }
-export function compareInventories(expected, actual) {
-  assert.deepEqual(actual, expected, 'publication artifact inventory changed');
+export function compareInventories(expected, actual, message = 'publication artifact inventory changed') {
+  assert.deepEqual(actual, expected, message);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname)) {
