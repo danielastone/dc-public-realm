@@ -158,6 +158,8 @@ jobs:
         run: python scripts/validate_pub003_tasks.py
       - name: Verify PUB-004 internal link integrity
         run: python scripts/validate_pub004_internal_links.py
+      - name: Inventory final publication artifacts
+        run: node tests/publication-artifact-inventory.mjs
       - name: Verify required build artifacts
         run: |
           test -f build/audit/manifest.json
