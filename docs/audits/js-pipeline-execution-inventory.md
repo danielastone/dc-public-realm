@@ -162,3 +162,19 @@ This classification is based on reading the named validator implementations at t
 Publication eligibility is `publication.publish === true` (JS and Python publication indexes); overview presence is not part of eligibility. The fixed-ID overview validator therefore does not enforce published-object-to-overview completeness. Page existence is already guarded by derived scope: PUB-001 compares missing/orphan pages against `published_objects()`, and final JS-to-Python parity checks the route set against `publishedObjects()`. A published fourth object that the legacy builder does not render fails closed.
 
 The fail-open validators EPI-001/002/003 and DATA-001 have **latent content coverage gaps** that become live when `build_site.py`'s fixed object list is made dynamic. **Sequencing rule:** do not change the legacy builder's object list or relax the overview ID check until (1) the invariant `published IDs = expected object pages = required overviews` is enforced (PUB-001 already covers page existence), (2) rendered content validators derive scope from the same published-object set, and (3) a fourth-object fixture fails each validator with its own specific diagnostic, rather than merely failing an upstream check. Malformed overview metadata must fail for its malformed field, not only for an extra object ID.
+
+## I1 validator scope classification — second source inspection (2026-10-18)
+
+The following conclusions concern each script's own checked scope, not a demonstrated end-to-end fourth-object run.
+
+| Validator | Scope in code | Fourth-object consequence |
+| --- | --- | --- |
+| `validate_epi004_rendered_lineage.py` | Fixed three-object `SLUGS` loop | Fourth object's lineage disclosures are not checked; aggregate nonzero coverage only checks existing objects |
+| `validate_epi005_warning_placement.py` | Fixed three-object `SLUGS` loop | Fourth object's conflict warning placement is not checked |
+| `validate_data002_summary_reconciliation.py` | Fixed three-object `OBJECTS` plus exact homepage card-set equality | A fourth homepage card fails the exact-set gate, but a fourth page's summary is not inspected; another expansion blocker, not dynamic content coverage |
+| `validate_pub002_navigation.py` | Static front-door pages plus `published_objects()` / `path_for()` | Derived object-page navigation checks include a fourth published object |
+| `validate_pub003_tasks.py` | `published_objects()` and per-object task count/link checks | Derived object-page task checks include a fourth published object |
+| `validate_pub004_internal_links.py` | All `site/**/*.html` and in-scope internal `href` targets | Checks internal links in a fourth page if that page exists; does not establish that page's required content or existence independently |
+| `validate_publication_consistency.py` | `published_objects()` and direct assertions from published JSON | Fourth page is checked for each direct assertion's ID and computed-status marker; does not substitute for rule, dependency, ancestry, lineage, or conflict checks |
+
+**Updated cutover constraint:** `validate_data002_summary_reconciliation.py` is a second fixed-set growth blocker alongside `validate_overview_data.py`. Before permitting the legacy builder to produce a fourth object, make both checks derive expected object IDs, make EPI-001/002/003/004/005 and DATA-001 cover derived scope, and test specific failure diagnostics for each invariant. Keep PUB-001, PUB-002/003/004, publication consistency, and JS/Python route parity as independent existing guards; their coverage is complementary, not interchangeable.
