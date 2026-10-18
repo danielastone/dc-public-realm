@@ -202,3 +202,20 @@ The following conclusions concern each script's own checked scope, not a demonst
 | `validate_collaboration_lifecycle.py` | Replays transaction task transitions and resolving review records; exercises valid and missing-review fixtures | **Dynamic lifecycle + synthetic regression**, not object-page scope |
 
 **Updated sequencing:** preserve golden regression cases unchanged while adding generic derived-scope counterparts where they do not cover new published objects. In particular, migrate EPI-005 rendered conflict coverage separately from frozen EPI-005 conflict inventory. Do not design the fourth-object harness until the workflow-wide validator inventory is complete; assert the specific failure source and diagnostic in each negative case. This batch is source inspection, not execution evidence.
+
+## I1 workflow reconciliation and imported helpers (2026-10-18)
+
+Independent mechanical reconciliation at commit `21a0c04` reported **61 directly executed scripts/tests across `build-site.yml` and `validate-data.yml`**, including **four exclusive to `validate-data.yml`**, and **14 files not directly executed**. This is a grep-based reference inventory, not proof of runtime reachability or complete dynamic-import discovery. The audit now explicitly covers the missing named files below.
+
+| File | Execution role / authority | Disposition |
+| --- | --- | --- |
+| `tests/escape-html.mjs` | Standalone JS-vs-Python HTML escaping test, previously unreferenced | **CI gap corrected**: `build-site.yml` now executes it in commit `924422c`; passing CI still to be confirmed |
+| `scripts/derive_dependency_state.py` | Imported production EPI-002 dependency semantics; consumed by validators and parity oracle | **Semantic authority** to preserve and compare against JS, not an unused script |
+| `scripts/detect_material_conflicts.py` | Imported production EPI-005 conflict detection/record validation | **Semantic authority**; preserve exact role and validation behavior, distinct from frozen corpus counts |
+| `scripts/trace_claim_lineage.py` | Imported production EPI-004 lineage traversal | **Semantic authority**; preserve trace structure and terminal conditions |
+| `scripts/dump_epistemic_derivation.py` | Read-only Python parity adapter importing all three epistemic modules; serializes real and synthetic cases | **Test oracle**, not a publication entry point; called through JS epistemic parity test |
+| `scripts/dump_publication_index.py` | Read-only Python publication-index parity adapter | **Test oracle**, not a publication entry point; called through JS publication-index parity test |
+| `scripts/seed_validator_defects.py` | Self-described manual seeded-defect tool, not invoked in either workflow | **Manual historical test tool**; not a CI gate. It snapshots and mutates `site/` in place, so do not add to CI without isolation and diagnostic-specific assertions |
+| `tests/overview-error-inventory.mjs` | Imported by CI-executed `tests/overview-renderer-semantic.mjs`; module-top-level scan compares Python overview renderer raise-site set to frozen declaration | **Transitively exercised in CI**; not an orphan. Its scanner is heuristic and does not prove full exception-path coverage |
+
+The epistemic derivation adapters must not be confused with the canonical semantic modules they import. `escape-html.mjs` is now explicitly scheduled in the site-build workflow, but only an observed successful run can establish that the new CI step passes. Preserve golden fixtures and keep the fourth-object harness deferred until remaining workflow-to-import edges and gate ownership are reconciled.
