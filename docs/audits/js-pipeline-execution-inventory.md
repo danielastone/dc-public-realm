@@ -49,3 +49,26 @@ Source: `.github/workflows/build-site.yml` on `main`.
 - **I6 — Retirement:** remove Python from production workflow only after equivalent provenance, determinism, validation and publication coverage are demonstrated.
 
 **Gate for this PR:** reviewers agree the observed workflow stages and open inventory tasks are accurately bounded. This document is a first pass, not a claim that every Python dependency has been traced.
+
+## I1 follow-up — traced publication writers
+
+The following is a source-level inventory of the core publication writers, not yet a complete validator inventory.
+
+| Script | Read dependencies | Write/side effects | Route ownership |
+| --- | --- | --- | --- |
+| `build_site.py` | `data/{entities,assertions,assertion-evidence,sources,predicate-rules,research-tasks,publication_status_rules,claim-modes,external-records}.json` | **On import**, recursively deletes `site/`, writes CSS, HTML, and public JSON | `assets/style.css`; `index.html`; hard-coded three `objects/<slug>/index.html`; `tasks/<task_id lowercase>/index.html` for every task; `collaborate/index.html`; `methodology/index.html`; `data/index.html`; six `data/*.json` exports |
+| `build_publication.py` | Imports `build_site` and rendering modules; reads staged assertions, entities, overviews, evidence, sources, dependency rules, tasks through imported renderer | Mutates each overview object HTML; appends epistemic blocks to published object HTML; **overwrites** `index.html`; writes `collaborate/artigas/index.html` | Existing object routes plus homepage and Artigas collaboration |
+| `frontdoor_renderer.py` | Entities through publication index, object overviews, research tasks | Pure rendering function returns two HTML strings | Homepage and Artigas collaboration; fails if featured object differs from `OBJ-0001` |
+| `inject_external_records.py` | `data/external-records.json`, publication index; reads Artigas page | Inserts section before sole `</main>` and rewrites page | Artigas object page only; hard-coded object and subject IDs |
+| `build_smithsonian_review.py` | `data/sources.json`, publication index | Writes HTML page | `review/artigas/index.html`; hand-authored review content, not general-purpose entity rendering |
+| `enforce_navigation_contract.py` | `publication_chrome.py`, recursively reads `site/**/*.html` | **Rewrites every HTML page containing a header**, replacing/inserting nav and alpha state | All HTML routes, including review brief |
+
+**Ordering hazard:** the homepage from `build_site.py` is overwritten by `build_publication.py`; object pages are first created by the former and then changed by the latter, the external-record injector, and navigation enforcement. Full-site byte parity must compare final output **after all writers**, not any intermediate stage.
+
+**Exact output enumeration:** `build_site.py` emits one task route per record in `research-tasks.json` (not only OPEN tasks), and six public data exports: `assertions.json`, `entities.json`, `assertion-evidence.json`, `research-tasks.json`, `claim-modes.json`, `external-records.json`. The final site also includes the Artigas collaboration and Smithsonian review routes. These are route *patterns*, not a verified current artifact count. A CI-generated final tree manifest is still required to confirm actual paths, sizes and hashes.
+
+**Scope warning:** `build_site.py` currently uses hard-coded published-object IDs and slugs, while JS `publishedObjects()/pathFor()` derives them. This difference is hidden by the three-object current dataset; future additions must not be constrained by the old constants. The Artigas-specific front door, external-record injector and Smithsonian brief are deliberate editorial exceptions requiring explicit ownership rather than a general entity-rendering rule.
+
+## I1 remaining evidence
+
+Inspect each Python validator's imports, input reads, output writes, mutation behavior and expected failure; inspect `publication_chrome.py` and any auxiliary writers. Then capture a final-tree artifact manifest in CI, including all HTML, JSON and CSS files, with deterministic hashes and a sensitivity test. Until then, the inventory remains **in progress** and is not a complete migration gate.
