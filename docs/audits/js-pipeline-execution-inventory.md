@@ -118,3 +118,9 @@ The previous description of object-page parity as limited to three hard-coded ro
 The independent audit found approximately eleven validators referencing fixed `OBJ-0001`/`OBJ-0002`/`OBJ-0003` sets across EPI-001/002/003/004/005, DATA-001/002 and overview checks. **Fail-open versus fail-closed must be classified per validator**, not inferred from the presence of a constant: `validate_overview_data.py` reportedly requires an exact object-set match (fail-closed), while several rendered-page checks iterate only those three and may skip a fourth object (fail-open). This classification remains to be confirmed script by script.
 
 **Open design gates:** (1) independently reconcile expected published-object IDs against canonical materialized entities; (2) choose whether full-site byte parity compares JS against Python as a temporary oracle, an approved stored snapshot, or both; (3) establish intentional-change review/update procedure for any committed baseline. Do not claim I1 closed before these decisions and evidence checks.
+
+## Post-PR #79 integration (pending CI verification)
+
+PR #79 was merged to `main` at `be583177`, correcting the determinism test's destructive rebuild. This branch now incorporates the isolated test, the required Artigas review route gate immediately before site upload, and shared use of `inventory()`/`compareInventories()` from this PR's inventory module. These changes are reconciled into the PR branch; **the Git ancestry has not yet been rebased or merged onto `be583177`**. Do not describe this as a completed rebase.
+
+The prior 23-file inventory is preserved as evidence of the defect, not as a baseline. The expected corrected count is 24, pending fresh CI manifest and site artifact inspection. Required-route existence is enforced, but full-site baseline parity and canonical expected-ID completeness remain open gates.
