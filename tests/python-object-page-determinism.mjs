@@ -33,6 +33,6 @@ try {
   console.log(`Python object-page determinism PASS: ${objects.length} published object pages identical across two builds`);
 } finally {
   fs.rmSync(temp, { recursive: true, force: true });
-  compareInventories(before, await inventory(SITE));
+  compareInventories(before, await inventory(SITE), 'determinism test mutated the publication tree');
   console.log('Python determinism non-mutation PASS: site/ inventory unchanged');
 }
