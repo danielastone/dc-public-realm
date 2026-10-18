@@ -138,3 +138,21 @@ The manually dispatched `Build and deploy alpha site` workflow run [39138620565]
 Both ZIPs were retrieved. The inventory ZIP contains `publication-artifacts.json`, with extracted-file SHA-256 `8901e6054c2d715bfc1fe9a58fbfe97624c30ae046d55a476856cc8f96b33c15`. Its `publication-artifact-inventory-v1` manifest enumerates 24 distinct paths. The site ZIP contains 24 files; each path, file length, and SHA-256 matches its manifest entry. `review/artigas/index.html` is present. No unmatched or duplicate paths were found. This closes **the final-tree artifact inspection subtask** for this commit and confirms the missing-review-page defect is absent from these artifacts.
 
 **Limit:** this is a verified build snapshot, not a committed or independently specified publication baseline, a live-site availability test, or proof of complete validator coverage. The larger I1 gate remains open pending individual validator classification, canonical expected-ID reconciliation, and a baseline/intentional-change policy. No JS authority transfer is authorized by this verification.
+
+## I1 validator scope classification — source inspection (2026-10-18)
+
+This classification is based on reading the named validator implementations at the PR branch, **not** on executing a fourth-object mutation. “Fail-open” here means that a newly published fourth object can be omitted from that validator's *page loop* while the existing three still pass; it does not claim the entire CI pipeline would accept the new object.
+
+| Validator | Actual page/ID enumeration | Fourth-object scope behavior | Independent safeguard retained |
+| --- | --- | --- | --- |
+| `validate_overview_data.py` | Requires overview ID set exactly `OBJ-0001/0002/0003` | **Fail-closed for an added fourth overview**; rejects extra overview IDs rather than testing them | Required overview fields and record-type-specific metadata |
+| `validate_epi001_status_rules.py` | Fixed `SLUGS` dictionary of three objects; iterates assertions for each | **Fail-open for fourth-page status/rule rendering**; global methodology rule checks still run | Per-assertion status identity and resolvable rule links on three pages |
+| `validate_epi002_dependency_rendering.py` | Fixed three-object `SLUGS`; requires at least one multi-source assertion in aggregate | **Fail-open for fourth-page dependency disclosures** | Canonical evidence-to-rendered dependency relationships on three pages |
+| `validate_epi003_ancestry_rendering.py` | Fixed three-object `SLUGS`; aggregate nonzero multi-source and UNKNOWN checks | **Fail-open for fourth-page ancestry disclosures** | Explicit origin, dependency, inherited-source count, and uncertainty wording on three pages |
+| `validate_data001_assertion_reconciliation.py` | `main()` constructs `pages` from fixed three-object `OBJECTS` | **Fail-open for fourth-page assertion reconciliation**, despite `reconcile()` itself being generic over supplied pages | Canonical assertion IDs, exactly-once rendering, and cross-object detection for pages supplied |
+
+**Important distinction:** `validate_overview_data.py` would block adding a corresponding fourth overview in the current workflow, but that is a hard-coded growth constraint, not proof that the other rendered validators cover future pages. Conversely, `DATA-001`'s generic `reconcile()` helper does not make its CLI scope dynamic; the hard-coded caller decides which pages get checked.
+
+**Required migration design:** derive expected public objects and routes from the materialized publication index, independently reconcile that index to canonical publication eligibility, and run each rendered-page invariant over the derived complete set. Include a synthetic fourth object with (a) missing page, (b) missing assertion identity, (c) incorrect status/rule, (d) omitted dependency/UNKNOWN ancestry, and (e) malformed overview metadata. Assert each intended gate fails. This proposed test matrix is **not yet executed**.
+
+**Next source-inspection batch:** remaining EPI-004/005, DATA-002, PUB-002/003/004, and publication consistency validators; record fixed-scope vs dynamically enumerated behavior before deciding implementation order.
