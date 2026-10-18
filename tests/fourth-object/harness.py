@@ -220,7 +220,7 @@ def m_card_name(site, oid, ids):
     t = p.read_text(encoding='utf-8')
     m = find(t, rf'<article class="card"[^>]*data-object-id="{oid}"[^>]*>')
     b, e = element_span(t, m.start()); card = t[b:e]
-    h = find(card, r'<h2>(.*?)</h2>')
+    h = find(card, r'<h3>(.*?)</h3>')
     name = re.sub(r'<[^>]+>', '', h.group(1))
     new = card[:h.start()] + h.group(0).replace(name, 'Mutated Card Name') + card[h.end():]
     p.write_text(t[:b] + new + t[e:], encoding='utf-8')
@@ -274,7 +274,7 @@ ROWS = [
     ('D7b', 'site', m_move_conflict, 'Verify EPI-005 warning placement', r'{oid}/{A01}: conflict hidden after provenance disclosure', 'UNEXPECTED_ACCEPT'),
     ('D8', 'data', d_blank_field, 'Validate materialized overview records', r'{oid}: missing location_source_url', 'INTENDED_REJECT'),
     ('D8b', 'data', d_cc_no_license, 'Validate materialized image rights', r'{oid}: Creative Commons image missing image_license_url', 'INTENDED_REJECT'),
-    ('D9', 'site', m_card_name, 'Verify DATA-002 canonical summary reconciliation', r'{oid}', 'BLOCKED'),
+    ('D9', 'site', m_card_name, 'Verify DATA-002 canonical summary reconciliation', r'{oid}: homepage name does not match canonical_name', 'BLOCKED'),
     ('D10', 'site', m_broken_link, 'Verify PUB-004 internal link integrity', r'does-not-exist-fixture', 'INTENDED_REJECT'),
     ('D11', 'site', m_remove_nav, 'Verify PUB-002 navigation contract', r'{slug}', 'INTENDED_REJECT'),
     ('D12', 'site', m_orphan, 'Verify PUB-001 canonical-data routes', r'orphan object page\(s\).*synthetic-orphan-page', 'INTENDED_REJECT'),
@@ -306,7 +306,10 @@ def snippet(out, regex=None, n=300):
         if m:
             line = out[out.rfind('\n', 0, m.start()) + 1: out.find('\n', m.end()) if out.find('\n', m.end()) > 0 else None]
             return line.strip()[:n]
-    lines = [l for l in out.strip().splitlines() if l.strip()]
+    lines = [l.strip() for l in out.strip().splitlines() if l.strip()]
+    for l in lines:  # prefer the first explicit error/failure line over trailing runtime banners
+        if re.search(r'(Error|FAIL|failed|!==|changed;)', l) and not l.startswith('at '):
+            return l[:n]
     return (lines[-1] if lines else '')[:n]
 
 

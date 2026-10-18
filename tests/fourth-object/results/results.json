@@ -1,0 +1,952 @@
+{
+ "baseline": {
+  "clean_reference": {
+   "passed": 60,
+   "total": 60
+  },
+  "unpatched_control": {
+   "passed": 39,
+   "total": 60,
+   "publication": {
+    "exit": 1,
+    "diagnostic": "KeyError: 'OBJ-9104'"
+   }
+  },
+  "s0": {
+   "passed": 57,
+   "total": 60,
+   "failing_steps": {
+    "Build and verify JS object-page driver": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+    "Verify AUD-10 JS status rule against frozen materialized oracle": "throw new Error(`golden assertion set changed; missing=${missing.join(',')} extra=${extra.join(',')}`);",
+    "Verify DATA-002 canonical summary reconciliation": "DATA-002 FAIL: homepage object hooks differ from expected objects: ['OBJ-0001', 'OBJ-0002', 'OBJ-0003', 'OBJ-9104']"
+   },
+   "site_files": 28,
+   "real_pages_identical_to_clean": true
+  }
+ },
+ "rows": [
+  {
+   "id": "S0a-unpatched",
+   "kind": "baseline",
+   "intended": [
+    "Build publication from materialized database"
+   ],
+   "expected": "BLOCKED",
+   "computed": "BLOCKED",
+   "discrepancy": false,
+   "exits": {
+    "Build publication from materialized database": 1
+   },
+   "diagnostics": {
+    "Build publication from materialized database": "KeyError: 'OBJ-9104'"
+   }
+  },
+  {
+   "id": "S0a-patched",
+   "kind": "baseline",
+   "intended": [
+    "Build publication from materialized database"
+   ],
+   "expected": "PASS",
+   "computed": "PASS",
+   "discrepancy": false,
+   "exits": {
+    "Build publication from materialized database": 0
+   },
+   "diagnostics": {}
+  },
+  {
+   "id": "S0b",
+   "kind": "baseline",
+   "intended": [
+    "Validate materialized overview records"
+   ],
+   "expected": "PASS",
+   "computed": "PASS",
+   "discrepancy": false,
+   "exits": {
+    "Validate materialized overview records": 0
+   },
+   "diagnostics": {}
+  },
+  {
+   "id": "S0c",
+   "kind": "baseline",
+   "intended": [
+    "Validate overview data"
+   ],
+   "expected": "PASS",
+   "computed": "PASS",
+   "discrepancy": false,
+   "exits": {
+    "Validate overview data": 0
+   },
+   "diagnostics": {}
+  },
+  {
+   "id": "S0d",
+   "kind": "baseline",
+   "intended": [
+    "Verify DATA-002 canonical summary reconciliation"
+   ],
+   "expected": "BLOCKED",
+   "computed": "BLOCKED",
+   "discrepancy": false,
+   "exits": {
+    "Verify DATA-002 canonical summary reconciliation": 1
+   },
+   "diagnostics": {
+    "Verify DATA-002 canonical summary reconciliation": "DATA-002 FAIL: homepage object hooks differ from expected objects: ['OBJ-0001', 'OBJ-0002', 'OBJ-0003', 'OBJ-9104']"
+   }
+  },
+  {
+   "id": "S0e",
+   "kind": "baseline",
+   "intended": [
+    "Verify PUB-001 canonical-data routes",
+    "Verify PUB-002 navigation contract",
+    "Verify PUB-003 research-task reconciliation",
+    "Verify PUB-004 internal link integrity",
+    "Verify publication status consistency",
+    "Verify final JS-Python object-page parity"
+   ],
+   "expected": "PASS",
+   "computed": "PASS",
+   "discrepancy": false,
+   "exits": {
+    "Verify PUB-001 canonical-data routes": 0,
+    "Verify PUB-002 navigation contract": 0,
+    "Verify PUB-003 research-task reconciliation": 0,
+    "Verify PUB-004 internal link integrity": 0,
+    "Verify publication status consistency": 0,
+    "Verify final JS-Python object-page parity": 0
+   },
+   "diagnostics": {}
+  },
+  {
+   "id": "S0f",
+   "kind": "baseline",
+   "intended": [
+    "Verify EPI-004 San Martin Daumas-Dumont conflict",
+    "Inventory EPI-005 canonical material conflicts",
+    "Validate rendered object overviews"
+   ],
+   "expected": "PASS",
+   "computed": "PASS",
+   "discrepancy": false,
+   "exits": {
+    "Verify EPI-004 San Martin Daumas-Dumont conflict": 0,
+    "Inventory EPI-005 canonical material conflicts": 0,
+    "Validate rendered object overviews": 0
+   },
+   "diagnostics": {}
+  },
+  {
+   "id": "S0g",
+   "kind": "baseline",
+   "intended": [
+    "Build and verify JS object-page driver",
+    "Verify AUD-10 JS status rule against frozen materialized oracle"
+   ],
+   "expected": "BLOCKED",
+   "computed": "BLOCKED",
+   "discrepancy": false,
+   "exits": {
+    "Build and verify JS object-page driver": 1,
+    "Verify AUD-10 JS status rule against frozen materialized oracle": 1
+   },
+   "diagnostics": {
+    "Build and verify JS object-page driver": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+    "Verify AUD-10 JS status rule against frozen materialized oracle": "throw new Error(`golden assertion set changed; missing=${missing.join(',')} extra=${extra.join(',')}`);"
+   }
+  },
+  {
+   "id": "D1",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify PUB-001 canonical-data routes",
+   "regex": "missing published object page\\(s\\).*synthetic-fixture-monument",
+   "surface": {
+    "target": "objects/synthetic-fixture-monument/index.html",
+    "before": true,
+    "after": false
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- missing published object page(s): ['synthetic-fixture-monument']",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency",
+    "Verify PUB-001 canonical-data routes",
+    "Verify PUB-002 navigation contract",
+    "Verify PUB-003 research-task reconciliation",
+    "Verify PUB-004 internal link integrity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D1",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify PUB-001 canonical-data routes",
+   "regex": "missing published object page\\(s\\).*cuban-american-friendship-urn",
+   "surface": {
+    "target": "objects/cuban-american-friendship-urn/index.html",
+    "before": true,
+    "after": false
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- missing published object page(s): ['cuban-american-friendship-urn']",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency",
+    "Verify EPI-001 public status rule contract",
+    "Verify EPI-002 rendered dependency state",
+    "Verify EPI-003 ancestry remains explicit",
+    "Verify EPI-004 rendered claim lineage",
+    "Verify EPI-005 rendered material conflicts",
+    "Verify EPI-005 warning placement",
+    "Verify DATA-001 exact rendered assertion reconciliation",
+    "Verify DATA-002 canonical summary reconciliation",
+    "Verify DATA-002 stale-summary mutation rejection",
+    "Verify PUB-001 canonical-data routes",
+    "Verify PUB-002 navigation contract",
+    "Verify PUB-003 research-task reconciliation",
+    "Verify PUB-004 internal link integrity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D2",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify DATA-001 exact rendered assertion reconciliation",
+   "regex": "OBJ-9104/A-T9104-04: canonical object assertion missing",
+   "surface": {
+    "target": "data-assertion-id=\"A-T9104-04\"",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "DATA-001 reconciliation PASS: OBJ-0001=8, OBJ-0002=8, OBJ-0003=15 canonical object assertions rendered exactly once.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D2",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify DATA-001 exact rendered assertion reconciliation",
+   "regex": "OBJ-0003/A-0203: canonical object assertion missing",
+   "surface": {
+    "target": "data-assertion-id=\"A-0203\"",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/A-0203: canonical object assertion missing from rendered page",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency",
+    "Verify EPI-001 public status rule contract",
+    "Verify DATA-001 exact rendered assertion reconciliation"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D3",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-001 public status rule contract",
+   "regex": "OBJ-9104/A-T9104-04: computed status does not match",
+   "surface": {
+    "target": "A-T9104-04 data-computed-status",
+    "before": "SUPPORTED",
+    "after": "MUTATED_STATUS"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-001 PASS: 63 canonical assertions checked; 5 status rules resolvable across three reference objects.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D3",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-001 public status rule contract",
+   "regex": "OBJ-0003/A-0203: computed status does not match",
+   "surface": {
+    "target": "A-0203 data-computed-status",
+    "before": "SUPPORTED",
+    "after": "MUTATED_STATUS"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/A-0203: computed status does not match canonical SUPPORTED",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify publication status consistency",
+    "Verify EPI-001 public status rule contract"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D4",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-002 rendered dependency state",
+   "regex": "OBJ-9104/A-T9104-04/AE-T9104-15: expected dependency state",
+   "surface": {
+    "target": "AE-T9104-15 data-dependency-state",
+    "before": "INDEPENDENT",
+    "after": "MUTATED_STATE"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-002 rendering PASS: 11 multi-source assertions reconciled across three reference objects.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D4",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-002 rendered dependency state",
+   "regex": "OBJ-0003/A-0203/AE-0211: expected dependency state",
+   "surface": {
+    "target": "AE-0211 data-dependency-state",
+    "before": "INDEPENDENT",
+    "after": "MUTATED_STATE"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/A-0203/AE-0211: expected dependency state INDEPENDENT",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify EPI-002 rendered dependency state"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D5",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-003 ancestry remains explicit",
+   "regex": "OBJ-9104/AE-T9104-07: empty inheritance list lost its uncertainty qualifier",
+   "surface": {
+    "target": "AE-T9104-07 first evidence block qualifier",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-003 PASS: 27 evidence relationships checked; 25 preserve explicit UNKNOWN ancestry.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D5",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-003 ancestry remains explicit",
+   "regex": "OBJ-0003/AE-0205: empty inheritance list lost its uncertainty qualifier",
+   "surface": {
+    "target": "AE-0205 first evidence block qualifier",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/AE-0205: empty inheritance list lost its uncertainty qualifier",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify EPI-003 ancestry remains explicit"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D6",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-004 rendered claim lineage",
+   "regex": "OBJ-9104/A-T9104-01/AE-T9104-01: terminal Unresolved ancestry missing",
+   "surface": {
+    "target": "AE-T9104-01 claim-lineage terminal label",
+    "before": 2,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-004 rendering PASS: 31 assertions / 47 evidence relationships traced across three reference objects.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D6",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-004 rendered claim lineage",
+   "regex": "OBJ-0003/A-0201/AE-0201: terminal Unresolved ancestry missing",
+   "surface": {
+    "target": "AE-0201 claim-lineage terminal label",
+    "before": 2,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/A-0201/AE-0201: terminal Unresolved ancestry missing",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify EPI-004 rendered claim lineage"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D7a",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-005 rendered material conflicts",
+   "regex": "OBJ-9104/A-T9104-01: canonical conflict has no visible warning",
+   "surface": {
+    "target": "data-conflict-assertion-id=\"A-T9104-01\"",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-005 rendering PASS: 4 materialized canonical conflict assertions visibly qualified; no warning invented outside canonical conflict state.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D7a",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-005 rendered material conflicts",
+   "regex": "OBJ-0003/A-0201: canonical conflict has no visible warning",
+   "surface": {
+    "target": "data-conflict-assertion-id=\"A-0201\"",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003/A-0201: canonical conflict has no visible warning",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify EPI-005 rendered material conflicts",
+    "Verify EPI-005 warning placement"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D7b",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify EPI-005 warning placement",
+   "regex": "OBJ-9104/A-T9104-01: conflict hidden after provenance disclosure",
+   "surface": {
+    "target": "A-T9104-01 warning vs claim-lineage order",
+    "before": "warning before lineage",
+    "after": "warning after lineage"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "UNEXPECTED_ACCEPT",
+   "discrepancy": false,
+   "intended_diagnostic": "EPI-005 placement PASS: every conflict warning precedes optional claim-lineage disclosure.",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D7b",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify EPI-005 warning placement",
+   "regex": "OBJ-0003/A-0201: conflict hidden after provenance disclosure",
+   "surface": {
+    "target": "A-0201 warning vs claim-lineage order",
+    "before": "warning before lineage",
+    "after": "warning after lineage"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 0,
+   "computed": "UNEXPECTED_ACCEPT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": true,
+   "intended_diagnostic": "EPI-005 placement PASS: every conflict warning precedes optional claim-lineage disclosure.",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D8",
+   "side": "OBJ-9104",
+   "kind": "data",
+   "intended": "Validate materialized overview records",
+   "regex": "OBJ-9104: missing location_source_url",
+   "surface": {
+    "target": "materialized OBJ-9104.location_source_url",
+    "before": "present",
+    "after": "mutated"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-9104: missing location_source_url",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Validate materialized overview records",
+    "Prove materialized overview validation sensitivity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D8",
+   "side": "positive-control OBJ-0003",
+   "kind": "data",
+   "intended": "Validate materialized overview records",
+   "regex": "OBJ-0003: missing location_source_url",
+   "surface": {
+    "target": "materialized OBJ-0003.location_source_url",
+    "before": "present",
+    "after": "mutated"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003: missing location_source_url",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Validate materialized overview records",
+    "Prove materialized overview validation sensitivity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D8b",
+   "side": "OBJ-9104",
+   "kind": "data",
+   "intended": "Validate materialized image rights",
+   "regex": "OBJ-9104: Creative Commons image missing image_license_url",
+   "surface": {
+    "target": "materialized OBJ-9104.image_license_url",
+    "before": "present",
+    "after": "mutated"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-9104: Creative Commons image missing image_license_url",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Validate materialized image rights",
+    "Prove materialized overview validation sensitivity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D8b",
+   "side": "positive-control OBJ-0003",
+   "kind": "data",
+   "intended": "Validate materialized image rights",
+   "regex": "OBJ-0003: Creative Commons image missing image_license_url",
+   "surface": {
+    "target": "materialized OBJ-0003.image_license_url",
+    "before": "present",
+    "after": "mutated"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- OBJ-0003: Creative Commons image missing image_license_url",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Validate materialized image rights",
+    "Prove materialized overview validation sensitivity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D9",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify DATA-002 canonical summary reconciliation",
+   "regex": "OBJ-9104: homepage name does not match canonical_name",
+   "surface": {
+    "target": "homepage card OBJ-9104 name",
+    "before": "Synthetic Fixture Monument",
+    "after": "Mutated Card Name"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 1,
+   "mutated_exit": 1,
+   "computed": "BLOCKED",
+   "note": "intended validator already fails on the unmutated baseline",
+   "expected": "BLOCKED",
+   "discrepancy": false,
+   "intended_diagnostic": "DATA-002 FAIL: homepage object hooks differ from expected objects: ['OBJ-0001', 'OBJ-0002', 'OBJ-0003', 'OBJ-9104']",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D9",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify DATA-002 canonical summary reconciliation",
+   "regex": "OBJ-0003: homepage name does not match canonical_name",
+   "surface": {
+    "target": "homepage card OBJ-0003 name",
+    "before": "Cuban American Friendship Urn",
+    "after": "Mutated Card Name"
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "DATA-002 FAIL: OBJ-0003: homepage name does not match canonical_name 'Cuban American Friendship Urn'",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Verify DATA-002 canonical summary reconciliation"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D10",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify PUB-004 internal link integrity",
+   "regex": "does-not-exist-fixture",
+   "surface": {
+    "target": "broken internal link",
+    "before": 0,
+    "after": 1
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- objects/synthetic-fixture-monument/index.html: href '/dc-public-realm/does-not-exist-fixture/' -> expected site/does-not-exist-fixture/index.html (missing)",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-004 internal link integrity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D10",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify PUB-004 internal link integrity",
+   "regex": "does-not-exist-fixture",
+   "surface": {
+    "target": "broken internal link",
+    "before": 0,
+    "after": 1
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- objects/cuban-american-friendship-urn/index.html: href '/dc-public-realm/does-not-exist-fixture/' -> expected site/does-not-exist-fixture/index.html (missing)",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-004 internal link integrity"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D11",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify PUB-002 navigation contract",
+   "regex": "synthetic-fixture-monument",
+   "surface": {
+    "target": "primary nav",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- missing primary navigation: objects/synthetic-fixture-monument/index.html",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-002 navigation contract"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D11",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify PUB-002 navigation contract",
+   "regex": "cuban-american-friendship-urn",
+   "surface": {
+    "target": "primary nav",
+    "before": 1,
+    "after": 0
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- missing primary navigation: objects/cuban-american-friendship-urn/index.html",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Prove Python object-page build determinism",
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-002 navigation contract"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D12",
+   "side": "OBJ-9104",
+   "kind": "site",
+   "intended": "Verify PUB-001 canonical-data routes",
+   "regex": "orphan object page\\(s\\).*synthetic-orphan-page",
+   "surface": {
+    "target": "objects/synthetic-orphan-page/index.html",
+    "before": false,
+    "after": true
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- orphan object page(s): ['synthetic-orphan-page']",
+   "real_object_pages_unchanged": true,
+   "newly_failing": [
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-001 canonical-data routes"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  },
+  {
+   "id": "D12",
+   "side": "positive-control OBJ-0003",
+   "kind": "site",
+   "intended": "Verify PUB-001 canonical-data routes",
+   "regex": "orphan object page\\(s\\).*synthetic-orphan-page",
+   "surface": {
+    "target": "objects/synthetic-orphan-page/index.html",
+    "before": false,
+    "after": true
+   },
+   "mutation_reached_artifact": true,
+   "baseline_exit": 0,
+   "mutated_exit": 1,
+   "computed": "INTENDED_REJECT",
+   "note": "",
+   "expected": "INTENDED_REJECT",
+   "discrepancy": false,
+   "intended_diagnostic": "- orphan object page(s): ['synthetic-orphan-page']",
+   "real_object_pages_unchanged": null,
+   "newly_failing": [
+    "Verify final JS-Python object-page parity",
+    "Verify PUB-001 canonical-data routes"
+   ],
+   "baseline_failing_changed_diagnostic": [],
+   "baseline_failing_now_passing": []
+  }
+ ],
+ "real_repository_unchanged": true
+}
