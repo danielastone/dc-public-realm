@@ -1,9 +1,23 @@
 #!/usr/bin/env python3
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-data = json.loads((ROOT / "data" / "object-overviews.json").read_text(encoding="utf-8"))
+# KNOWLEDGE_DATA_DIR selects the materialized database (relative paths resolve
+# against the working directory, as in validate_data.py). An explicit override
+# never falls back to the frozen baseline in ROOT/data.
+override = os.environ.get("KNOWLEDGE_DATA_DIR")
+if override is not None:
+    if not override.strip():
+        raise SystemExit("Image-rights validation failed: KNOWLEDGE_DATA_DIR is set but empty")
+    source = Path(override) / "object-overviews.json"
+    if not source.is_file():
+        raise SystemExit(f"Image-rights validation failed: overview file not found under KNOWLEDGE_DATA_DIR: {source}")
+else:
+    source = ROOT / "data" / "object-overviews.json"
+print(f"Image-rights overview source: {source}")
+data = json.loads(source.read_text(encoding="utf-8"))
 errors = []
 for record in data.get("object_overviews", []):
     oid = record.get("object_entity_id", "UNKNOWN")

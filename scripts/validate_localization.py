@@ -1,12 +1,27 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import json
+import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
+# Localization records and schema are not ledger-managed: always ROOT/data/localization.
+# Canonical overview membership comes from KNOWLEDGE_DATA_DIR (materialized database)
+# when set; an explicit override never falls back to the frozen baseline.
+override = os.environ.get("KNOWLEDGE_DATA_DIR")
+if override is not None:
+    if not override.strip():
+        raise SystemExit("Localization validation failed: KNOWLEDGE_DATA_DIR is set but empty")
+    OVERVIEW_SOURCE = Path(override) / "object-overviews.json"
+    if not OVERVIEW_SOURCE.is_file():
+        raise SystemExit(f"Localization validation failed: overview file not found under KNOWLEDGE_DATA_DIR: {OVERVIEW_SOURCE}")
+else:
+    OVERVIEW_SOURCE = DATA / "object-overviews.json"
+print(f"Localization records/schema source: {DATA / 'localization'}")
+print(f"Localization overview-membership source: {OVERVIEW_SOURCE}")
 SCHEMA = json.loads((DATA / "localization" / "schema.json").read_text(encoding="utf-8"))
-OVERVIEWS = json.loads((DATA / "object-overviews.json").read_text(encoding="utf-8"))["object_overviews"]
+OVERVIEWS = json.loads(OVERVIEW_SOURCE.read_text(encoding="utf-8"))["object_overviews"]
 OBJECT_IDS = {o["object_entity_id"] for o in OVERVIEWS}
 
 errors = []

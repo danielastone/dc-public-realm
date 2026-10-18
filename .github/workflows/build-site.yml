@@ -94,6 +94,17 @@ jobs:
       - name: Validate materialized scholarly claim modes
         env: {KNOWLEDGE_DATA_DIR: build/data}
         run: python scripts/validate_claim_modes.py
+      - name: Validate materialized overview records
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: python scripts/validate_overview_data.py --scope=materialized
+      - name: Validate materialized image rights
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: python scripts/validate_image_rights.py
+      - name: Validate localization against materialized overviews
+        env: {KNOWLEDGE_DATA_DIR: build/data}
+        run: python scripts/validate_localization.py
+      - name: Prove materialized overview validation sensitivity
+        run: node tests/materialized-overview-validation.mjs
       - name: Stage materialized database for publication
         run: |
           cp data/external-records.json /tmp/external-records.json
