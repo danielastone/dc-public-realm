@@ -106,3 +106,15 @@ Additional sampled validators:
 **Design finding:** several legacy validators are hard-coded to the same three reference objects that `build_site.py` hard-codes, while the newer publication index derives published routes. A future fourth object could bypass some legacy rendered checks. The JS replacements must enumerate published objects from materialized metadata and use mutation tests for newly introduced objects, rather than simply reproduce the fixed list.
 
 **I1 gate remains open:** the remaining validators have not all been individually traced; the 23-file manifest was generated successfully but its individual file entries have not yet been reviewed here.
+
+## I1 correction — independent audit of inventory semantics
+
+An independent review at `14978eb` identified an overstatement in this document's earlier wording: **the inventory is observational, not an enforcement baseline**. The script compares two immediate reads of the same tree, and its mutation sensitivity uses an isolated fixture. It does **not** compare the site against a committed baseline, a prior approved run, or an independently specified route set. Its live-site assertions only require a homepage, CSS and absence of symlinks/non-files. Therefore a changed, added, or missing other publication artifact does not automatically fail this step.
+
+Correction: the 23-file result is a **measured snapshot/count**, not an enforced publication baseline. The initial workflow did not upload `build/audit/publication-artifacts.json`; it uploaded only `site/`. This PR now separately uploads the JSON inventory with `actions/upload-artifact@v4` and `if-no-files-found: error`, so its individual entries can be inspected after CI. Upload success and artifact contents still require verification on the new commit.
+
+The previous description of object-page parity as limited to three hard-coded routes was also inaccurate as a statement of its **test design**: `object-page-final-parity.mjs` derives the expected route set using `publishedObjects()` and compares both trees against it. The current corpus happens to contain three routes. That parity test does not independently establish the completeness of the publication index itself.
+
+The independent audit found approximately eleven validators referencing fixed `OBJ-0001`/`OBJ-0002`/`OBJ-0003` sets across EPI-001/002/003/004/005, DATA-001/002 and overview checks. **Fail-open versus fail-closed must be classified per validator**, not inferred from the presence of a constant: `validate_overview_data.py` reportedly requires an exact object-set match (fail-closed), while several rendered-page checks iterate only those three and may skip a fourth object (fail-open). This classification remains to be confirmed script by script.
+
+**Open design gates:** (1) independently reconcile expected published-object IDs against canonical materialized entities; (2) choose whether full-site byte parity compares JS against Python as a temporary oracle, an approved stored snapshot, or both; (3) establish intentional-change review/update procedure for any committed baseline. Do not claim I1 closed before these decisions and evidence checks.
