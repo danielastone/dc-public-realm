@@ -124,3 +124,9 @@ The independent audit found approximately eleven validators referencing fixed `O
 PR #79 was merged to `main` at `be583177`, correcting the determinism test's destructive rebuild. This branch now incorporates the isolated test, the required Artigas review route gate immediately before site upload, and shared use of `inventory()`/`compareInventories()` from this PR's inventory module. These changes are reconciled into the PR branch; **the Git ancestry has not yet been rebased or merged onto `be583177`**. Do not describe this as a completed rebase.
 
 The prior 23-file inventory is preserved as evidence of the defect, not as a baseline. The expected corrected count is 24, pending fresh CI manifest and site artifact inspection. Required-route existence is enforced, but full-site baseline parity and canonical expected-ID completeness remain open gates.
+
+## Workflow trigger scope and production verification
+
+The workflow's `push` trigger is limited to `main` and paths `data/**`, `transactions/**`, `migrations/**`, `skills/**`, `scripts/**`, `lib/**`, `tests/**`, and `.github/workflows/build-site.yml`. Changes solely to documentation (such as `docs/**`) do not trigger the push workflow. The `pull_request` trigger uses the same path filters. The `workflow_dispatch` trigger permits manual runs. On push to `main`, the workflow runs the build and Pages deployment; on pull requests, deployment is deliberately skipped.
+
+A GitHub mobile screenshot of PR #79's checks shows successful `build (push)` and `deploy (push)` jobs following its merge. The exact production run ID was not independently retrieved through the available commit lookup. Live HTTP loading of `/dc-public-realm/review/artigas/` also remains unverified through the available web access. Distinguish successful CI artifact checks and deployment-job status from confirmation of live page availability and from historical evidence that the prior defect reached users.
