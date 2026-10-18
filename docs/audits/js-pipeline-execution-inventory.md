@@ -178,3 +178,27 @@ The following conclusions concern each script's own checked scope, not a demonst
 | `validate_publication_consistency.py` | `published_objects()` and direct assertions from published JSON | Fourth page is checked for each direct assertion's ID and computed-status marker; does not substitute for rule, dependency, ancestry, lineage, or conflict checks |
 
 **Updated cutover constraint:** `validate_data002_summary_reconciliation.py` is a second fixed-set growth blocker alongside `validate_overview_data.py`. Before permitting the legacy builder to produce a fourth object, make both checks derive expected object IDs, make EPI-001/002/003/004/005 and DATA-001 cover derived scope, and test specific failure diagnostics for each invariant. Keep PUB-001, PUB-002/003/004, publication consistency, and JS/Python route parity as independent existing guards; their coverage is complementary, not interchangeable.
+
+## I1 third batch — golden checks and second CI workflow (2026-10-18)
+
+**Correction to earlier summary:** EPI-004 and EPI-005 are families of scripts, not single fixed-scope validators. The earlier batches classified only their named rendered/placement scripts. Do not infer all EPI-004/005 scripts should become dynamically scoped.
+
+| CI script | Observed role and scope | Migration treatment |
+| --- | --- | --- |
+| `validate_overview_rendering.py` | Fixed three slugs and per-object expected text strings; also checks canonical assertion references and rendered trace markers on those pages | **Mixed:** preserve object-specific golden expectations; add derived-scope generic overview/traceability validation |
+| `validate_epi004_corpus_lineage.py` | Filters canonical assertions to three reference IDs; requires unresolved ancestry coverage and rejects broken/cyclic traces within that subset | **Reference-corpus regression:** preserve the reference expectations; add separate derived/all-published-object corpus integrity check |
+| `validate_epi004_san_martin_conflict.py` | Pins `A-0106` San Martín Daumas/Dumont evidence and public trace | **Golden case:** retain fixed regression; derived lineage coverage belongs in a separate generic validator |
+| `validate_epi005_conflict_inventory.py` | Pre-materialization frozen seed counts and exact IDs for three objects; also tests synthetic detector semantics | **Frozen baseline/golden:** retain exact expected counts and IDs for seed fixture; do not replace with dynamic counts; separately check all materialized published conflicts |
+| `validate_epi005_rendered_conflicts.py` | Reconciles canonical/rendered conflict set only within fixed three `SLUGS` | **Generic coverage gap:** make a derived-scope counterpart for all published objects; preserve current assertions as needed |
+| `validate_data002_synthetic.py` | Six mutations of fixed current objects; requires exit code 1 but does not inspect failure message | **Mutation regression:** retain existing fixtures; extend future fourth-object tests to assert precise diagnostics, not merely nonzero exit |
+
+**Second production workflow found:** `.github/workflows/validate-data.yml` (`Validate semantic data`) has independent push/PR path filters and `workflow_dispatch`. It runs Python 3.12; validates epistemic/acquisition fixtures, source-audit qualifications, frozen data, research tasks, and collaboration lifecycle; builds the transaction materialization; revalidates materialized data, tasks, publication identity and index; requires audit manifests; then rebuilds and byte-compares the deterministic semantic manifest. It does **not** publish site pages. Its paths include fixtures, schemas and qualification directories absent from the `build-site.yml` trigger set. Both workflows must be inventoried before I1 closure.
+
+| Additional validator | Inspected contract | Classification |
+| --- | --- | --- |
+| `validate_epistemic_fixtures.py` | Validates fixture schema, uniqueness, required named regression objects and acquisition scenario classes | **Golden fixture metadata**, intentionally pinned reference coverage |
+| `validate_source_audits.py` | Discovers all `qualifications/source-audits/*.json`; checks proposition schema-fit, inheritance, evidence and action constraints | **Dynamic qualification validation**, not object-page scope |
+| `validate_research_tasks.py` | Iterates all tasks from selected canonical/materialized data; validates status, target references, lineage exceptions and evidence-effect rule | **Dynamic task validation**; fixed predecessor IDs are explicit lineage exceptions, not page enumeration |
+| `validate_collaboration_lifecycle.py` | Replays transaction task transitions and resolving review records; exercises valid and missing-review fixtures | **Dynamic lifecycle + synthetic regression**, not object-page scope |
+
+**Updated sequencing:** preserve golden regression cases unchanged while adding generic derived-scope counterparts where they do not cover new published objects. In particular, migrate EPI-005 rendered conflict coverage separately from frozen EPI-005 conflict inventory. Do not design the fourth-object harness until the workflow-wide validator inventory is complete; assert the specific failure source and diagnostic in each negative case. This batch is source inspection, not execution evidence.
