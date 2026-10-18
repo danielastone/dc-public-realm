@@ -36,6 +36,7 @@ if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.
   compareInventories(a, b);
   assert.ok(a.files.some(f => f.path === 'index.html'), 'missing home page');
   assert.ok(a.files.some(f => f.path === 'assets/style.css'), 'missing stylesheet');
+  assert.ok(a.files.some(f => f.path === 'review/artigas/index.html'), 'missing Artigas review brief from inventory');
   const tmp = await mkdtemp(join(tmpdir(), 'publication-inventory-'));
   try {
     await mkdir(join(tmp, 'objects'), { recursive: true });
