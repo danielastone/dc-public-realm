@@ -72,3 +72,18 @@ The following is a source-level inventory of the core publication writers, not y
 ## I1 remaining evidence
 
 Inspect each Python validator's imports, input reads, output writes, mutation behavior and expected failure; inspect `publication_chrome.py` and any auxiliary writers. Then capture a final-tree artifact manifest in CI, including all HTML, JSON and CSS files, with deterministic hashes and a sensitivity test. Until then, the inventory remains **in progress** and is not a complete migration gate.
+
+## I1 follow-up — final-site artifact gate and validator samples
+
+`tests/publication-artifact-inventory.mjs` inventories the final `site/` tree (all regular files, including HTML, JSON, CSS, and other assets) in sorted relative-path order, recording byte counts and SHA-256 digests. Symlinks and non-file entries fail. A repeated inventory is compared for equality, and a deliberately mutated fixture is rejected. The workflow now writes `build/audit/publication-artifacts.json` **after** the existing publication validators and **before** required-artifact checks and artifact upload. The new manifest is a CI diagnostic, not a published file or a substitute for the validators. CI execution and the resulting count are not yet verified.
+
+Inspected validator contracts:
+
+| Validator | Reads | Invariant |
+| --- | --- | --- |
+| `validate_pub004_internal_links.py` | Every `site/**/*.html` page | Internal `href` under `/dc-public-realm` resolves to a file, including directory-index links; rejects paths escaping site root |
+| `validate_pub002_navigation.py` | Homepage, methodology, collaboration, data index, every published object page | Exact primary navigation links and exactly one Alpha state in each audited header |
+| `validate_publication_consistency.py` | `site/data/assertions.json`, published object HTML, staged publication metadata | Every direct object assertion exposes the machine-readable computed status in HTML |
+| `publication_chrome.py` | No file reads; pure string functions | Supplies shared navigation and Alpha state for generators and enforcement pass |
+
+**Remaining I1 work:** review the other EPI, DATA, PUB, image, localization and materialization validators individually; verify the new manifest gate in CI; capture its actual output count and route list. No claim of exhaustive validation coverage is made yet.
