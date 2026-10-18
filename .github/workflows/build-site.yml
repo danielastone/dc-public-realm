@@ -173,6 +173,8 @@ jobs:
           test -f site/collaborate/index.html
           test -f site/methodology/index.html
           test -f site/data/index.html
+      - name: Verify required publication routes
+        run: node tests/required-publication-routes.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: site
