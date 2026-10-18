@@ -87,3 +87,22 @@ Inspected validator contracts:
 | `publication_chrome.py` | No file reads; pure string functions | Supplies shared navigation and Alpha state for generators and enforcement pass |
 
 **Remaining I1 work:** review the other EPI, DATA, PUB, image, localization and materialization validators individually; verify the new manifest gate in CI; capture its actual output count and route list. No claim of exhaustive validation coverage is made yet.
+
+## I1 follow-up — CI evidence and validator trace
+
+GitHub Actions run `39134164000` at commit `9be4b1ed` passed. Build job `117695189279` confirms: final object parity 3 routes / identical raw bytes; PUB-004 checked 169 internal links across 16 HTML pages; artifact inventory sensitivity rejected a byte mutation; final inventory recorded **23 regular files**. Deploy job was skipped on this PR.
+
+Additional sampled validators:
+
+| Validator | Inputs and principal check | Migration implication |
+| --- | --- | --- |
+| `validate_epi004_rendered_lineage.py` | Published assertion/evidence JSON, staged sources and three hard-coded object pages; reconciles lineage blocks, source IDs, locators, ancestry terminals | Port trace semantics and remove fixed-object enumeration |
+| `validate_epi005_warning_placement.py` | Published assertions/evidence, conflict index, three fixed pages; requires conflict warning before optional lineage disclosure | Preserve placement semantics and derive published route set |
+| `validate_data002_summary_reconciliation.py` | Staged entities/evidence and final homepage/object HTML; checks names, countries, routes, headings and source counts for three fixed objects | Port semantic reconciliation, avoid hard-coded object list |
+| `validate_pub003_tasks.py` | Staged research tasks and published-object metadata; final homepage, object pages and task pages; reconciles OPEN counts and links | Port as independent task-route contract |
+| `validate_image_rights.py` | Canonical object overviews; checks required image metadata, CC license link and Wikimedia creator attribution | Preserve rights requirements in JS input validation |
+| `validate_localization.py` | Localization schema, all locale JSON files and canonical overviews; checks allowed fields, language/status, and review metadata for published translations | Preserve schema-bound localization validation |
+
+**Design finding:** several legacy validators are hard-coded to the same three reference objects that `build_site.py` hard-codes, while the newer publication index derives published routes. A future fourth object could bypass some legacy rendered checks. The JS replacements must enumerate published objects from materialized metadata and use mutation tests for newly introduced objects, rather than simply reproduce the fixed list.
+
+**I1 gate remains open:** the remaining validators have not all been individually traced; the 23-file manifest was generated successfully but its individual file entries have not yet been reviewed here.
